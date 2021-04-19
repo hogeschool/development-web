@@ -1,4 +1,4 @@
-# Development-web-firstchance-2021
+# Development-web-secondchance-2021
 infweb01-d and infweb21-d exam
 
 ## Userfull commands:
