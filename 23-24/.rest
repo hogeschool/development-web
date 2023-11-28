@@ -1,0 +1,30 @@
+GET http://localhost:5000/hello/Sim/Tim/10
+#### 
+
+POST http://localhost:5000/user HTTP/1.1
+Content-Type: application/json
+
+{
+  "Name": "Dr. Giuseppe Maggiore, CTO",
+  "Age": 38
+}
+#### 
+
+GET http://localhost:5000/api/user/sayHello
+#### 
+
+POST http://localhost:5000/api/user HTTP/1.1
+Content-Type: application/json
+
+{
+  "Id": "9F85115D-00A5-41A5-A8B8-72AF77F8C895",
+  "Name": "Pim Smith",
+  "Birthday": "1988-01-01"
+}
+#### 
+
+GET http://localhost:5000/api/user?userId=fb85df25-1955-4620-aaf9-1d4369015865
+#### 
+
+GET http://localhost:5000/api/user/all?userIds=fb85df25-1955-4620-aaf9-1d4369015865&userIds=05347b24-e41d-485f-83b4-9dc01f7312a4
+#### 
