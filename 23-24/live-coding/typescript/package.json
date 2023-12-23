@@ -1,0 +1,15 @@
+{
+  "name": "live-coding",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "scripts": {
+    "build-watch": "tsc -w"
+  },
+  "dependencies": {
+    "immutable": "^5.0.0-beta.4"
+  }
+}
