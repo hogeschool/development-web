@@ -24,6 +24,7 @@ Content-Type: application/json
 #### 
 
 GET http://localhost:5000/api/user?userId=fb85df25-1955-4620-aaf9-1d4369015865
+BearerToken: 85FC1566-707E-4D35-80C3-45B57ED61172
 #### 
 
 GET http://localhost:5000/api/user/all?userIds=fb85df25-1955-4620-aaf9-1d4369015865&userIds=05347b24-e41d-485f-83b4-9dc01f7312a4
