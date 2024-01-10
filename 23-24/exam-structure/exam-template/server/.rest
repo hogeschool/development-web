@@ -1,0 +1,15 @@
+GET http://localhost:5000/exam/add?a=5&b=3
+#####
+
+POST http://localhost:5000/exam/createStudent
+content-type: application/json
+
+{ 
+  "Name": "Giuseppe",
+  "Surname": "Maggiore",
+  "StudyPoints": "180"
+}
+#####
+
+GET http://localhost:5000/exam/addWithService?a=5&b=3
+#####

@@ -6,7 +6,7 @@ For each question, paste the code that implements the answer in the ```...``` bl
 Deliver a copy of this file, renamed STUDENT-NUMBER.practice-exam-questions.md, with a ✅ for positive answers and an ❌ for negative answers.
 
 ## General knowledge about web dev and HTTP
-- write a .rest file that performs the following operations:
+- write a .rest file that performs the following operations:  (2/10 points)
   - GET the users from 100 to 200 with a paginated endpoint
   - POST a new user with an api token in the bearer token header
   - DELETE a user with an api token in the bearer token header
@@ -16,8 +16,7 @@ Deliver a copy of this file, renamed STUDENT-NUMBER.practice-exam-questions.md, 
 ```
 
 ## ASP .Net
-(counts for two questions)
-- create a UserController controller that supports the following methods
+- create a UserController controller that supports the following methods (4/10 points)
   - GET the users between the `from` and `to` parameters
   - POST a new user
   - DELETE a user
@@ -29,7 +28,7 @@ Deliver a copy of this file, renamed STUDENT-NUMBER.practice-exam-questions.md, 
 ...
 ```
 
-- create an OrdersController controller that supports the following methods
+- create an OrdersController controller that supports the following methods (2/10 points)
   - GET all Orders within a given range of dates
   - GET all Orders belonging to a given user
   - GET all Orders made on a Monday
@@ -39,7 +38,7 @@ Deliver a copy of this file, renamed STUDENT-NUMBER.practice-exam-questions.md, 
 ...
 ```
 
-- create a CustomersController controller that supports the following methods
+- create a CustomersController controller that supports the following methods (2/10 points)
   - GET all Customers with at least one active Contract (define a contract StartDate and EndDate)
   - GET all Customers managed by a given Salesperson
   - GET all Customers with a total contract value >= 1 million
@@ -49,7 +48,7 @@ Deliver a copy of this file, renamed STUDENT-NUMBER.practice-exam-questions.md, 
 ...
 ```
 
-- middlewares and filters
+- middlewares and filters (1/10 points)
   - define a middleware that rejects all requests that do not have a certain bearer token
   - get the bearer token from the appsettings via options
 
@@ -58,37 +57,37 @@ Deliver a copy of this file, renamed STUDENT-NUMBER.practice-exam-questions.md, 
 ```
 
 ## Typescript
-- write a recursive function that adds all numbers in a given range
+- write a recursive function that adds all numbers in a given range (1/10 points)
 
 ```
 ...
 ```
 
-- write a function that adds all the numbers in an array
+- write a function that adds all the numbers in an array (1/10 points)
 
 ```
 ...
 ```
 
-- write a function that converts a Student object to a Person object (define all relevant types)
+- write a function that converts a Student object to a Person object (define all relevant types) (1/10 points)
 
 ```
 ...
 ```
 
-- write a function that groups an `Immutable.List` of Person into an Immutable.Map by Age
+- write a function that groups an `Immutable.List` of Person into an Immutable.Map by Age (2/10 points)
 
 ```
 ...
 ```
 
-- write a function that filters an `Immutable.List` of Person by `Age >= 18`
+- write a function that filters an `Immutable.List` of Person by `Age >= 18` (1/10 points)
 
 ```
 ...
 ```
 
-- write a function that transforms an `Immutable.List` of Person into an `Immutable.List` of their age with `map`
+- write a function that transforms an `Immutable.List` of Person into an `Immutable.List` of their age with `map` (1/10 points)
 
 ```
 ...
@@ -96,32 +95,32 @@ Deliver a copy of this file, renamed STUDENT-NUMBER.practice-exam-questions.md, 
 
 
 ## React
-- write a stateful Counter class component that accepts the initial value and the increment of the counter via `props`:
+- write a stateful Counter class component that accepts the initial value and the increment of the counter via `props`: (2/10 points)
 
 ```
 ...
 ```
 
-- write a stateful Counter functional component that accepts the initial value and the increment of the counter via `props`:
+- write a stateful Counter functional component that accepts the initial value and the increment of the counter via `props`: (2/10 points)
 
 ```
 ...
 ```
 
-- write a stateless (controlled) functional Counter component that accepts the current value, increment, and `setValue` via props:
+- write a stateless (controlled) functional Counter component that accepts the current value, increment, and `setValue` via props: (2/10 points)
 
 ```
 ...
 ```
 
-- write a stateful `People` component that maintains a `Map<Person["Id"], Person>` as state. Write a functional `Person` component that manages rendering and modifying each person in the map:
+- write a stateful `People` component that maintains a `Map<Person["Id"], Person>` as state. Write a functional `Person` component that manages rendering and modifying each person in the map: (4/10 points)
 
 ```
 ...
 ```
 
 
-- write a stateful `Person` component that maintains a `Person` as state. Write a functional `Address` component that manages rendering and modifying the address of a given person (define type `Person` as containing an `Address` as a field):
+- write a stateful `Person` component that maintains a `Person` as state. Write a functional `Address` component that manages rendering and modifying the address of a given person (define type `Person` as containing an `Address` as a field): (2/10 points)
 
 ```
 ...
