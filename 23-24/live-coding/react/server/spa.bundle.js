@@ -3,6 +3,9417 @@ var spa;
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/immutable/dist/es/Collection.js":
+/*!******************************************************!*\
+  !*** ./node_modules/immutable/dist/es/Collection.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Collection: () => (/* binding */ Collection),
+/* harmony export */   IndexedCollection: () => (/* binding */ IndexedCollection),
+/* harmony export */   KeyedCollection: () => (/* binding */ KeyedCollection),
+/* harmony export */   SetCollection: () => (/* binding */ SetCollection)
+/* harmony export */ });
+/* harmony import */ var _Seq_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Seq.js */ "./node_modules/immutable/dist/es/Seq.js");
+/* harmony import */ var _predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./predicates/isCollection.js */ "./node_modules/immutable/dist/es/predicates/isCollection.js");
+/* harmony import */ var _predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./predicates/isKeyed.js */ "./node_modules/immutable/dist/es/predicates/isKeyed.js");
+/* harmony import */ var _predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./predicates/isIndexed.js */ "./node_modules/immutable/dist/es/predicates/isIndexed.js");
+/* harmony import */ var _predicates_isAssociative_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./predicates/isAssociative.js */ "./node_modules/immutable/dist/es/predicates/isAssociative.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+var Collection = function Collection(value) {
+  return (0,_predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_1__.isCollection)(value) ? value : (0,_Seq_js__WEBPACK_IMPORTED_MODULE_0__.Seq)(value);
+};
+
+var KeyedCollection = /*@__PURE__*/(function (Collection) {
+  function KeyedCollection(value) {
+    return (0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_2__.isKeyed)(value) ? value : (0,_Seq_js__WEBPACK_IMPORTED_MODULE_0__.KeyedSeq)(value);
+  }
+
+  if ( Collection ) KeyedCollection.__proto__ = Collection;
+  KeyedCollection.prototype = Object.create( Collection && Collection.prototype );
+  KeyedCollection.prototype.constructor = KeyedCollection;
+
+  return KeyedCollection;
+}(Collection));
+
+var IndexedCollection = /*@__PURE__*/(function (Collection) {
+  function IndexedCollection(value) {
+    return (0,_predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_3__.isIndexed)(value) ? value : (0,_Seq_js__WEBPACK_IMPORTED_MODULE_0__.IndexedSeq)(value);
+  }
+
+  if ( Collection ) IndexedCollection.__proto__ = Collection;
+  IndexedCollection.prototype = Object.create( Collection && Collection.prototype );
+  IndexedCollection.prototype.constructor = IndexedCollection;
+
+  return IndexedCollection;
+}(Collection));
+
+var SetCollection = /*@__PURE__*/(function (Collection) {
+  function SetCollection(value) {
+    return (0,_predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_1__.isCollection)(value) && !(0,_predicates_isAssociative_js__WEBPACK_IMPORTED_MODULE_4__.isAssociative)(value) ? value : (0,_Seq_js__WEBPACK_IMPORTED_MODULE_0__.SetSeq)(value);
+  }
+
+  if ( Collection ) SetCollection.__proto__ = Collection;
+  SetCollection.prototype = Object.create( Collection && Collection.prototype );
+  SetCollection.prototype.constructor = SetCollection;
+
+  return SetCollection;
+}(Collection));
+
+Collection.Keyed = KeyedCollection;
+Collection.Indexed = IndexedCollection;
+Collection.Set = SetCollection;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/CollectionImpl.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/immutable/dist/es/CollectionImpl.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CollectionPrototype: () => (/* binding */ CollectionPrototype),
+/* harmony export */   IndexedCollectionPrototype: () => (/* binding */ IndexedCollectionPrototype)
+/* harmony export */ });
+/* harmony import */ var _Collection_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Collection.js */ "./node_modules/immutable/dist/es/Collection.js");
+/* harmony import */ var _predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./predicates/isCollection.js */ "./node_modules/immutable/dist/es/predicates/isCollection.js");
+/* harmony import */ var _predicates_isAssociative_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./predicates/isAssociative.js */ "./node_modules/immutable/dist/es/predicates/isAssociative.js");
+/* harmony import */ var _predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./predicates/isKeyed.js */ "./node_modules/immutable/dist/es/predicates/isKeyed.js");
+/* harmony import */ var _predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./predicates/isIndexed.js */ "./node_modules/immutable/dist/es/predicates/isIndexed.js");
+/* harmony import */ var _predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./predicates/isOrdered.js */ "./node_modules/immutable/dist/es/predicates/isOrdered.js");
+/* harmony import */ var _is_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./is.js */ "./node_modules/immutable/dist/es/is.js");
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/* harmony import */ var _Hash_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Hash.js */ "./node_modules/immutable/dist/es/Hash.js");
+/* harmony import */ var _Math_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Math.js */ "./node_modules/immutable/dist/es/Math.js");
+/* harmony import */ var _Iterator_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Iterator.js */ "./node_modules/immutable/dist/es/Iterator.js");
+/* harmony import */ var _utils_arrCopy_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./utils/arrCopy.js */ "./node_modules/immutable/dist/es/utils/arrCopy.js");
+/* harmony import */ var _utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./utils/assertNotInfinite.js */ "./node_modules/immutable/dist/es/utils/assertNotInfinite.js");
+/* harmony import */ var _utils_deepEqual_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./utils/deepEqual.js */ "./node_modules/immutable/dist/es/utils/deepEqual.js");
+/* harmony import */ var _utils_mixin_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./utils/mixin.js */ "./node_modules/immutable/dist/es/utils/mixin.js");
+/* harmony import */ var _utils_quoteString_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./utils/quoteString.js */ "./node_modules/immutable/dist/es/utils/quoteString.js");
+/* harmony import */ var _toJS_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./toJS.js */ "./node_modules/immutable/dist/es/toJS.js");
+/* harmony import */ var _Map_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./Map.js */ "./node_modules/immutable/dist/es/Map.js");
+/* harmony import */ var _OrderedMap_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./OrderedMap.js */ "./node_modules/immutable/dist/es/OrderedMap.js");
+/* harmony import */ var _List_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./List.js */ "./node_modules/immutable/dist/es/List.js");
+/* harmony import */ var _Set_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./Set.js */ "./node_modules/immutable/dist/es/Set.js");
+/* harmony import */ var _OrderedSet_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./OrderedSet.js */ "./node_modules/immutable/dist/es/OrderedSet.js");
+/* harmony import */ var _Stack_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./Stack.js */ "./node_modules/immutable/dist/es/Stack.js");
+/* harmony import */ var _Range_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./Range.js */ "./node_modules/immutable/dist/es/Range.js");
+/* harmony import */ var _Seq_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./Seq.js */ "./node_modules/immutable/dist/es/Seq.js");
+/* harmony import */ var _Operations_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./Operations.js */ "./node_modules/immutable/dist/es/Operations.js");
+/* harmony import */ var _methods_getIn_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./methods/getIn.js */ "./node_modules/immutable/dist/es/methods/getIn.js");
+/* harmony import */ var _methods_hasIn_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./methods/hasIn.js */ "./node_modules/immutable/dist/es/methods/hasIn.js");
+/* harmony import */ var _methods_toObject_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./methods/toObject.js */ "./node_modules/immutable/dist/es/methods/toObject.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Note: all of these methods are deprecated.
+_Collection_js__WEBPACK_IMPORTED_MODULE_0__.Collection.isIterable = _predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_1__.isCollection;
+_Collection_js__WEBPACK_IMPORTED_MODULE_0__.Collection.isKeyed = _predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.isKeyed;
+_Collection_js__WEBPACK_IMPORTED_MODULE_0__.Collection.isIndexed = _predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_4__.isIndexed;
+_Collection_js__WEBPACK_IMPORTED_MODULE_0__.Collection.isAssociative = _predicates_isAssociative_js__WEBPACK_IMPORTED_MODULE_2__.isAssociative;
+_Collection_js__WEBPACK_IMPORTED_MODULE_0__.Collection.isOrdered = _predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_5__.isOrdered;
+
+_Collection_js__WEBPACK_IMPORTED_MODULE_0__.Collection.Iterator = _Iterator_js__WEBPACK_IMPORTED_MODULE_10__.Iterator;
+
+(0,_utils_mixin_js__WEBPACK_IMPORTED_MODULE_14__["default"])(_Collection_js__WEBPACK_IMPORTED_MODULE_0__.Collection, {
+  // ### Conversion to other types
+
+  toArray: function toArray() {
+    (0,_utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_12__["default"])(this.size);
+    var array = new Array(this.size || 0);
+    var useTuples = (0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.isKeyed)(this);
+    var i = 0;
+    this.__iterate(function (v, k) {
+      // Keyed collections produce an array of tuples.
+      array[i++] = useTuples ? [k, v] : v;
+    });
+    return array;
+  },
+
+  toIndexedSeq: function toIndexedSeq() {
+    return new _Operations_js__WEBPACK_IMPORTED_MODULE_25__.ToIndexedSequence(this);
+  },
+
+  toJS: function toJS$1() {
+    return (0,_toJS_js__WEBPACK_IMPORTED_MODULE_16__.toJS)(this);
+  },
+
+  toKeyedSeq: function toKeyedSeq() {
+    return new _Operations_js__WEBPACK_IMPORTED_MODULE_25__.ToKeyedSequence(this, true);
+  },
+
+  toMap: function toMap() {
+    // Use Late Binding here to solve the circular dependency.
+    return (0,_Map_js__WEBPACK_IMPORTED_MODULE_17__.Map)(this.toKeyedSeq());
+  },
+
+  toObject: _methods_toObject_js__WEBPACK_IMPORTED_MODULE_28__.toObject,
+
+  toOrderedMap: function toOrderedMap() {
+    // Use Late Binding here to solve the circular dependency.
+    return (0,_OrderedMap_js__WEBPACK_IMPORTED_MODULE_18__.OrderedMap)(this.toKeyedSeq());
+  },
+
+  toOrderedSet: function toOrderedSet() {
+    // Use Late Binding here to solve the circular dependency.
+    return (0,_OrderedSet_js__WEBPACK_IMPORTED_MODULE_21__.OrderedSet)((0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.isKeyed)(this) ? this.valueSeq() : this);
+  },
+
+  toSet: function toSet() {
+    // Use Late Binding here to solve the circular dependency.
+    return (0,_Set_js__WEBPACK_IMPORTED_MODULE_20__.Set)((0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.isKeyed)(this) ? this.valueSeq() : this);
+  },
+
+  toSetSeq: function toSetSeq() {
+    return new _Operations_js__WEBPACK_IMPORTED_MODULE_25__.ToSetSequence(this);
+  },
+
+  toSeq: function toSeq() {
+    return (0,_predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_4__.isIndexed)(this)
+      ? this.toIndexedSeq()
+      : (0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.isKeyed)(this)
+      ? this.toKeyedSeq()
+      : this.toSetSeq();
+  },
+
+  toStack: function toStack() {
+    // Use Late Binding here to solve the circular dependency.
+    return (0,_Stack_js__WEBPACK_IMPORTED_MODULE_22__.Stack)((0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.isKeyed)(this) ? this.valueSeq() : this);
+  },
+
+  toList: function toList() {
+    // Use Late Binding here to solve the circular dependency.
+    return (0,_List_js__WEBPACK_IMPORTED_MODULE_19__.List)((0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.isKeyed)(this) ? this.valueSeq() : this);
+  },
+
+  // ### Common JavaScript methods and properties
+
+  toString: function toString() {
+    return '[Collection]';
+  },
+
+  __toString: function __toString(head, tail) {
+    if (this.size === 0) {
+      return head + tail;
+    }
+    return (
+      head +
+      ' ' +
+      this.toSeq().map(this.__toStringMapper).join(', ') +
+      ' ' +
+      tail
+    );
+  },
+
+  // ### ES6 Collection methods (ES6 Array and Map)
+
+  concat: function concat() {
+    var values = [], len = arguments.length;
+    while ( len-- ) values[ len ] = arguments[ len ];
+
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.concatFactory)(this, values));
+  },
+
+  includes: function includes(searchValue) {
+    return this.some(function (value) { return (0,_is_js__WEBPACK_IMPORTED_MODULE_6__.is)(value, searchValue); });
+  },
+
+  entries: function entries() {
+    return this.__iterator(_Iterator_js__WEBPACK_IMPORTED_MODULE_10__.ITERATE_ENTRIES);
+  },
+
+  every: function every(predicate, context) {
+    (0,_utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_12__["default"])(this.size);
+    var returnValue = true;
+    this.__iterate(function (v, k, c) {
+      if (!predicate.call(context, v, k, c)) {
+        returnValue = false;
+        return false;
+      }
+    });
+    return returnValue;
+  },
+
+  filter: function filter(predicate, context) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.filterFactory)(this, predicate, context, true));
+  },
+
+  partition: function partition(predicate, context) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.partitionFactory)(this, predicate, context);
+  },
+
+  find: function find(predicate, context, notSetValue) {
+    var entry = this.findEntry(predicate, context);
+    return entry ? entry[1] : notSetValue;
+  },
+
+  forEach: function forEach(sideEffect, context) {
+    (0,_utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_12__["default"])(this.size);
+    return this.__iterate(context ? sideEffect.bind(context) : sideEffect);
+  },
+
+  join: function join(separator) {
+    (0,_utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_12__["default"])(this.size);
+    separator = separator !== undefined ? '' + separator : ',';
+    var joined = '';
+    var isFirst = true;
+    this.__iterate(function (v) {
+      isFirst ? (isFirst = false) : (joined += separator);
+      joined += v !== null && v !== undefined ? v.toString() : '';
+    });
+    return joined;
+  },
+
+  keys: function keys() {
+    return this.__iterator(_Iterator_js__WEBPACK_IMPORTED_MODULE_10__.ITERATE_KEYS);
+  },
+
+  map: function map(mapper, context) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.mapFactory)(this, mapper, context));
+  },
+
+  reduce: function reduce$1(reducer, initialReduction, context) {
+    return reduce(
+      this,
+      reducer,
+      initialReduction,
+      context,
+      arguments.length < 2,
+      false
+    );
+  },
+
+  reduceRight: function reduceRight(reducer, initialReduction, context) {
+    return reduce(
+      this,
+      reducer,
+      initialReduction,
+      context,
+      arguments.length < 2,
+      true
+    );
+  },
+
+  reverse: function reverse() {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reverseFactory)(this, true));
+  },
+
+  slice: function slice(begin, end) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.sliceFactory)(this, begin, end, true));
+  },
+
+  some: function some(predicate, context) {
+    (0,_utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_12__["default"])(this.size);
+    var returnValue = false;
+    this.__iterate(function (v, k, c) {
+      if (predicate.call(context, v, k, c)) {
+        returnValue = true;
+        return false;
+      }
+    });
+    return returnValue;
+  },
+
+  sort: function sort(comparator) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.sortFactory)(this, comparator));
+  },
+
+  values: function values() {
+    return this.__iterator(_Iterator_js__WEBPACK_IMPORTED_MODULE_10__.ITERATE_VALUES);
+  },
+
+  // ### More sequential methods
+
+  butLast: function butLast() {
+    return this.slice(0, -1);
+  },
+
+  isEmpty: function isEmpty() {
+    return this.size !== undefined ? this.size === 0 : !this.some(function () { return true; });
+  },
+
+  count: function count(predicate, context) {
+    return (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_7__.ensureSize)(
+      predicate ? this.toSeq().filter(predicate, context) : this
+    );
+  },
+
+  countBy: function countBy(grouper, context) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.countByFactory)(this, grouper, context);
+  },
+
+  equals: function equals(other) {
+    return (0,_utils_deepEqual_js__WEBPACK_IMPORTED_MODULE_13__["default"])(this, other);
+  },
+
+  entrySeq: function entrySeq() {
+    var collection = this;
+    if (collection._cache) {
+      // We cache as an entries array, so we can just return the cache!
+      return new _Seq_js__WEBPACK_IMPORTED_MODULE_24__.ArraySeq(collection._cache);
+    }
+    var entriesSequence = collection.toSeq().map(entryMapper).toIndexedSeq();
+    entriesSequence.fromEntrySeq = function () { return collection.toSeq(); };
+    return entriesSequence;
+  },
+
+  filterNot: function filterNot(predicate, context) {
+    return this.filter(not(predicate), context);
+  },
+
+  findEntry: function findEntry(predicate, context, notSetValue) {
+    var found = notSetValue;
+    this.__iterate(function (v, k, c) {
+      if (predicate.call(context, v, k, c)) {
+        found = [k, v];
+        return false;
+      }
+    });
+    return found;
+  },
+
+  findKey: function findKey(predicate, context) {
+    var entry = this.findEntry(predicate, context);
+    return entry && entry[0];
+  },
+
+  findLast: function findLast(predicate, context, notSetValue) {
+    return this.toKeyedSeq().reverse().find(predicate, context, notSetValue);
+  },
+
+  findLastEntry: function findLastEntry(predicate, context, notSetValue) {
+    return this.toKeyedSeq()
+      .reverse()
+      .findEntry(predicate, context, notSetValue);
+  },
+
+  findLastKey: function findLastKey(predicate, context) {
+    return this.toKeyedSeq().reverse().findKey(predicate, context);
+  },
+
+  first: function first(notSetValue) {
+    return this.find(_TrieUtils_js__WEBPACK_IMPORTED_MODULE_7__.returnTrue, null, notSetValue);
+  },
+
+  flatMap: function flatMap(mapper, context) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.flatMapFactory)(this, mapper, context));
+  },
+
+  flatten: function flatten(depth) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.flattenFactory)(this, depth, true));
+  },
+
+  fromEntrySeq: function fromEntrySeq() {
+    return new _Operations_js__WEBPACK_IMPORTED_MODULE_25__.FromEntriesSequence(this);
+  },
+
+  get: function get(searchKey, notSetValue) {
+    return this.find(function (_, key) { return (0,_is_js__WEBPACK_IMPORTED_MODULE_6__.is)(key, searchKey); }, undefined, notSetValue);
+  },
+
+  getIn: _methods_getIn_js__WEBPACK_IMPORTED_MODULE_26__.getIn,
+
+  groupBy: function groupBy(grouper, context) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.groupByFactory)(this, grouper, context);
+  },
+
+  has: function has(searchKey) {
+    return this.get(searchKey, _TrieUtils_js__WEBPACK_IMPORTED_MODULE_7__.NOT_SET) !== _TrieUtils_js__WEBPACK_IMPORTED_MODULE_7__.NOT_SET;
+  },
+
+  hasIn: _methods_hasIn_js__WEBPACK_IMPORTED_MODULE_27__.hasIn,
+
+  isSubset: function isSubset(iter) {
+    iter = typeof iter.includes === 'function' ? iter : (0,_Collection_js__WEBPACK_IMPORTED_MODULE_0__.Collection)(iter);
+    return this.every(function (value) { return iter.includes(value); });
+  },
+
+  isSuperset: function isSuperset(iter) {
+    iter = typeof iter.isSubset === 'function' ? iter : (0,_Collection_js__WEBPACK_IMPORTED_MODULE_0__.Collection)(iter);
+    return iter.isSubset(this);
+  },
+
+  keyOf: function keyOf(searchValue) {
+    return this.findKey(function (value) { return (0,_is_js__WEBPACK_IMPORTED_MODULE_6__.is)(value, searchValue); });
+  },
+
+  keySeq: function keySeq() {
+    return this.toSeq().map(keyMapper).toIndexedSeq();
+  },
+
+  last: function last(notSetValue) {
+    return this.toSeq().reverse().first(notSetValue);
+  },
+
+  lastKeyOf: function lastKeyOf(searchValue) {
+    return this.toKeyedSeq().reverse().keyOf(searchValue);
+  },
+
+  max: function max(comparator) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.maxFactory)(this, comparator);
+  },
+
+  maxBy: function maxBy(mapper, comparator) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.maxFactory)(this, comparator, mapper);
+  },
+
+  min: function min(comparator) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.maxFactory)(
+      this,
+      comparator ? neg(comparator) : defaultNegComparator
+    );
+  },
+
+  minBy: function minBy(mapper, comparator) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.maxFactory)(
+      this,
+      comparator ? neg(comparator) : defaultNegComparator,
+      mapper
+    );
+  },
+
+  rest: function rest() {
+    return this.slice(1);
+  },
+
+  skip: function skip(amount) {
+    return amount === 0 ? this : this.slice(Math.max(0, amount));
+  },
+
+  skipLast: function skipLast(amount) {
+    return amount === 0 ? this : this.slice(0, -Math.max(0, amount));
+  },
+
+  skipWhile: function skipWhile(predicate, context) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.skipWhileFactory)(this, predicate, context, true));
+  },
+
+  skipUntil: function skipUntil(predicate, context) {
+    return this.skipWhile(not(predicate), context);
+  },
+
+  sortBy: function sortBy(mapper, comparator) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.sortFactory)(this, comparator, mapper));
+  },
+
+  take: function take(amount) {
+    return this.slice(0, Math.max(0, amount));
+  },
+
+  takeLast: function takeLast(amount) {
+    return this.slice(-Math.max(0, amount));
+  },
+
+  takeWhile: function takeWhile(predicate, context) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.takeWhileFactory)(this, predicate, context));
+  },
+
+  takeUntil: function takeUntil(predicate, context) {
+    return this.takeWhile(not(predicate), context);
+  },
+
+  update: function update(fn) {
+    return fn(this);
+  },
+
+  valueSeq: function valueSeq() {
+    return this.toIndexedSeq();
+  },
+
+  // ### Hashable Object
+
+  hashCode: function hashCode() {
+    return this.__hash || (this.__hash = hashCollection(this));
+  },
+
+  // ### Internal
+
+  // abstract __iterate(fn, reverse)
+
+  // abstract __iterator(type, reverse)
+});
+
+var CollectionPrototype = _Collection_js__WEBPACK_IMPORTED_MODULE_0__.Collection.prototype;
+CollectionPrototype[_predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_1__.IS_COLLECTION_SYMBOL] = true;
+CollectionPrototype[_Iterator_js__WEBPACK_IMPORTED_MODULE_10__.ITERATOR_SYMBOL] = CollectionPrototype.values;
+CollectionPrototype.toJSON = CollectionPrototype.toArray;
+CollectionPrototype.__toStringMapper = _utils_quoteString_js__WEBPACK_IMPORTED_MODULE_15__["default"];
+CollectionPrototype.inspect = CollectionPrototype.toSource = function () {
+  return this.toString();
+};
+CollectionPrototype.chain = CollectionPrototype.flatMap;
+CollectionPrototype.contains = CollectionPrototype.includes;
+
+(0,_utils_mixin_js__WEBPACK_IMPORTED_MODULE_14__["default"])(_Collection_js__WEBPACK_IMPORTED_MODULE_0__.KeyedCollection, {
+  // ### More sequential methods
+
+  flip: function flip() {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.flipFactory)(this));
+  },
+
+  mapEntries: function mapEntries(mapper, context) {
+    var this$1$1 = this;
+
+    var iterations = 0;
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(
+      this,
+      this.toSeq()
+        .map(function (v, k) { return mapper.call(context, [k, v], iterations++, this$1$1); })
+        .fromEntrySeq()
+    );
+  },
+
+  mapKeys: function mapKeys(mapper, context) {
+    var this$1$1 = this;
+
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(
+      this,
+      this.toSeq()
+        .flip()
+        .map(function (k, v) { return mapper.call(context, k, v, this$1$1); })
+        .flip()
+    );
+  },
+});
+
+var KeyedCollectionPrototype = _Collection_js__WEBPACK_IMPORTED_MODULE_0__.KeyedCollection.prototype;
+KeyedCollectionPrototype[_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.IS_KEYED_SYMBOL] = true;
+KeyedCollectionPrototype[_Iterator_js__WEBPACK_IMPORTED_MODULE_10__.ITERATOR_SYMBOL] = CollectionPrototype.entries;
+KeyedCollectionPrototype.toJSON = _methods_toObject_js__WEBPACK_IMPORTED_MODULE_28__.toObject;
+KeyedCollectionPrototype.__toStringMapper = function (v, k) { return (0,_utils_quoteString_js__WEBPACK_IMPORTED_MODULE_15__["default"])(k) + ': ' + (0,_utils_quoteString_js__WEBPACK_IMPORTED_MODULE_15__["default"])(v); };
+
+(0,_utils_mixin_js__WEBPACK_IMPORTED_MODULE_14__["default"])(_Collection_js__WEBPACK_IMPORTED_MODULE_0__.IndexedCollection, {
+  // ### Conversion to other types
+
+  toKeyedSeq: function toKeyedSeq() {
+    return new _Operations_js__WEBPACK_IMPORTED_MODULE_25__.ToKeyedSequence(this, false);
+  },
+
+  // ### ES6 Collection methods (ES6 Array and Map)
+
+  filter: function filter(predicate, context) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.filterFactory)(this, predicate, context, false));
+  },
+
+  findIndex: function findIndex(predicate, context) {
+    var entry = this.findEntry(predicate, context);
+    return entry ? entry[0] : -1;
+  },
+
+  indexOf: function indexOf(searchValue) {
+    var key = this.keyOf(searchValue);
+    return key === undefined ? -1 : key;
+  },
+
+  lastIndexOf: function lastIndexOf(searchValue) {
+    var key = this.lastKeyOf(searchValue);
+    return key === undefined ? -1 : key;
+  },
+
+  reverse: function reverse() {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reverseFactory)(this, false));
+  },
+
+  slice: function slice(begin, end) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.sliceFactory)(this, begin, end, false));
+  },
+
+  splice: function splice(index, removeNum /*, ...values*/) {
+    var numArgs = arguments.length;
+    removeNum = Math.max(removeNum || 0, 0);
+    if (numArgs === 0 || (numArgs === 2 && !removeNum)) {
+      return this;
+    }
+    // If index is negative, it should resolve relative to the size of the
+    // collection. However size may be expensive to compute if not cached, so
+    // only call count() if the number is in fact negative.
+    index = (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_7__.resolveBegin)(index, index < 0 ? this.count() : this.size);
+    var spliced = this.slice(0, index);
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(
+      this,
+      numArgs === 1
+        ? spliced
+        : spliced.concat((0,_utils_arrCopy_js__WEBPACK_IMPORTED_MODULE_11__["default"])(arguments, 2), this.slice(index + removeNum))
+    );
+  },
+
+  // ### More collection methods
+
+  findLastIndex: function findLastIndex(predicate, context) {
+    var entry = this.findLastEntry(predicate, context);
+    return entry ? entry[0] : -1;
+  },
+
+  first: function first(notSetValue) {
+    return this.get(0, notSetValue);
+  },
+
+  flatten: function flatten(depth) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.flattenFactory)(this, depth, false));
+  },
+
+  get: function get(index, notSetValue) {
+    index = (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_7__.wrapIndex)(this, index);
+    return index < 0 ||
+      this.size === Infinity ||
+      (this.size !== undefined && index > this.size)
+      ? notSetValue
+      : this.find(function (_, key) { return key === index; }, undefined, notSetValue);
+  },
+
+  has: function has(index) {
+    index = (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_7__.wrapIndex)(this, index);
+    return (
+      index >= 0 &&
+      (this.size !== undefined
+        ? this.size === Infinity || index < this.size
+        : this.indexOf(index) !== -1)
+    );
+  },
+
+  interpose: function interpose(separator) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.interposeFactory)(this, separator));
+  },
+
+  interleave: function interleave(/*...collections*/) {
+    var collections = [this].concat((0,_utils_arrCopy_js__WEBPACK_IMPORTED_MODULE_11__["default"])(arguments));
+    var zipped = (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.zipWithFactory)(this.toSeq(), _Seq_js__WEBPACK_IMPORTED_MODULE_24__.IndexedSeq.of, collections);
+    var interleaved = zipped.flatten(true);
+    if (zipped.size) {
+      interleaved.size = zipped.size * collections.length;
+    }
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, interleaved);
+  },
+
+  keySeq: function keySeq() {
+    return (0,_Range_js__WEBPACK_IMPORTED_MODULE_23__.Range)(0, this.size);
+  },
+
+  last: function last(notSetValue) {
+    return this.get(-1, notSetValue);
+  },
+
+  skipWhile: function skipWhile(predicate, context) {
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.skipWhileFactory)(this, predicate, context, false));
+  },
+
+  zip: function zip(/*, ...collections */) {
+    var collections = [this].concat((0,_utils_arrCopy_js__WEBPACK_IMPORTED_MODULE_11__["default"])(arguments));
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.zipWithFactory)(this, defaultZipper, collections));
+  },
+
+  zipAll: function zipAll(/*, ...collections */) {
+    var collections = [this].concat((0,_utils_arrCopy_js__WEBPACK_IMPORTED_MODULE_11__["default"])(arguments));
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.zipWithFactory)(this, defaultZipper, collections, true));
+  },
+
+  zipWith: function zipWith(zipper /*, ...collections */) {
+    var collections = (0,_utils_arrCopy_js__WEBPACK_IMPORTED_MODULE_11__["default"])(arguments);
+    collections[0] = this;
+    return (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.reify)(this, (0,_Operations_js__WEBPACK_IMPORTED_MODULE_25__.zipWithFactory)(this, zipper, collections));
+  },
+});
+
+var IndexedCollectionPrototype = _Collection_js__WEBPACK_IMPORTED_MODULE_0__.IndexedCollection.prototype;
+IndexedCollectionPrototype[_predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_4__.IS_INDEXED_SYMBOL] = true;
+IndexedCollectionPrototype[_predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_5__.IS_ORDERED_SYMBOL] = true;
+
+(0,_utils_mixin_js__WEBPACK_IMPORTED_MODULE_14__["default"])(_Collection_js__WEBPACK_IMPORTED_MODULE_0__.SetCollection, {
+  // ### ES6 Collection methods (ES6 Array and Map)
+
+  get: function get(value, notSetValue) {
+    return this.has(value) ? value : notSetValue;
+  },
+
+  includes: function includes(value) {
+    return this.has(value);
+  },
+
+  // ### More sequential methods
+
+  keySeq: function keySeq() {
+    return this.valueSeq();
+  },
+});
+
+var SetCollectionPrototype = _Collection_js__WEBPACK_IMPORTED_MODULE_0__.SetCollection.prototype;
+SetCollectionPrototype.has = CollectionPrototype.includes;
+SetCollectionPrototype.contains = SetCollectionPrototype.includes;
+SetCollectionPrototype.keys = SetCollectionPrototype.values;
+
+// Mixin subclasses
+
+(0,_utils_mixin_js__WEBPACK_IMPORTED_MODULE_14__["default"])(_Seq_js__WEBPACK_IMPORTED_MODULE_24__.KeyedSeq, KeyedCollectionPrototype);
+(0,_utils_mixin_js__WEBPACK_IMPORTED_MODULE_14__["default"])(_Seq_js__WEBPACK_IMPORTED_MODULE_24__.IndexedSeq, IndexedCollectionPrototype);
+(0,_utils_mixin_js__WEBPACK_IMPORTED_MODULE_14__["default"])(_Seq_js__WEBPACK_IMPORTED_MODULE_24__.SetSeq, SetCollectionPrototype);
+
+// #pragma Helper functions
+
+function reduce(collection, reducer, reduction, context, useFirst, reverse) {
+  (0,_utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_12__["default"])(collection.size);
+  collection.__iterate(function (v, k, c) {
+    if (useFirst) {
+      useFirst = false;
+      reduction = v;
+    } else {
+      reduction = reducer.call(context, reduction, v, k, c);
+    }
+  }, reverse);
+  return reduction;
+}
+
+function keyMapper(v, k) {
+  return k;
+}
+
+function entryMapper(v, k) {
+  return [k, v];
+}
+
+function not(predicate) {
+  return function () {
+    return !predicate.apply(this, arguments);
+  };
+}
+
+function neg(predicate) {
+  return function () {
+    return -predicate.apply(this, arguments);
+  };
+}
+
+function defaultZipper() {
+  return (0,_utils_arrCopy_js__WEBPACK_IMPORTED_MODULE_11__["default"])(arguments);
+}
+
+function defaultNegComparator(a, b) {
+  return a < b ? 1 : a > b ? -1 : 0;
+}
+
+function hashCollection(collection) {
+  if (collection.size === Infinity) {
+    return 0;
+  }
+  var ordered = (0,_predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_5__.isOrdered)(collection);
+  var keyed = (0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.isKeyed)(collection);
+  var h = ordered ? 1 : 0;
+  var size = collection.__iterate(
+    keyed
+      ? ordered
+        ? function (v, k) {
+            h = (31 * h + hashMerge((0,_Hash_js__WEBPACK_IMPORTED_MODULE_8__.hash)(v), (0,_Hash_js__WEBPACK_IMPORTED_MODULE_8__.hash)(k))) | 0;
+          }
+        : function (v, k) {
+            h = (h + hashMerge((0,_Hash_js__WEBPACK_IMPORTED_MODULE_8__.hash)(v), (0,_Hash_js__WEBPACK_IMPORTED_MODULE_8__.hash)(k))) | 0;
+          }
+      : ordered
+      ? function (v) {
+          h = (31 * h + (0,_Hash_js__WEBPACK_IMPORTED_MODULE_8__.hash)(v)) | 0;
+        }
+      : function (v) {
+          h = (h + (0,_Hash_js__WEBPACK_IMPORTED_MODULE_8__.hash)(v)) | 0;
+        }
+  );
+  return murmurHashOfSize(size, h);
+}
+
+function murmurHashOfSize(size, h) {
+  h = (0,_Math_js__WEBPACK_IMPORTED_MODULE_9__.imul)(h, 0xcc9e2d51);
+  h = (0,_Math_js__WEBPACK_IMPORTED_MODULE_9__.imul)((h << 15) | (h >>> -15), 0x1b873593);
+  h = (0,_Math_js__WEBPACK_IMPORTED_MODULE_9__.imul)((h << 13) | (h >>> -13), 5);
+  h = ((h + 0xe6546b64) | 0) ^ size;
+  h = (0,_Math_js__WEBPACK_IMPORTED_MODULE_9__.imul)(h ^ (h >>> 16), 0x85ebca6b);
+  h = (0,_Math_js__WEBPACK_IMPORTED_MODULE_9__.imul)(h ^ (h >>> 13), 0xc2b2ae35);
+  h = (0,_Math_js__WEBPACK_IMPORTED_MODULE_9__.smi)(h ^ (h >>> 16));
+  return h;
+}
+
+function hashMerge(a, b) {
+  return (a ^ (b + 0x9e3779b9 + (a << 6) + (a >> 2))) | 0; // int
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/Hash.js":
+/*!************************************************!*\
+  !*** ./node_modules/immutable/dist/es/Hash.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   hash: () => (/* binding */ hash)
+/* harmony export */ });
+/* harmony import */ var _Math_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Math.js */ "./node_modules/immutable/dist/es/Math.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+var defaultValueOf = Object.prototype.valueOf;
+
+function hash(o) {
+  if (o == null) {
+    return hashNullish(o);
+  }
+
+  if (typeof o.hashCode === 'function') {
+    // Drop any high bits from accidentally long hash codes.
+    return (0,_Math_js__WEBPACK_IMPORTED_MODULE_0__.smi)(o.hashCode(o));
+  }
+
+  var v = valueOf(o);
+
+  if (v == null) {
+    return hashNullish(v);
+  }
+
+  switch (typeof v) {
+    case 'boolean':
+      // The hash values for built-in constants are a 1 value for each 5-byte
+      // shift region expect for the first, which encodes the value. This
+      // reduces the odds of a hash collision for these common values.
+      return v ? 0x42108421 : 0x42108420;
+    case 'number':
+      return hashNumber(v);
+    case 'string':
+      return v.length > STRING_HASH_CACHE_MIN_STRLEN
+        ? cachedHashString(v)
+        : hashString(v);
+    case 'object':
+    case 'function':
+      return hashJSObj(v);
+    case 'symbol':
+      return hashSymbol(v);
+    default:
+      if (typeof v.toString === 'function') {
+        return hashString(v.toString());
+      }
+      throw new Error('Value type ' + typeof v + ' cannot be hashed.');
+  }
+}
+
+function hashNullish(nullish) {
+  return nullish === null ? 0x42108422 : /* undefined */ 0x42108423;
+}
+
+// Compress arbitrarily large numbers into smi hashes.
+function hashNumber(n) {
+  if (n !== n || n === Infinity) {
+    return 0;
+  }
+  var hash = n | 0;
+  if (hash !== n) {
+    hash ^= n * 0xffffffff;
+  }
+  while (n > 0xffffffff) {
+    n /= 0xffffffff;
+    hash ^= n;
+  }
+  return (0,_Math_js__WEBPACK_IMPORTED_MODULE_0__.smi)(hash);
+}
+
+function cachedHashString(string) {
+  var hashed = stringHashCache[string];
+  if (hashed === undefined) {
+    hashed = hashString(string);
+    if (STRING_HASH_CACHE_SIZE === STRING_HASH_CACHE_MAX_SIZE) {
+      STRING_HASH_CACHE_SIZE = 0;
+      stringHashCache = {};
+    }
+    STRING_HASH_CACHE_SIZE++;
+    stringHashCache[string] = hashed;
+  }
+  return hashed;
+}
+
+// http://jsperf.com/hashing-strings
+function hashString(string) {
+  // This is the hash from JVM
+  // The hash code for a string is computed as
+  // s[0] * 31 ^ (n - 1) + s[1] * 31 ^ (n - 2) + ... + s[n - 1],
+  // where s[i] is the ith character of the string and n is the length of
+  // the string. We "mod" the result to make it between 0 (inclusive) and 2^31
+  // (exclusive) by dropping high bits.
+  var hashed = 0;
+  for (var ii = 0; ii < string.length; ii++) {
+    hashed = (31 * hashed + string.charCodeAt(ii)) | 0;
+  }
+  return (0,_Math_js__WEBPACK_IMPORTED_MODULE_0__.smi)(hashed);
+}
+
+function hashSymbol(sym) {
+  var hashed = symbolMap[sym];
+  if (hashed !== undefined) {
+    return hashed;
+  }
+
+  hashed = nextHash();
+
+  symbolMap[sym] = hashed;
+
+  return hashed;
+}
+
+function hashJSObj(obj) {
+  var hashed;
+  if (usingWeakMap) {
+    hashed = weakMap.get(obj);
+    if (hashed !== undefined) {
+      return hashed;
+    }
+  }
+
+  hashed = obj[UID_HASH_KEY];
+  if (hashed !== undefined) {
+    return hashed;
+  }
+
+  if (!canDefineProperty) {
+    hashed = obj.propertyIsEnumerable && obj.propertyIsEnumerable[UID_HASH_KEY];
+    if (hashed !== undefined) {
+      return hashed;
+    }
+
+    hashed = getIENodeHash(obj);
+    if (hashed !== undefined) {
+      return hashed;
+    }
+  }
+
+  hashed = nextHash();
+
+  if (usingWeakMap) {
+    weakMap.set(obj, hashed);
+  } else if (isExtensible !== undefined && isExtensible(obj) === false) {
+    throw new Error('Non-extensible objects are not allowed as keys.');
+  } else if (canDefineProperty) {
+    Object.defineProperty(obj, UID_HASH_KEY, {
+      enumerable: false,
+      configurable: false,
+      writable: false,
+      value: hashed,
+    });
+  } else if (
+    obj.propertyIsEnumerable !== undefined &&
+    obj.propertyIsEnumerable === obj.constructor.prototype.propertyIsEnumerable
+  ) {
+    // Since we can't define a non-enumerable property on the object
+    // we'll hijack one of the less-used non-enumerable properties to
+    // save our hash on it. Since this is a function it will not show up in
+    // `JSON.stringify` which is what we want.
+    obj.propertyIsEnumerable = function () {
+      return this.constructor.prototype.propertyIsEnumerable.apply(
+        this,
+        arguments
+      );
+    };
+    obj.propertyIsEnumerable[UID_HASH_KEY] = hashed;
+  } else if (obj.nodeType !== undefined) {
+    // At this point we couldn't get the IE `uniqueID` to use as a hash
+    // and we couldn't use a non-enumerable property to exploit the
+    // dontEnum bug so we simply add the `UID_HASH_KEY` on the node
+    // itself.
+    obj[UID_HASH_KEY] = hashed;
+  } else {
+    throw new Error('Unable to set a non-enumerable property on object.');
+  }
+
+  return hashed;
+}
+
+// Get references to ES5 object methods.
+var isExtensible = Object.isExtensible;
+
+// True if Object.defineProperty works as expected. IE8 fails this test.
+var canDefineProperty = (function () {
+  try {
+    Object.defineProperty({}, '@', {});
+    return true;
+  } catch (e) {
+    return false;
+  }
+})();
+
+// IE has a `uniqueID` property on DOM nodes. We can construct the hash from it
+// and avoid memory leaks from the IE cloneNode bug.
+function getIENodeHash(node) {
+  if (node && node.nodeType > 0) {
+    switch (node.nodeType) {
+      case 1: // Element
+        return node.uniqueID;
+      case 9: // Document
+        return node.documentElement && node.documentElement.uniqueID;
+    }
+  }
+}
+
+function valueOf(obj) {
+  return obj.valueOf !== defaultValueOf && typeof obj.valueOf === 'function'
+    ? obj.valueOf(obj)
+    : obj;
+}
+
+function nextHash() {
+  var nextHash = ++_objHashUID;
+  if (_objHashUID & 0x40000000) {
+    _objHashUID = 0;
+  }
+  return nextHash;
+}
+
+// If possible, use a WeakMap.
+var usingWeakMap = typeof WeakMap === 'function';
+var weakMap;
+if (usingWeakMap) {
+  weakMap = new WeakMap();
+}
+
+var symbolMap = Object.create(null);
+
+var _objHashUID = 0;
+
+var UID_HASH_KEY = '__immutablehash__';
+if (typeof Symbol === 'function') {
+  UID_HASH_KEY = Symbol(UID_HASH_KEY);
+}
+
+var STRING_HASH_CACHE_MIN_STRLEN = 16;
+var STRING_HASH_CACHE_MAX_SIZE = 255;
+var STRING_HASH_CACHE_SIZE = 0;
+var stringHashCache = {};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/Immutable.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/immutable/dist/es/Immutable.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   OrderedMap: () => (/* reexport safe */ _OrderedMap_js__WEBPACK_IMPORTED_MODULE_1__.OrderedMap)
+/* harmony export */ });
+/* unused harmony export Iterable */
+/* harmony import */ var _Seq_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Seq.js */ "./node_modules/immutable/dist/es/Seq.js");
+/* harmony import */ var _OrderedMap_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OrderedMap.js */ "./node_modules/immutable/dist/es/OrderedMap.js");
+/* harmony import */ var _List_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./List.js */ "./node_modules/immutable/dist/es/List.js");
+/* harmony import */ var _Map_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Map.js */ "./node_modules/immutable/dist/es/Map.js");
+/* harmony import */ var _Stack_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Stack.js */ "./node_modules/immutable/dist/es/Stack.js");
+/* harmony import */ var _OrderedSet_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./OrderedSet.js */ "./node_modules/immutable/dist/es/OrderedSet.js");
+/* harmony import */ var _PairSorting_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./PairSorting.js */ "./node_modules/immutable/dist/es/PairSorting.js");
+/* harmony import */ var _Set_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Set.js */ "./node_modules/immutable/dist/es/Set.js");
+/* harmony import */ var _Record_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Record.js */ "./node_modules/immutable/dist/es/Record.js");
+/* harmony import */ var _Range_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Range.js */ "./node_modules/immutable/dist/es/Range.js");
+/* harmony import */ var _Repeat_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Repeat.js */ "./node_modules/immutable/dist/es/Repeat.js");
+/* harmony import */ var _is_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./is.js */ "./node_modules/immutable/dist/es/is.js");
+/* harmony import */ var _fromJS_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./fromJS.js */ "./node_modules/immutable/dist/es/fromJS.js");
+/* harmony import */ var _utils_isPlainObj_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./utils/isPlainObj.js */ "./node_modules/immutable/dist/es/utils/isPlainObj.js");
+/* harmony import */ var _predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./predicates/isImmutable.js */ "./node_modules/immutable/dist/es/predicates/isImmutable.js");
+/* harmony import */ var _predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./predicates/isCollection.js */ "./node_modules/immutable/dist/es/predicates/isCollection.js");
+/* harmony import */ var _predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./predicates/isKeyed.js */ "./node_modules/immutable/dist/es/predicates/isKeyed.js");
+/* harmony import */ var _predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./predicates/isIndexed.js */ "./node_modules/immutable/dist/es/predicates/isIndexed.js");
+/* harmony import */ var _predicates_isAssociative_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./predicates/isAssociative.js */ "./node_modules/immutable/dist/es/predicates/isAssociative.js");
+/* harmony import */ var _predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./predicates/isOrdered.js */ "./node_modules/immutable/dist/es/predicates/isOrdered.js");
+/* harmony import */ var _predicates_isValueObject_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./predicates/isValueObject.js */ "./node_modules/immutable/dist/es/predicates/isValueObject.js");
+/* harmony import */ var _predicates_isSeq_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./predicates/isSeq.js */ "./node_modules/immutable/dist/es/predicates/isSeq.js");
+/* harmony import */ var _predicates_isList_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./predicates/isList.js */ "./node_modules/immutable/dist/es/predicates/isList.js");
+/* harmony import */ var _predicates_isMap_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./predicates/isMap.js */ "./node_modules/immutable/dist/es/predicates/isMap.js");
+/* harmony import */ var _predicates_isOrderedMap_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./predicates/isOrderedMap.js */ "./node_modules/immutable/dist/es/predicates/isOrderedMap.js");
+/* harmony import */ var _predicates_isStack_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./predicates/isStack.js */ "./node_modules/immutable/dist/es/predicates/isStack.js");
+/* harmony import */ var _predicates_isSet_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./predicates/isSet.js */ "./node_modules/immutable/dist/es/predicates/isSet.js");
+/* harmony import */ var _predicates_isOrderedSet_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./predicates/isOrderedSet.js */ "./node_modules/immutable/dist/es/predicates/isOrderedSet.js");
+/* harmony import */ var _predicates_isRecord_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./predicates/isRecord.js */ "./node_modules/immutable/dist/es/predicates/isRecord.js");
+/* harmony import */ var _CollectionImpl_js__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./CollectionImpl.js */ "./node_modules/immutable/dist/es/CollectionImpl.js");
+/* harmony import */ var _Hash_js__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./Hash.js */ "./node_modules/immutable/dist/es/Hash.js");
+/* harmony import */ var _functional_get_js__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./functional/get.js */ "./node_modules/immutable/dist/es/functional/get.js");
+/* harmony import */ var _functional_getIn_js__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./functional/getIn.js */ "./node_modules/immutable/dist/es/functional/getIn.js");
+/* harmony import */ var _functional_has_js__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./functional/has.js */ "./node_modules/immutable/dist/es/functional/has.js");
+/* harmony import */ var _functional_hasIn_js__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./functional/hasIn.js */ "./node_modules/immutable/dist/es/functional/hasIn.js");
+/* harmony import */ var _functional_merge_js__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./functional/merge.js */ "./node_modules/immutable/dist/es/functional/merge.js");
+/* harmony import */ var _functional_remove_js__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./functional/remove.js */ "./node_modules/immutable/dist/es/functional/remove.js");
+/* harmony import */ var _functional_removeIn_js__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./functional/removeIn.js */ "./node_modules/immutable/dist/es/functional/removeIn.js");
+/* harmony import */ var _functional_set_js__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./functional/set.js */ "./node_modules/immutable/dist/es/functional/set.js");
+/* harmony import */ var _functional_setIn_js__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./functional/setIn.js */ "./node_modules/immutable/dist/es/functional/setIn.js");
+/* harmony import */ var _functional_update_js__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./functional/update.js */ "./node_modules/immutable/dist/es/functional/update.js");
+/* harmony import */ var _functional_updateIn_js__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./functional/updateIn.js */ "./node_modules/immutable/dist/es/functional/updateIn.js");
+/* harmony import */ var _package_json_js__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./package.json.js */ "./node_modules/immutable/dist/es/package.json.js");
+/* harmony import */ var _Collection_js__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./Collection.js */ "./node_modules/immutable/dist/es/Collection.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Note: Iterable is deprecated
+var Iterable = _Collection_js__WEBPACK_IMPORTED_MODULE_43__.Collection;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/Iterator.js":
+/*!****************************************************!*\
+  !*** ./node_modules/immutable/dist/es/Iterator.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ITERATE_ENTRIES: () => (/* binding */ ITERATE_ENTRIES),
+/* harmony export */   ITERATE_KEYS: () => (/* binding */ ITERATE_KEYS),
+/* harmony export */   ITERATE_VALUES: () => (/* binding */ ITERATE_VALUES),
+/* harmony export */   ITERATOR_SYMBOL: () => (/* binding */ ITERATOR_SYMBOL),
+/* harmony export */   Iterator: () => (/* binding */ Iterator),
+/* harmony export */   getIterator: () => (/* binding */ getIterator),
+/* harmony export */   hasIterator: () => (/* binding */ hasIterator),
+/* harmony export */   isEntriesIterable: () => (/* binding */ isEntriesIterable),
+/* harmony export */   isIterator: () => (/* binding */ isIterator),
+/* harmony export */   isKeysIterable: () => (/* binding */ isKeysIterable),
+/* harmony export */   iteratorDone: () => (/* binding */ iteratorDone),
+/* harmony export */   iteratorValue: () => (/* binding */ iteratorValue)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var ITERATE_KEYS = 0;
+var ITERATE_VALUES = 1;
+var ITERATE_ENTRIES = 2;
+
+var REAL_ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+var FAUX_ITERATOR_SYMBOL = '@@iterator';
+
+var ITERATOR_SYMBOL = REAL_ITERATOR_SYMBOL || FAUX_ITERATOR_SYMBOL;
+
+var Iterator = function Iterator(next) {
+  this.next = next;
+};
+
+Iterator.prototype.toString = function toString () {
+  return '[Iterator]';
+};
+
+Iterator.KEYS = ITERATE_KEYS;
+Iterator.VALUES = ITERATE_VALUES;
+Iterator.ENTRIES = ITERATE_ENTRIES;
+
+Iterator.prototype.inspect = Iterator.prototype.toSource = function () {
+  return this.toString();
+};
+Iterator.prototype[ITERATOR_SYMBOL] = function () {
+  return this;
+};
+
+function iteratorValue(type, k, v, iteratorResult) {
+  var value = type === 0 ? k : type === 1 ? v : [k, v];
+  iteratorResult
+    ? (iteratorResult.value = value)
+    : (iteratorResult = {
+        value: value,
+        done: false,
+      });
+  return iteratorResult;
+}
+
+function iteratorDone() {
+  return { value: undefined, done: true };
+}
+
+function hasIterator(maybeIterable) {
+  if (Array.isArray(maybeIterable)) {
+    // IE11 trick as it does not support `Symbol.iterator`
+    return true;
+  }
+
+  return !!getIteratorFn(maybeIterable);
+}
+
+function isIterator(maybeIterator) {
+  return maybeIterator && typeof maybeIterator.next === 'function';
+}
+
+function getIterator(iterable) {
+  var iteratorFn = getIteratorFn(iterable);
+  return iteratorFn && iteratorFn.call(iterable);
+}
+
+function getIteratorFn(iterable) {
+  var iteratorFn =
+    iterable &&
+    ((REAL_ITERATOR_SYMBOL && iterable[REAL_ITERATOR_SYMBOL]) ||
+      iterable[FAUX_ITERATOR_SYMBOL]);
+  if (typeof iteratorFn === 'function') {
+    return iteratorFn;
+  }
+}
+
+function isEntriesIterable(maybeIterable) {
+  var iteratorFn = getIteratorFn(maybeIterable);
+  return iteratorFn && iteratorFn === maybeIterable.entries;
+}
+
+function isKeysIterable(maybeIterable) {
+  var iteratorFn = getIteratorFn(maybeIterable);
+  return iteratorFn && iteratorFn === maybeIterable.keys;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/List.js":
+/*!************************************************!*\
+  !*** ./node_modules/immutable/dist/es/List.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   List: () => (/* binding */ List),
+/* harmony export */   emptyList: () => (/* binding */ emptyList)
+/* harmony export */ });
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/* harmony import */ var _predicates_isList_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./predicates/isList.js */ "./node_modules/immutable/dist/es/predicates/isList.js");
+/* harmony import */ var _Collection_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Collection.js */ "./node_modules/immutable/dist/es/Collection.js");
+/* harmony import */ var _Iterator_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Iterator.js */ "./node_modules/immutable/dist/es/Iterator.js");
+/* harmony import */ var _methods_setIn_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./methods/setIn.js */ "./node_modules/immutable/dist/es/methods/setIn.js");
+/* harmony import */ var _methods_deleteIn_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./methods/deleteIn.js */ "./node_modules/immutable/dist/es/methods/deleteIn.js");
+/* harmony import */ var _methods_update_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./methods/update.js */ "./node_modules/immutable/dist/es/methods/update.js");
+/* harmony import */ var _methods_updateIn_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./methods/updateIn.js */ "./node_modules/immutable/dist/es/methods/updateIn.js");
+/* harmony import */ var _methods_mergeIn_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./methods/mergeIn.js */ "./node_modules/immutable/dist/es/methods/mergeIn.js");
+/* harmony import */ var _methods_mergeDeepIn_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./methods/mergeDeepIn.js */ "./node_modules/immutable/dist/es/methods/mergeDeepIn.js");
+/* harmony import */ var _methods_withMutations_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./methods/withMutations.js */ "./node_modules/immutable/dist/es/methods/withMutations.js");
+/* harmony import */ var _methods_asMutable_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./methods/asMutable.js */ "./node_modules/immutable/dist/es/methods/asMutable.js");
+/* harmony import */ var _methods_asImmutable_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./methods/asImmutable.js */ "./node_modules/immutable/dist/es/methods/asImmutable.js");
+/* harmony import */ var _methods_wasAltered_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./methods/wasAltered.js */ "./node_modules/immutable/dist/es/methods/wasAltered.js");
+/* harmony import */ var _utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./utils/assertNotInfinite.js */ "./node_modules/immutable/dist/es/utils/assertNotInfinite.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var List = /*@__PURE__*/(function (IndexedCollection) {
+  function List(value) {
+    var empty = emptyList();
+    if (value === undefined || value === null) {
+      return empty;
+    }
+    if ((0,_predicates_isList_js__WEBPACK_IMPORTED_MODULE_1__.isList)(value)) {
+      return value;
+    }
+    var iter = IndexedCollection(value);
+    var size = iter.size;
+    if (size === 0) {
+      return empty;
+    }
+    (0,_utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_14__["default"])(size);
+    if (size > 0 && size < _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SIZE) {
+      return makeList(0, size, _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT, null, new VNode(iter.toArray()));
+    }
+    return empty.withMutations(function (list) {
+      list.setSize(size);
+      iter.forEach(function (v, i) { return list.set(i, v); });
+    });
+  }
+
+  if ( IndexedCollection ) List.__proto__ = IndexedCollection;
+  List.prototype = Object.create( IndexedCollection && IndexedCollection.prototype );
+  List.prototype.constructor = List;
+
+  List.of = function of (/*...values*/) {
+    return this(arguments);
+  };
+
+  List.prototype.toString = function toString () {
+    return this.__toString('List [', ']');
+  };
+
+  // @pragma Access
+
+  List.prototype.get = function get (index, notSetValue) {
+    index = (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.wrapIndex)(this, index);
+    if (index >= 0 && index < this.size) {
+      index += this._origin;
+      var node = listNodeFor(this, index);
+      return node && node.array[index & _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.MASK];
+    }
+    return notSetValue;
+  };
+
+  // @pragma Modification
+
+  List.prototype.set = function set (index, value) {
+    return updateList(this, index, value);
+  };
+
+  List.prototype.remove = function remove (index) {
+    return !this.has(index)
+      ? this
+      : index === 0
+      ? this.shift()
+      : index === this.size - 1
+      ? this.pop()
+      : this.splice(index, 1);
+  };
+
+  List.prototype.insert = function insert (index, value) {
+    return this.splice(index, 0, value);
+  };
+
+  List.prototype.clear = function clear () {
+    if (this.size === 0) {
+      return this;
+    }
+    if (this.__ownerID) {
+      this.size = this._origin = this._capacity = 0;
+      this._level = _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT;
+      this._root = this._tail = this.__hash = undefined;
+      this.__altered = true;
+      return this;
+    }
+    return emptyList();
+  };
+
+  List.prototype.push = function push (/*...values*/) {
+    var values = arguments;
+    var oldSize = this.size;
+    return this.withMutations(function (list) {
+      setListBounds(list, 0, oldSize + values.length);
+      for (var ii = 0; ii < values.length; ii++) {
+        list.set(oldSize + ii, values[ii]);
+      }
+    });
+  };
+
+  List.prototype.pop = function pop () {
+    return setListBounds(this, 0, -1);
+  };
+
+  List.prototype.unshift = function unshift (/*...values*/) {
+    var values = arguments;
+    return this.withMutations(function (list) {
+      setListBounds(list, -values.length);
+      for (var ii = 0; ii < values.length; ii++) {
+        list.set(ii, values[ii]);
+      }
+    });
+  };
+
+  List.prototype.shift = function shift () {
+    return setListBounds(this, 1);
+  };
+
+  // @pragma Composition
+
+  List.prototype.concat = function concat (/*...collections*/) {
+    var arguments$1 = arguments;
+
+    var seqs = [];
+    for (var i = 0; i < arguments.length; i++) {
+      var argument = arguments$1[i];
+      var seq = IndexedCollection(
+        typeof argument !== 'string' && (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_3__.hasIterator)(argument)
+          ? argument
+          : [argument]
+      );
+      if (seq.size !== 0) {
+        seqs.push(seq);
+      }
+    }
+    if (seqs.length === 0) {
+      return this;
+    }
+    if (this.size === 0 && !this.__ownerID && seqs.length === 1) {
+      return this.constructor(seqs[0]);
+    }
+    return this.withMutations(function (list) {
+      seqs.forEach(function (seq) { return seq.forEach(function (value) { return list.push(value); }); });
+    });
+  };
+
+  List.prototype.setSize = function setSize (size) {
+    return setListBounds(this, 0, size);
+  };
+
+  List.prototype.map = function map (mapper, context) {
+    var this$1$1 = this;
+
+    return this.withMutations(function (list) {
+      for (var i = 0; i < this$1$1.size; i++) {
+        list.set(i, mapper.call(context, list.get(i), i, this$1$1));
+      }
+    });
+  };
+
+  // @pragma Iteration
+
+  List.prototype.slice = function slice (begin, end) {
+    var size = this.size;
+    if ((0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.wholeSlice)(begin, end, size)) {
+      return this;
+    }
+    return setListBounds(
+      this,
+      (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.resolveBegin)(begin, size),
+      (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.resolveEnd)(end, size)
+    );
+  };
+
+  List.prototype.__iterator = function __iterator (type, reverse) {
+    var index = reverse ? this.size : 0;
+    var values = iterateList(this, reverse);
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_3__.Iterator(function () {
+      var value = values();
+      return value === DONE
+        ? (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_3__.iteratorDone)()
+        : (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_3__.iteratorValue)(type, reverse ? --index : index++, value);
+    });
+  };
+
+  List.prototype.__iterate = function __iterate (fn, reverse) {
+    var index = reverse ? this.size : 0;
+    var values = iterateList(this, reverse);
+    var value;
+    while ((value = values()) !== DONE) {
+      if (fn(value, reverse ? --index : index++, this) === false) {
+        break;
+      }
+    }
+    return index;
+  };
+
+  List.prototype.__ensureOwner = function __ensureOwner (ownerID) {
+    if (ownerID === this.__ownerID) {
+      return this;
+    }
+    if (!ownerID) {
+      if (this.size === 0) {
+        return emptyList();
+      }
+      this.__ownerID = ownerID;
+      this.__altered = false;
+      return this;
+    }
+    return makeList(
+      this._origin,
+      this._capacity,
+      this._level,
+      this._root,
+      this._tail,
+      ownerID,
+      this.__hash
+    );
+  };
+
+  return List;
+}(_Collection_js__WEBPACK_IMPORTED_MODULE_2__.IndexedCollection));
+
+List.isList = _predicates_isList_js__WEBPACK_IMPORTED_MODULE_1__.isList;
+
+var ListPrototype = List.prototype;
+ListPrototype[_predicates_isList_js__WEBPACK_IMPORTED_MODULE_1__.IS_LIST_SYMBOL] = true;
+ListPrototype[_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.DELETE] = ListPrototype.remove;
+ListPrototype.merge = ListPrototype.concat;
+ListPrototype.setIn = _methods_setIn_js__WEBPACK_IMPORTED_MODULE_4__.setIn;
+ListPrototype.deleteIn = ListPrototype.removeIn = _methods_deleteIn_js__WEBPACK_IMPORTED_MODULE_5__.deleteIn;
+ListPrototype.update = _methods_update_js__WEBPACK_IMPORTED_MODULE_6__.update;
+ListPrototype.updateIn = _methods_updateIn_js__WEBPACK_IMPORTED_MODULE_7__.updateIn;
+ListPrototype.mergeIn = _methods_mergeIn_js__WEBPACK_IMPORTED_MODULE_8__.mergeIn;
+ListPrototype.mergeDeepIn = _methods_mergeDeepIn_js__WEBPACK_IMPORTED_MODULE_9__.mergeDeepIn;
+ListPrototype.withMutations = _methods_withMutations_js__WEBPACK_IMPORTED_MODULE_10__.withMutations;
+ListPrototype.wasAltered = _methods_wasAltered_js__WEBPACK_IMPORTED_MODULE_13__.wasAltered;
+ListPrototype.asImmutable = _methods_asImmutable_js__WEBPACK_IMPORTED_MODULE_12__.asImmutable;
+ListPrototype['@@transducer/init'] = ListPrototype.asMutable = _methods_asMutable_js__WEBPACK_IMPORTED_MODULE_11__.asMutable;
+ListPrototype['@@transducer/step'] = function (result, arr) {
+  return result.push(arr);
+};
+ListPrototype['@@transducer/result'] = function (obj) {
+  return obj.asImmutable();
+};
+
+var VNode = function VNode(array, ownerID) {
+  this.array = array;
+  this.ownerID = ownerID;
+};
+
+// TODO: seems like these methods are very similar
+
+VNode.prototype.removeBefore = function removeBefore (ownerID, level, index) {
+  if (index === level ? 1 << level : this.array.length === 0) {
+    return this;
+  }
+  var originIndex = (index >>> level) & _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.MASK;
+  if (originIndex >= this.array.length) {
+    return new VNode([], ownerID);
+  }
+  var removingFirst = originIndex === 0;
+  var newChild;
+  if (level > 0) {
+    var oldChild = this.array[originIndex];
+    newChild =
+      oldChild && oldChild.removeBefore(ownerID, level - _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT, index);
+    if (newChild === oldChild && removingFirst) {
+      return this;
+    }
+  }
+  if (removingFirst && !newChild) {
+    return this;
+  }
+  var editable = editableVNode(this, ownerID);
+  if (!removingFirst) {
+    for (var ii = 0; ii < originIndex; ii++) {
+      editable.array[ii] = undefined;
+    }
+  }
+  if (newChild) {
+    editable.array[originIndex] = newChild;
+  }
+  return editable;
+};
+
+VNode.prototype.removeAfter = function removeAfter (ownerID, level, index) {
+  if (index === (level ? 1 << level : 0) || this.array.length === 0) {
+    return this;
+  }
+  var sizeIndex = ((index - 1) >>> level) & _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.MASK;
+  if (sizeIndex >= this.array.length) {
+    return this;
+  }
+
+  var newChild;
+  if (level > 0) {
+    var oldChild = this.array[sizeIndex];
+    newChild =
+      oldChild && oldChild.removeAfter(ownerID, level - _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT, index);
+    if (newChild === oldChild && sizeIndex === this.array.length - 1) {
+      return this;
+    }
+  }
+
+  var editable = editableVNode(this, ownerID);
+  editable.array.splice(sizeIndex + 1);
+  if (newChild) {
+    editable.array[sizeIndex] = newChild;
+  }
+  return editable;
+};
+
+var DONE = {};
+
+function iterateList(list, reverse) {
+  var left = list._origin;
+  var right = list._capacity;
+  var tailPos = getTailOffset(right);
+  var tail = list._tail;
+
+  return iterateNodeOrLeaf(list._root, list._level, 0);
+
+  function iterateNodeOrLeaf(node, level, offset) {
+    return level === 0
+      ? iterateLeaf(node, offset)
+      : iterateNode(node, level, offset);
+  }
+
+  function iterateLeaf(node, offset) {
+    var array = offset === tailPos ? tail && tail.array : node && node.array;
+    var from = offset > left ? 0 : left - offset;
+    var to = right - offset;
+    if (to > _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SIZE) {
+      to = _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SIZE;
+    }
+    return function () {
+      if (from === to) {
+        return DONE;
+      }
+      var idx = reverse ? --to : from++;
+      return array && array[idx];
+    };
+  }
+
+  function iterateNode(node, level, offset) {
+    var values;
+    var array = node && node.array;
+    var from = offset > left ? 0 : (left - offset) >> level;
+    var to = ((right - offset) >> level) + 1;
+    if (to > _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SIZE) {
+      to = _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SIZE;
+    }
+    return function () {
+      while (true) {
+        if (values) {
+          var value = values();
+          if (value !== DONE) {
+            return value;
+          }
+          values = null;
+        }
+        if (from === to) {
+          return DONE;
+        }
+        var idx = reverse ? --to : from++;
+        values = iterateNodeOrLeaf(
+          array && array[idx],
+          level - _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT,
+          offset + (idx << level)
+        );
+      }
+    };
+  }
+}
+
+function makeList(origin, capacity, level, root, tail, ownerID, hash) {
+  var list = Object.create(ListPrototype);
+  list.size = capacity - origin;
+  list._origin = origin;
+  list._capacity = capacity;
+  list._level = level;
+  list._root = root;
+  list._tail = tail;
+  list.__ownerID = ownerID;
+  list.__hash = hash;
+  list.__altered = false;
+  return list;
+}
+
+var EMPTY_LIST;
+function emptyList() {
+  return EMPTY_LIST || (EMPTY_LIST = makeList(0, 0, _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT));
+}
+
+function updateList(list, index, value) {
+  index = (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.wrapIndex)(list, index);
+
+  if (index !== index) {
+    return list;
+  }
+
+  if (index >= list.size || index < 0) {
+    return list.withMutations(function (list) {
+      index < 0
+        ? setListBounds(list, index).set(0, value)
+        : setListBounds(list, 0, index + 1).set(index, value);
+    });
+  }
+
+  index += list._origin;
+
+  var newTail = list._tail;
+  var newRoot = list._root;
+  var didAlter = (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.MakeRef)();
+  if (index >= getTailOffset(list._capacity)) {
+    newTail = updateVNode(newTail, list.__ownerID, 0, index, value, didAlter);
+  } else {
+    newRoot = updateVNode(
+      newRoot,
+      list.__ownerID,
+      list._level,
+      index,
+      value,
+      didAlter
+    );
+  }
+
+  if (!didAlter.value) {
+    return list;
+  }
+
+  if (list.__ownerID) {
+    list._root = newRoot;
+    list._tail = newTail;
+    list.__hash = undefined;
+    list.__altered = true;
+    return list;
+  }
+  return makeList(list._origin, list._capacity, list._level, newRoot, newTail);
+}
+
+function updateVNode(node, ownerID, level, index, value, didAlter) {
+  var idx = (index >>> level) & _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.MASK;
+  var nodeHas = node && idx < node.array.length;
+  if (!nodeHas && value === undefined) {
+    return node;
+  }
+
+  var newNode;
+
+  if (level > 0) {
+    var lowerNode = node && node.array[idx];
+    var newLowerNode = updateVNode(
+      lowerNode,
+      ownerID,
+      level - _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT,
+      index,
+      value,
+      didAlter
+    );
+    if (newLowerNode === lowerNode) {
+      return node;
+    }
+    newNode = editableVNode(node, ownerID);
+    newNode.array[idx] = newLowerNode;
+    return newNode;
+  }
+
+  if (nodeHas && node.array[idx] === value) {
+    return node;
+  }
+
+  if (didAlter) {
+    (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SetRef)(didAlter);
+  }
+
+  newNode = editableVNode(node, ownerID);
+  if (value === undefined && idx === newNode.array.length - 1) {
+    newNode.array.pop();
+  } else {
+    newNode.array[idx] = value;
+  }
+  return newNode;
+}
+
+function editableVNode(node, ownerID) {
+  if (ownerID && node && ownerID === node.ownerID) {
+    return node;
+  }
+  return new VNode(node ? node.array.slice() : [], ownerID);
+}
+
+function listNodeFor(list, rawIndex) {
+  if (rawIndex >= getTailOffset(list._capacity)) {
+    return list._tail;
+  }
+  if (rawIndex < 1 << (list._level + _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT)) {
+    var node = list._root;
+    var level = list._level;
+    while (node && level > 0) {
+      node = node.array[(rawIndex >>> level) & _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.MASK];
+      level -= _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT;
+    }
+    return node;
+  }
+}
+
+function setListBounds(list, begin, end) {
+  // Sanitize begin & end using this shorthand for ToInt32(argument)
+  // http://www.ecma-international.org/ecma-262/6.0/#sec-toint32
+  if (begin !== undefined) {
+    begin |= 0;
+  }
+  if (end !== undefined) {
+    end |= 0;
+  }
+  var owner = list.__ownerID || new _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.OwnerID();
+  var oldOrigin = list._origin;
+  var oldCapacity = list._capacity;
+  var newOrigin = oldOrigin + begin;
+  var newCapacity =
+    end === undefined
+      ? oldCapacity
+      : end < 0
+      ? oldCapacity + end
+      : oldOrigin + end;
+  if (newOrigin === oldOrigin && newCapacity === oldCapacity) {
+    return list;
+  }
+
+  // If it's going to end after it starts, it's empty.
+  if (newOrigin >= newCapacity) {
+    return list.clear();
+  }
+
+  var newLevel = list._level;
+  var newRoot = list._root;
+
+  // New origin might need creating a higher root.
+  var offsetShift = 0;
+  while (newOrigin + offsetShift < 0) {
+    newRoot = new VNode(
+      newRoot && newRoot.array.length ? [undefined, newRoot] : [],
+      owner
+    );
+    newLevel += _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT;
+    offsetShift += 1 << newLevel;
+  }
+  if (offsetShift) {
+    newOrigin += offsetShift;
+    oldOrigin += offsetShift;
+    newCapacity += offsetShift;
+    oldCapacity += offsetShift;
+  }
+
+  var oldTailOffset = getTailOffset(oldCapacity);
+  var newTailOffset = getTailOffset(newCapacity);
+
+  // New size might need creating a higher root.
+  while (newTailOffset >= 1 << (newLevel + _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT)) {
+    newRoot = new VNode(
+      newRoot && newRoot.array.length ? [newRoot] : [],
+      owner
+    );
+    newLevel += _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT;
+  }
+
+  // Locate or create the new tail.
+  var oldTail = list._tail;
+  var newTail =
+    newTailOffset < oldTailOffset
+      ? listNodeFor(list, newCapacity - 1)
+      : newTailOffset > oldTailOffset
+      ? new VNode([], owner)
+      : oldTail;
+
+  // Merge Tail into tree.
+  if (
+    oldTail &&
+    newTailOffset > oldTailOffset &&
+    newOrigin < oldCapacity &&
+    oldTail.array.length
+  ) {
+    newRoot = editableVNode(newRoot, owner);
+    var node = newRoot;
+    for (var level = newLevel; level > _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT; level -= _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT) {
+      var idx = (oldTailOffset >>> level) & _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.MASK;
+      node = node.array[idx] = editableVNode(node.array[idx], owner);
+    }
+    node.array[(oldTailOffset >>> _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT) & _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.MASK] = oldTail;
+  }
+
+  // If the size has been reduced, there's a chance the tail needs to be trimmed.
+  if (newCapacity < oldCapacity) {
+    newTail = newTail && newTail.removeAfter(owner, 0, newCapacity);
+  }
+
+  // If the new origin is within the tail, then we do not need a root.
+  if (newOrigin >= newTailOffset) {
+    newOrigin -= newTailOffset;
+    newCapacity -= newTailOffset;
+    newLevel = _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT;
+    newRoot = null;
+    newTail = newTail && newTail.removeBefore(owner, 0, newOrigin);
+
+    // Otherwise, if the root has been trimmed, garbage collect.
+  } else if (newOrigin > oldOrigin || newTailOffset < oldTailOffset) {
+    offsetShift = 0;
+
+    // Identify the new top root node of the subtree of the old root.
+    while (newRoot) {
+      var beginIndex = (newOrigin >>> newLevel) & _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.MASK;
+      if ((beginIndex !== newTailOffset >>> newLevel) & _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.MASK) {
+        break;
+      }
+      if (beginIndex) {
+        offsetShift += (1 << newLevel) * beginIndex;
+      }
+      newLevel -= _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT;
+      newRoot = newRoot.array[beginIndex];
+    }
+
+    // Trim the new sides of the new root.
+    if (newRoot && newOrigin > oldOrigin) {
+      newRoot = newRoot.removeBefore(owner, newLevel, newOrigin - offsetShift);
+    }
+    if (newRoot && newTailOffset < oldTailOffset) {
+      newRoot = newRoot.removeAfter(
+        owner,
+        newLevel,
+        newTailOffset - offsetShift
+      );
+    }
+    if (offsetShift) {
+      newOrigin -= offsetShift;
+      newCapacity -= offsetShift;
+    }
+  }
+
+  if (list.__ownerID) {
+    list.size = newCapacity - newOrigin;
+    list._origin = newOrigin;
+    list._capacity = newCapacity;
+    list._level = newLevel;
+    list._root = newRoot;
+    list._tail = newTail;
+    list.__hash = undefined;
+    list.__altered = true;
+    return list;
+  }
+  return makeList(newOrigin, newCapacity, newLevel, newRoot, newTail);
+}
+
+function getTailOffset(size) {
+  return size < _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SIZE ? 0 : ((size - 1) >>> _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT) << _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.SHIFT;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/Map.js":
+/*!***********************************************!*\
+  !*** ./node_modules/immutable/dist/es/Map.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Map: () => (/* binding */ Map),
+/* harmony export */   emptyMap: () => (/* binding */ emptyMap)
+/* harmony export */ });
+/* harmony import */ var _is_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./is.js */ "./node_modules/immutable/dist/es/is.js");
+/* harmony import */ var _Collection_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Collection.js */ "./node_modules/immutable/dist/es/Collection.js");
+/* harmony import */ var _predicates_isMap_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./predicates/isMap.js */ "./node_modules/immutable/dist/es/predicates/isMap.js");
+/* harmony import */ var _predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./predicates/isOrdered.js */ "./node_modules/immutable/dist/es/predicates/isOrdered.js");
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/* harmony import */ var _Hash_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Hash.js */ "./node_modules/immutable/dist/es/Hash.js");
+/* harmony import */ var _Iterator_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Iterator.js */ "./node_modules/immutable/dist/es/Iterator.js");
+/* harmony import */ var _Operations_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Operations.js */ "./node_modules/immutable/dist/es/Operations.js");
+/* harmony import */ var _utils_arrCopy_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./utils/arrCopy.js */ "./node_modules/immutable/dist/es/utils/arrCopy.js");
+/* harmony import */ var _utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./utils/assertNotInfinite.js */ "./node_modules/immutable/dist/es/utils/assertNotInfinite.js");
+/* harmony import */ var _methods_setIn_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./methods/setIn.js */ "./node_modules/immutable/dist/es/methods/setIn.js");
+/* harmony import */ var _methods_deleteIn_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./methods/deleteIn.js */ "./node_modules/immutable/dist/es/methods/deleteIn.js");
+/* harmony import */ var _methods_update_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./methods/update.js */ "./node_modules/immutable/dist/es/methods/update.js");
+/* harmony import */ var _methods_updateIn_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./methods/updateIn.js */ "./node_modules/immutable/dist/es/methods/updateIn.js");
+/* harmony import */ var _methods_merge_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./methods/merge.js */ "./node_modules/immutable/dist/es/methods/merge.js");
+/* harmony import */ var _methods_mergeDeep_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./methods/mergeDeep.js */ "./node_modules/immutable/dist/es/methods/mergeDeep.js");
+/* harmony import */ var _methods_mergeIn_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./methods/mergeIn.js */ "./node_modules/immutable/dist/es/methods/mergeIn.js");
+/* harmony import */ var _methods_mergeDeepIn_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./methods/mergeDeepIn.js */ "./node_modules/immutable/dist/es/methods/mergeDeepIn.js");
+/* harmony import */ var _methods_withMutations_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./methods/withMutations.js */ "./node_modules/immutable/dist/es/methods/withMutations.js");
+/* harmony import */ var _methods_asMutable_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./methods/asMutable.js */ "./node_modules/immutable/dist/es/methods/asMutable.js");
+/* harmony import */ var _methods_asImmutable_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./methods/asImmutable.js */ "./node_modules/immutable/dist/es/methods/asImmutable.js");
+/* harmony import */ var _methods_wasAltered_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./methods/wasAltered.js */ "./node_modules/immutable/dist/es/methods/wasAltered.js");
+/* harmony import */ var _OrderedMap_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./OrderedMap.js */ "./node_modules/immutable/dist/es/OrderedMap.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var Map = /*@__PURE__*/(function (KeyedCollection) {
+  function Map(value) {
+    return value === undefined || value === null
+      ? emptyMap()
+      : (0,_predicates_isMap_js__WEBPACK_IMPORTED_MODULE_2__.isMap)(value) && !(0,_predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_3__.isOrdered)(value)
+      ? value
+      : emptyMap().withMutations(function (map) {
+          var iter = KeyedCollection(value);
+          (0,_utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_9__["default"])(iter.size);
+          iter.forEach(function (v, k) { return map.set(k, v); });
+        });
+  }
+
+  if ( KeyedCollection ) Map.__proto__ = KeyedCollection;
+  Map.prototype = Object.create( KeyedCollection && KeyedCollection.prototype );
+  Map.prototype.constructor = Map;
+
+  Map.of = function of () {
+    var keyValues = [], len = arguments.length;
+    while ( len-- ) keyValues[ len ] = arguments[ len ];
+
+    return emptyMap().withMutations(function (map) {
+      for (var i = 0; i < keyValues.length; i += 2) {
+        if (i + 1 >= keyValues.length) {
+          throw new Error('Missing value for key: ' + keyValues[i]);
+        }
+        map.set(keyValues[i], keyValues[i + 1]);
+      }
+    });
+  };
+
+  Map.prototype.toString = function toString () {
+    return this.__toString('Map {', '}');
+  };
+
+  // @pragma Access
+
+  Map.prototype.get = function get (k, notSetValue) {
+    return this._root
+      ? this._root.get(0, undefined, k, notSetValue)
+      : notSetValue;
+  };
+
+  // @pragma Modification
+
+  Map.prototype.set = function set (k, v) {
+    return updateMap(this, k, v);
+  };
+
+  Map.prototype.remove = function remove (k) {
+    return updateMap(this, k, _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.NOT_SET);
+  };
+
+  Map.prototype.deleteAll = function deleteAll (keys) {
+    var collection = (0,_Collection_js__WEBPACK_IMPORTED_MODULE_1__.Collection)(keys);
+
+    if (collection.size === 0) {
+      return this;
+    }
+
+    return this.withMutations(function (map) {
+      collection.forEach(function (key) { return map.remove(key); });
+    });
+  };
+
+  Map.prototype.clear = function clear () {
+    if (this.size === 0) {
+      return this;
+    }
+    if (this.__ownerID) {
+      this.size = 0;
+      this._root = null;
+      this.__hash = undefined;
+      this.__altered = true;
+      return this;
+    }
+    return emptyMap();
+  };
+
+  // @pragma Composition
+
+  Map.prototype.sort = function sort (comparator) {
+    // Late binding
+    return (0,_OrderedMap_js__WEBPACK_IMPORTED_MODULE_22__.OrderedMap)((0,_Operations_js__WEBPACK_IMPORTED_MODULE_7__.sortFactory)(this, comparator));
+  };
+
+  Map.prototype.sortBy = function sortBy (mapper, comparator) {
+    // Late binding
+    return (0,_OrderedMap_js__WEBPACK_IMPORTED_MODULE_22__.OrderedMap)((0,_Operations_js__WEBPACK_IMPORTED_MODULE_7__.sortFactory)(this, comparator, mapper));
+  };
+
+  Map.prototype.map = function map (mapper, context) {
+    var this$1$1 = this;
+
+    return this.withMutations(function (map) {
+      map.forEach(function (value, key) {
+        map.set(key, mapper.call(context, value, key, this$1$1));
+      });
+    });
+  };
+
+  // @pragma Mutability
+
+  Map.prototype.__iterator = function __iterator (type, reverse) {
+    return new MapIterator(this, type, reverse);
+  };
+
+  Map.prototype.__iterate = function __iterate (fn, reverse) {
+    var this$1$1 = this;
+
+    var iterations = 0;
+    this._root &&
+      this._root.iterate(function (entry) {
+        iterations++;
+        return fn(entry[1], entry[0], this$1$1);
+      }, reverse);
+    return iterations;
+  };
+
+  Map.prototype.__ensureOwner = function __ensureOwner (ownerID) {
+    if (ownerID === this.__ownerID) {
+      return this;
+    }
+    if (!ownerID) {
+      if (this.size === 0) {
+        return emptyMap();
+      }
+      this.__ownerID = ownerID;
+      this.__altered = false;
+      return this;
+    }
+    return makeMap(this.size, this._root, ownerID, this.__hash);
+  };
+
+  return Map;
+}(_Collection_js__WEBPACK_IMPORTED_MODULE_1__.KeyedCollection));
+
+Map.isMap = _predicates_isMap_js__WEBPACK_IMPORTED_MODULE_2__.isMap;
+
+var MapPrototype = Map.prototype;
+MapPrototype[_predicates_isMap_js__WEBPACK_IMPORTED_MODULE_2__.IS_MAP_SYMBOL] = true;
+MapPrototype[_TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.DELETE] = MapPrototype.remove;
+MapPrototype.removeAll = MapPrototype.deleteAll;
+MapPrototype.setIn = _methods_setIn_js__WEBPACK_IMPORTED_MODULE_10__.setIn;
+MapPrototype.removeIn = MapPrototype.deleteIn = _methods_deleteIn_js__WEBPACK_IMPORTED_MODULE_11__.deleteIn;
+MapPrototype.update = _methods_update_js__WEBPACK_IMPORTED_MODULE_12__.update;
+MapPrototype.updateIn = _methods_updateIn_js__WEBPACK_IMPORTED_MODULE_13__.updateIn;
+MapPrototype.merge = MapPrototype.concat = _methods_merge_js__WEBPACK_IMPORTED_MODULE_14__.merge;
+MapPrototype.mergeWith = _methods_merge_js__WEBPACK_IMPORTED_MODULE_14__.mergeWith;
+MapPrototype.mergeDeep = _methods_mergeDeep_js__WEBPACK_IMPORTED_MODULE_15__.mergeDeep;
+MapPrototype.mergeDeepWith = _methods_mergeDeep_js__WEBPACK_IMPORTED_MODULE_15__.mergeDeepWith;
+MapPrototype.mergeIn = _methods_mergeIn_js__WEBPACK_IMPORTED_MODULE_16__.mergeIn;
+MapPrototype.mergeDeepIn = _methods_mergeDeepIn_js__WEBPACK_IMPORTED_MODULE_17__.mergeDeepIn;
+MapPrototype.withMutations = _methods_withMutations_js__WEBPACK_IMPORTED_MODULE_18__.withMutations;
+MapPrototype.wasAltered = _methods_wasAltered_js__WEBPACK_IMPORTED_MODULE_21__.wasAltered;
+MapPrototype.asImmutable = _methods_asImmutable_js__WEBPACK_IMPORTED_MODULE_20__.asImmutable;
+MapPrototype['@@transducer/init'] = MapPrototype.asMutable = _methods_asMutable_js__WEBPACK_IMPORTED_MODULE_19__.asMutable;
+MapPrototype['@@transducer/step'] = function (result, arr) {
+  return result.set(arr[0], arr[1]);
+};
+MapPrototype['@@transducer/result'] = function (obj) {
+  return obj.asImmutable();
+};
+
+// #pragma Trie Nodes
+
+var ArrayMapNode = function ArrayMapNode(ownerID, entries) {
+  this.ownerID = ownerID;
+  this.entries = entries;
+};
+
+ArrayMapNode.prototype.get = function get (shift, keyHash, key, notSetValue) {
+  var entries = this.entries;
+  for (var ii = 0, len = entries.length; ii < len; ii++) {
+    if ((0,_is_js__WEBPACK_IMPORTED_MODULE_0__.is)(key, entries[ii][0])) {
+      return entries[ii][1];
+    }
+  }
+  return notSetValue;
+};
+
+ArrayMapNode.prototype.update = function update (ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+  var removed = value === _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.NOT_SET;
+
+  var entries = this.entries;
+  var idx = 0;
+  var len = entries.length;
+  for (; idx < len; idx++) {
+    if ((0,_is_js__WEBPACK_IMPORTED_MODULE_0__.is)(key, entries[idx][0])) {
+      break;
+    }
+  }
+  var exists = idx < len;
+
+  if (exists ? entries[idx][1] === value : removed) {
+    return this;
+  }
+
+  (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SetRef)(didAlter);
+  (removed || !exists) && (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SetRef)(didChangeSize);
+
+  if (removed && entries.length === 1) {
+    return; // undefined
+  }
+
+  if (!exists && !removed && entries.length >= MAX_ARRAY_MAP_SIZE) {
+    return createNodes(ownerID, entries, key, value);
+  }
+
+  var isEditable = ownerID && ownerID === this.ownerID;
+  var newEntries = isEditable ? entries : (0,_utils_arrCopy_js__WEBPACK_IMPORTED_MODULE_8__["default"])(entries);
+
+  if (exists) {
+    if (removed) {
+      idx === len - 1
+        ? newEntries.pop()
+        : (newEntries[idx] = newEntries.pop());
+    } else {
+      newEntries[idx] = [key, value];
+    }
+  } else {
+    newEntries.push([key, value]);
+  }
+
+  if (isEditable) {
+    this.entries = newEntries;
+    return this;
+  }
+
+  return new ArrayMapNode(ownerID, newEntries);
+};
+
+var BitmapIndexedNode = function BitmapIndexedNode(ownerID, bitmap, nodes) {
+  this.ownerID = ownerID;
+  this.bitmap = bitmap;
+  this.nodes = nodes;
+};
+
+BitmapIndexedNode.prototype.get = function get (shift, keyHash, key, notSetValue) {
+  if (keyHash === undefined) {
+    keyHash = (0,_Hash_js__WEBPACK_IMPORTED_MODULE_5__.hash)(key);
+  }
+  var bit = 1 << ((shift === 0 ? keyHash : keyHash >>> shift) & _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.MASK);
+  var bitmap = this.bitmap;
+  return (bitmap & bit) === 0
+    ? notSetValue
+    : this.nodes[popCount(bitmap & (bit - 1))].get(
+        shift + _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SHIFT,
+        keyHash,
+        key,
+        notSetValue
+      );
+};
+
+BitmapIndexedNode.prototype.update = function update (ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+  if (keyHash === undefined) {
+    keyHash = (0,_Hash_js__WEBPACK_IMPORTED_MODULE_5__.hash)(key);
+  }
+  var keyHashFrag = (shift === 0 ? keyHash : keyHash >>> shift) & _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.MASK;
+  var bit = 1 << keyHashFrag;
+  var bitmap = this.bitmap;
+  var exists = (bitmap & bit) !== 0;
+
+  if (!exists && value === _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.NOT_SET) {
+    return this;
+  }
+
+  var idx = popCount(bitmap & (bit - 1));
+  var nodes = this.nodes;
+  var node = exists ? nodes[idx] : undefined;
+  var newNode = updateNode(
+    node,
+    ownerID,
+    shift + _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SHIFT,
+    keyHash,
+    key,
+    value,
+    didChangeSize,
+    didAlter
+  );
+
+  if (newNode === node) {
+    return this;
+  }
+
+  if (!exists && newNode && nodes.length >= MAX_BITMAP_INDEXED_SIZE) {
+    return expandNodes(ownerID, nodes, bitmap, keyHashFrag, newNode);
+  }
+
+  if (
+    exists &&
+    !newNode &&
+    nodes.length === 2 &&
+    isLeafNode(nodes[idx ^ 1])
+  ) {
+    return nodes[idx ^ 1];
+  }
+
+  if (exists && newNode && nodes.length === 1 && isLeafNode(newNode)) {
+    return newNode;
+  }
+
+  var isEditable = ownerID && ownerID === this.ownerID;
+  var newBitmap = exists ? (newNode ? bitmap : bitmap ^ bit) : bitmap | bit;
+  var newNodes = exists
+    ? newNode
+      ? setAt(nodes, idx, newNode, isEditable)
+      : spliceOut(nodes, idx, isEditable)
+    : spliceIn(nodes, idx, newNode, isEditable);
+
+  if (isEditable) {
+    this.bitmap = newBitmap;
+    this.nodes = newNodes;
+    return this;
+  }
+
+  return new BitmapIndexedNode(ownerID, newBitmap, newNodes);
+};
+
+var HashArrayMapNode = function HashArrayMapNode(ownerID, count, nodes) {
+  this.ownerID = ownerID;
+  this.count = count;
+  this.nodes = nodes;
+};
+
+HashArrayMapNode.prototype.get = function get (shift, keyHash, key, notSetValue) {
+  if (keyHash === undefined) {
+    keyHash = (0,_Hash_js__WEBPACK_IMPORTED_MODULE_5__.hash)(key);
+  }
+  var idx = (shift === 0 ? keyHash : keyHash >>> shift) & _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.MASK;
+  var node = this.nodes[idx];
+  return node
+    ? node.get(shift + _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SHIFT, keyHash, key, notSetValue)
+    : notSetValue;
+};
+
+HashArrayMapNode.prototype.update = function update (ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+  if (keyHash === undefined) {
+    keyHash = (0,_Hash_js__WEBPACK_IMPORTED_MODULE_5__.hash)(key);
+  }
+  var idx = (shift === 0 ? keyHash : keyHash >>> shift) & _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.MASK;
+  var removed = value === _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.NOT_SET;
+  var nodes = this.nodes;
+  var node = nodes[idx];
+
+  if (removed && !node) {
+    return this;
+  }
+
+  var newNode = updateNode(
+    node,
+    ownerID,
+    shift + _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SHIFT,
+    keyHash,
+    key,
+    value,
+    didChangeSize,
+    didAlter
+  );
+  if (newNode === node) {
+    return this;
+  }
+
+  var newCount = this.count;
+  if (!node) {
+    newCount++;
+  } else if (!newNode) {
+    newCount--;
+    if (newCount < MIN_HASH_ARRAY_MAP_SIZE) {
+      return packNodes(ownerID, nodes, newCount, idx);
+    }
+  }
+
+  var isEditable = ownerID && ownerID === this.ownerID;
+  var newNodes = setAt(nodes, idx, newNode, isEditable);
+
+  if (isEditable) {
+    this.count = newCount;
+    this.nodes = newNodes;
+    return this;
+  }
+
+  return new HashArrayMapNode(ownerID, newCount, newNodes);
+};
+
+var HashCollisionNode = function HashCollisionNode(ownerID, keyHash, entries) {
+  this.ownerID = ownerID;
+  this.keyHash = keyHash;
+  this.entries = entries;
+};
+
+HashCollisionNode.prototype.get = function get (shift, keyHash, key, notSetValue) {
+  var entries = this.entries;
+  for (var ii = 0, len = entries.length; ii < len; ii++) {
+    if ((0,_is_js__WEBPACK_IMPORTED_MODULE_0__.is)(key, entries[ii][0])) {
+      return entries[ii][1];
+    }
+  }
+  return notSetValue;
+};
+
+HashCollisionNode.prototype.update = function update (ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+  if (keyHash === undefined) {
+    keyHash = (0,_Hash_js__WEBPACK_IMPORTED_MODULE_5__.hash)(key);
+  }
+
+  var removed = value === _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.NOT_SET;
+
+  if (keyHash !== this.keyHash) {
+    if (removed) {
+      return this;
+    }
+    (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SetRef)(didAlter);
+    (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SetRef)(didChangeSize);
+    return mergeIntoNode(this, ownerID, shift, keyHash, [key, value]);
+  }
+
+  var entries = this.entries;
+  var idx = 0;
+  var len = entries.length;
+  for (; idx < len; idx++) {
+    if ((0,_is_js__WEBPACK_IMPORTED_MODULE_0__.is)(key, entries[idx][0])) {
+      break;
+    }
+  }
+  var exists = idx < len;
+
+  if (exists ? entries[idx][1] === value : removed) {
+    return this;
+  }
+
+  (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SetRef)(didAlter);
+  (removed || !exists) && (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SetRef)(didChangeSize);
+
+  if (removed && len === 2) {
+    return new ValueNode(ownerID, this.keyHash, entries[idx ^ 1]);
+  }
+
+  var isEditable = ownerID && ownerID === this.ownerID;
+  var newEntries = isEditable ? entries : (0,_utils_arrCopy_js__WEBPACK_IMPORTED_MODULE_8__["default"])(entries);
+
+  if (exists) {
+    if (removed) {
+      idx === len - 1
+        ? newEntries.pop()
+        : (newEntries[idx] = newEntries.pop());
+    } else {
+      newEntries[idx] = [key, value];
+    }
+  } else {
+    newEntries.push([key, value]);
+  }
+
+  if (isEditable) {
+    this.entries = newEntries;
+    return this;
+  }
+
+  return new HashCollisionNode(ownerID, this.keyHash, newEntries);
+};
+
+var ValueNode = function ValueNode(ownerID, keyHash, entry) {
+  this.ownerID = ownerID;
+  this.keyHash = keyHash;
+  this.entry = entry;
+};
+
+ValueNode.prototype.get = function get (shift, keyHash, key, notSetValue) {
+  return (0,_is_js__WEBPACK_IMPORTED_MODULE_0__.is)(key, this.entry[0]) ? this.entry[1] : notSetValue;
+};
+
+ValueNode.prototype.update = function update (ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+  var removed = value === _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.NOT_SET;
+  var keyMatch = (0,_is_js__WEBPACK_IMPORTED_MODULE_0__.is)(key, this.entry[0]);
+  if (keyMatch ? value === this.entry[1] : removed) {
+    return this;
+  }
+
+  (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SetRef)(didAlter);
+
+  if (removed) {
+    (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SetRef)(didChangeSize);
+    return; // undefined
+  }
+
+  if (keyMatch) {
+    if (ownerID && ownerID === this.ownerID) {
+      this.entry[1] = value;
+      return this;
+    }
+    return new ValueNode(ownerID, this.keyHash, [key, value]);
+  }
+
+  (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SetRef)(didChangeSize);
+  return mergeIntoNode(this, ownerID, shift, (0,_Hash_js__WEBPACK_IMPORTED_MODULE_5__.hash)(key), [key, value]);
+};
+
+// #pragma Iterators
+
+ArrayMapNode.prototype.iterate = HashCollisionNode.prototype.iterate =
+  function (fn, reverse) {
+    var entries = this.entries;
+    for (var ii = 0, maxIndex = entries.length - 1; ii <= maxIndex; ii++) {
+      if (fn(entries[reverse ? maxIndex - ii : ii]) === false) {
+        return false;
+      }
+    }
+  };
+
+BitmapIndexedNode.prototype.iterate = HashArrayMapNode.prototype.iterate =
+  function (fn, reverse) {
+    var nodes = this.nodes;
+    for (var ii = 0, maxIndex = nodes.length - 1; ii <= maxIndex; ii++) {
+      var node = nodes[reverse ? maxIndex - ii : ii];
+      if (node && node.iterate(fn, reverse) === false) {
+        return false;
+      }
+    }
+  };
+
+// eslint-disable-next-line no-unused-vars
+ValueNode.prototype.iterate = function (fn, reverse) {
+  return fn(this.entry);
+};
+
+var MapIterator = /*@__PURE__*/(function (Iterator) {
+  function MapIterator(map, type, reverse) {
+    this._type = type;
+    this._reverse = reverse;
+    this._stack = map._root && mapIteratorFrame(map._root);
+  }
+
+  if ( Iterator ) MapIterator.__proto__ = Iterator;
+  MapIterator.prototype = Object.create( Iterator && Iterator.prototype );
+  MapIterator.prototype.constructor = MapIterator;
+
+  MapIterator.prototype.next = function next () {
+    var type = this._type;
+    var stack = this._stack;
+    while (stack) {
+      var node = stack.node;
+      var index = stack.index++;
+      var maxIndex = (void 0);
+      if (node.entry) {
+        if (index === 0) {
+          return mapIteratorValue(type, node.entry);
+        }
+      } else if (node.entries) {
+        maxIndex = node.entries.length - 1;
+        if (index <= maxIndex) {
+          return mapIteratorValue(
+            type,
+            node.entries[this._reverse ? maxIndex - index : index]
+          );
+        }
+      } else {
+        maxIndex = node.nodes.length - 1;
+        if (index <= maxIndex) {
+          var subNode = node.nodes[this._reverse ? maxIndex - index : index];
+          if (subNode) {
+            if (subNode.entry) {
+              return mapIteratorValue(type, subNode.entry);
+            }
+            stack = this._stack = mapIteratorFrame(subNode, stack);
+          }
+          continue;
+        }
+      }
+      stack = this._stack = this._stack.__prev;
+    }
+    return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_6__.iteratorDone)();
+  };
+
+  return MapIterator;
+}(_Iterator_js__WEBPACK_IMPORTED_MODULE_6__.Iterator));
+
+function mapIteratorValue(type, entry) {
+  return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_6__.iteratorValue)(type, entry[0], entry[1]);
+}
+
+function mapIteratorFrame(node, prev) {
+  return {
+    node: node,
+    index: 0,
+    __prev: prev,
+  };
+}
+
+function makeMap(size, root, ownerID, hash) {
+  var map = Object.create(MapPrototype);
+  map.size = size;
+  map._root = root;
+  map.__ownerID = ownerID;
+  map.__hash = hash;
+  map.__altered = false;
+  return map;
+}
+
+var EMPTY_MAP;
+function emptyMap() {
+  return EMPTY_MAP || (EMPTY_MAP = makeMap(0));
+}
+
+function updateMap(map, k, v) {
+  var newRoot;
+  var newSize;
+  if (!map._root) {
+    if (v === _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.NOT_SET) {
+      return map;
+    }
+    newSize = 1;
+    newRoot = new ArrayMapNode(map.__ownerID, [[k, v]]);
+  } else {
+    var didChangeSize = (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.MakeRef)();
+    var didAlter = (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.MakeRef)();
+    newRoot = updateNode(
+      map._root,
+      map.__ownerID,
+      0,
+      undefined,
+      k,
+      v,
+      didChangeSize,
+      didAlter
+    );
+    if (!didAlter.value) {
+      return map;
+    }
+    newSize = map.size + (didChangeSize.value ? (v === _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.NOT_SET ? -1 : 1) : 0);
+  }
+  if (map.__ownerID) {
+    map.size = newSize;
+    map._root = newRoot;
+    map.__hash = undefined;
+    map.__altered = true;
+    return map;
+  }
+  return newRoot ? makeMap(newSize, newRoot) : emptyMap();
+}
+
+function updateNode(
+  node,
+  ownerID,
+  shift,
+  keyHash,
+  key,
+  value,
+  didChangeSize,
+  didAlter
+) {
+  if (!node) {
+    if (value === _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.NOT_SET) {
+      return node;
+    }
+    (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SetRef)(didAlter);
+    (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SetRef)(didChangeSize);
+    return new ValueNode(ownerID, keyHash, [key, value]);
+  }
+  return node.update(
+    ownerID,
+    shift,
+    keyHash,
+    key,
+    value,
+    didChangeSize,
+    didAlter
+  );
+}
+
+function isLeafNode(node) {
+  return (
+    node.constructor === ValueNode || node.constructor === HashCollisionNode
+  );
+}
+
+function mergeIntoNode(node, ownerID, shift, keyHash, entry) {
+  if (node.keyHash === keyHash) {
+    return new HashCollisionNode(ownerID, keyHash, [node.entry, entry]);
+  }
+
+  var idx1 = (shift === 0 ? node.keyHash : node.keyHash >>> shift) & _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.MASK;
+  var idx2 = (shift === 0 ? keyHash : keyHash >>> shift) & _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.MASK;
+
+  var newNode;
+  var nodes =
+    idx1 === idx2
+      ? [mergeIntoNode(node, ownerID, shift + _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SHIFT, keyHash, entry)]
+      : ((newNode = new ValueNode(ownerID, keyHash, entry)),
+        idx1 < idx2 ? [node, newNode] : [newNode, node]);
+
+  return new BitmapIndexedNode(ownerID, (1 << idx1) | (1 << idx2), nodes);
+}
+
+function createNodes(ownerID, entries, key, value) {
+  if (!ownerID) {
+    ownerID = new _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.OwnerID();
+  }
+  var node = new ValueNode(ownerID, (0,_Hash_js__WEBPACK_IMPORTED_MODULE_5__.hash)(key), [key, value]);
+  for (var ii = 0; ii < entries.length; ii++) {
+    var entry = entries[ii];
+    node = node.update(ownerID, 0, undefined, entry[0], entry[1]);
+  }
+  return node;
+}
+
+function packNodes(ownerID, nodes, count, excluding) {
+  var bitmap = 0;
+  var packedII = 0;
+  var packedNodes = new Array(count);
+  for (var ii = 0, bit = 1, len = nodes.length; ii < len; ii++, bit <<= 1) {
+    var node = nodes[ii];
+    if (node !== undefined && ii !== excluding) {
+      bitmap |= bit;
+      packedNodes[packedII++] = node;
+    }
+  }
+  return new BitmapIndexedNode(ownerID, bitmap, packedNodes);
+}
+
+function expandNodes(ownerID, nodes, bitmap, including, node) {
+  var count = 0;
+  var expandedNodes = new Array(_TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SIZE);
+  for (var ii = 0; bitmap !== 0; ii++, bitmap >>>= 1) {
+    expandedNodes[ii] = bitmap & 1 ? nodes[count++] : undefined;
+  }
+  expandedNodes[including] = node;
+  return new HashArrayMapNode(ownerID, count + 1, expandedNodes);
+}
+
+function popCount(x) {
+  x -= (x >> 1) & 0x55555555;
+  x = (x & 0x33333333) + ((x >> 2) & 0x33333333);
+  x = (x + (x >> 4)) & 0x0f0f0f0f;
+  x += x >> 8;
+  x += x >> 16;
+  return x & 0x7f;
+}
+
+function setAt(array, idx, val, canEdit) {
+  var newArray = canEdit ? array : (0,_utils_arrCopy_js__WEBPACK_IMPORTED_MODULE_8__["default"])(array);
+  newArray[idx] = val;
+  return newArray;
+}
+
+function spliceIn(array, idx, val, canEdit) {
+  var newLen = array.length + 1;
+  if (canEdit && idx + 1 === newLen) {
+    array[idx] = val;
+    return array;
+  }
+  var newArray = new Array(newLen);
+  var after = 0;
+  for (var ii = 0; ii < newLen; ii++) {
+    if (ii === idx) {
+      newArray[ii] = val;
+      after = -1;
+    } else {
+      newArray[ii] = array[ii + after];
+    }
+  }
+  return newArray;
+}
+
+function spliceOut(array, idx, canEdit) {
+  var newLen = array.length - 1;
+  if (canEdit && idx === newLen) {
+    array.pop();
+    return array;
+  }
+  var newArray = new Array(newLen);
+  var after = 0;
+  for (var ii = 0; ii < newLen; ii++) {
+    if (ii === idx) {
+      after = 1;
+    }
+    newArray[ii] = array[ii + after];
+  }
+  return newArray;
+}
+
+var MAX_ARRAY_MAP_SIZE = _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SIZE / 4;
+var MAX_BITMAP_INDEXED_SIZE = _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SIZE / 2;
+var MIN_HASH_ARRAY_MAP_SIZE = _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.SIZE / 4;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/Math.js":
+/*!************************************************!*\
+  !*** ./node_modules/immutable/dist/es/Math.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   imul: () => (/* binding */ imul),
+/* harmony export */   smi: () => (/* binding */ smi)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var imul =
+  typeof Math.imul === 'function' && Math.imul(0xffffffff, 2) === -2
+    ? Math.imul
+    : function imul(a, b) {
+        a |= 0; // int
+        b |= 0; // int
+        var c = a & 0xffff;
+        var d = b & 0xffff;
+        // Shift by 0 fixes the sign on the high part.
+        return (c * d + ((((a >>> 16) * d + c * (b >>> 16)) << 16) >>> 0)) | 0; // int
+      };
+
+// v8 has an optimization for storing 31-bit signed numbers.
+// Values which have either 00 or 11 as the high order bits qualify.
+// This function drops the highest order bit in a signed number, maintaining
+// the sign bit.
+function smi(i32) {
+  return ((i32 >>> 1) & 0x40000000) | (i32 & 0xbfffffff);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/Operations.js":
+/*!******************************************************!*\
+  !*** ./node_modules/immutable/dist/es/Operations.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FromEntriesSequence: () => (/* binding */ FromEntriesSequence),
+/* harmony export */   ToIndexedSequence: () => (/* binding */ ToIndexedSequence),
+/* harmony export */   ToKeyedSequence: () => (/* binding */ ToKeyedSequence),
+/* harmony export */   ToSetSequence: () => (/* binding */ ToSetSequence),
+/* harmony export */   concatFactory: () => (/* binding */ concatFactory),
+/* harmony export */   countByFactory: () => (/* binding */ countByFactory),
+/* harmony export */   filterFactory: () => (/* binding */ filterFactory),
+/* harmony export */   flatMapFactory: () => (/* binding */ flatMapFactory),
+/* harmony export */   flattenFactory: () => (/* binding */ flattenFactory),
+/* harmony export */   flipFactory: () => (/* binding */ flipFactory),
+/* harmony export */   groupByFactory: () => (/* binding */ groupByFactory),
+/* harmony export */   interposeFactory: () => (/* binding */ interposeFactory),
+/* harmony export */   mapFactory: () => (/* binding */ mapFactory),
+/* harmony export */   maxFactory: () => (/* binding */ maxFactory),
+/* harmony export */   partitionFactory: () => (/* binding */ partitionFactory),
+/* harmony export */   reify: () => (/* binding */ reify),
+/* harmony export */   reverseFactory: () => (/* binding */ reverseFactory),
+/* harmony export */   skipWhileFactory: () => (/* binding */ skipWhileFactory),
+/* harmony export */   sliceFactory: () => (/* binding */ sliceFactory),
+/* harmony export */   sortFactory: () => (/* binding */ sortFactory),
+/* harmony export */   takeWhileFactory: () => (/* binding */ takeWhileFactory),
+/* harmony export */   zipWithFactory: () => (/* binding */ zipWithFactory)
+/* harmony export */ });
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/* harmony import */ var _Collection_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Collection.js */ "./node_modules/immutable/dist/es/Collection.js");
+/* harmony import */ var _predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./predicates/isCollection.js */ "./node_modules/immutable/dist/es/predicates/isCollection.js");
+/* harmony import */ var _predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./predicates/isKeyed.js */ "./node_modules/immutable/dist/es/predicates/isKeyed.js");
+/* harmony import */ var _predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./predicates/isIndexed.js */ "./node_modules/immutable/dist/es/predicates/isIndexed.js");
+/* harmony import */ var _predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./predicates/isOrdered.js */ "./node_modules/immutable/dist/es/predicates/isOrdered.js");
+/* harmony import */ var _predicates_isSeq_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./predicates/isSeq.js */ "./node_modules/immutable/dist/es/predicates/isSeq.js");
+/* harmony import */ var _Iterator_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Iterator.js */ "./node_modules/immutable/dist/es/Iterator.js");
+/* harmony import */ var _Seq_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Seq.js */ "./node_modules/immutable/dist/es/Seq.js");
+/* harmony import */ var _Map_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Map.js */ "./node_modules/immutable/dist/es/Map.js");
+/* harmony import */ var _OrderedMap_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./OrderedMap.js */ "./node_modules/immutable/dist/es/OrderedMap.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+var ToKeyedSequence = /*@__PURE__*/(function (KeyedSeq) {
+  function ToKeyedSequence(indexed, useKeys) {
+    this._iter = indexed;
+    this._useKeys = useKeys;
+    this.size = indexed.size;
+  }
+
+  if ( KeyedSeq ) ToKeyedSequence.__proto__ = KeyedSeq;
+  ToKeyedSequence.prototype = Object.create( KeyedSeq && KeyedSeq.prototype );
+  ToKeyedSequence.prototype.constructor = ToKeyedSequence;
+
+  ToKeyedSequence.prototype.get = function get (key, notSetValue) {
+    return this._iter.get(key, notSetValue);
+  };
+
+  ToKeyedSequence.prototype.has = function has (key) {
+    return this._iter.has(key);
+  };
+
+  ToKeyedSequence.prototype.valueSeq = function valueSeq () {
+    return this._iter.valueSeq();
+  };
+
+  ToKeyedSequence.prototype.reverse = function reverse () {
+    var this$1$1 = this;
+
+    var reversedSequence = reverseFactory(this, true);
+    if (!this._useKeys) {
+      reversedSequence.valueSeq = function () { return this$1$1._iter.toSeq().reverse(); };
+    }
+    return reversedSequence;
+  };
+
+  ToKeyedSequence.prototype.map = function map (mapper, context) {
+    var this$1$1 = this;
+
+    var mappedSequence = mapFactory(this, mapper, context);
+    if (!this._useKeys) {
+      mappedSequence.valueSeq = function () { return this$1$1._iter.toSeq().map(mapper, context); };
+    }
+    return mappedSequence;
+  };
+
+  ToKeyedSequence.prototype.__iterate = function __iterate (fn, reverse) {
+    var this$1$1 = this;
+
+    return this._iter.__iterate(function (v, k) { return fn(v, k, this$1$1); }, reverse);
+  };
+
+  ToKeyedSequence.prototype.__iterator = function __iterator (type, reverse) {
+    return this._iter.__iterator(type, reverse);
+  };
+
+  return ToKeyedSequence;
+}(_Seq_js__WEBPACK_IMPORTED_MODULE_8__.KeyedSeq));
+ToKeyedSequence.prototype[_predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_5__.IS_ORDERED_SYMBOL] = true;
+
+var ToIndexedSequence = /*@__PURE__*/(function (IndexedSeq) {
+  function ToIndexedSequence(iter) {
+    this._iter = iter;
+    this.size = iter.size;
+  }
+
+  if ( IndexedSeq ) ToIndexedSequence.__proto__ = IndexedSeq;
+  ToIndexedSequence.prototype = Object.create( IndexedSeq && IndexedSeq.prototype );
+  ToIndexedSequence.prototype.constructor = ToIndexedSequence;
+
+  ToIndexedSequence.prototype.includes = function includes (value) {
+    return this._iter.includes(value);
+  };
+
+  ToIndexedSequence.prototype.__iterate = function __iterate (fn, reverse) {
+    var this$1$1 = this;
+
+    var i = 0;
+    reverse && (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.ensureSize)(this);
+    return this._iter.__iterate(
+      function (v) { return fn(v, reverse ? this$1$1.size - ++i : i++, this$1$1); },
+      reverse
+    );
+  };
+
+  ToIndexedSequence.prototype.__iterator = function __iterator (type, reverse) {
+    var this$1$1 = this;
+
+    var iterator = this._iter.__iterator(_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_VALUES, reverse);
+    var i = 0;
+    reverse && (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.ensureSize)(this);
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.Iterator(function () {
+      var step = iterator.next();
+      return step.done
+        ? step
+        : (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorValue)(
+            type,
+            reverse ? this$1$1.size - ++i : i++,
+            step.value,
+            step
+          );
+    });
+  };
+
+  return ToIndexedSequence;
+}(_Seq_js__WEBPACK_IMPORTED_MODULE_8__.IndexedSeq));
+
+var ToSetSequence = /*@__PURE__*/(function (SetSeq) {
+  function ToSetSequence(iter) {
+    this._iter = iter;
+    this.size = iter.size;
+  }
+
+  if ( SetSeq ) ToSetSequence.__proto__ = SetSeq;
+  ToSetSequence.prototype = Object.create( SetSeq && SetSeq.prototype );
+  ToSetSequence.prototype.constructor = ToSetSequence;
+
+  ToSetSequence.prototype.has = function has (key) {
+    return this._iter.includes(key);
+  };
+
+  ToSetSequence.prototype.__iterate = function __iterate (fn, reverse) {
+    var this$1$1 = this;
+
+    return this._iter.__iterate(function (v) { return fn(v, v, this$1$1); }, reverse);
+  };
+
+  ToSetSequence.prototype.__iterator = function __iterator (type, reverse) {
+    var iterator = this._iter.__iterator(_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_VALUES, reverse);
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.Iterator(function () {
+      var step = iterator.next();
+      return step.done
+        ? step
+        : (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorValue)(type, step.value, step.value, step);
+    });
+  };
+
+  return ToSetSequence;
+}(_Seq_js__WEBPACK_IMPORTED_MODULE_8__.SetSeq));
+
+var FromEntriesSequence = /*@__PURE__*/(function (KeyedSeq) {
+  function FromEntriesSequence(entries) {
+    this._iter = entries;
+    this.size = entries.size;
+  }
+
+  if ( KeyedSeq ) FromEntriesSequence.__proto__ = KeyedSeq;
+  FromEntriesSequence.prototype = Object.create( KeyedSeq && KeyedSeq.prototype );
+  FromEntriesSequence.prototype.constructor = FromEntriesSequence;
+
+  FromEntriesSequence.prototype.entrySeq = function entrySeq () {
+    return this._iter.toSeq();
+  };
+
+  FromEntriesSequence.prototype.__iterate = function __iterate (fn, reverse) {
+    var this$1$1 = this;
+
+    return this._iter.__iterate(function (entry) {
+      // Check if entry exists first so array access doesn't throw for holes
+      // in the parent iteration.
+      if (entry) {
+        validateEntry(entry);
+        var indexedCollection = (0,_predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_2__.isCollection)(entry);
+        return fn(
+          indexedCollection ? entry.get(1) : entry[1],
+          indexedCollection ? entry.get(0) : entry[0],
+          this$1$1
+        );
+      }
+    }, reverse);
+  };
+
+  FromEntriesSequence.prototype.__iterator = function __iterator (type, reverse) {
+    var iterator = this._iter.__iterator(_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_VALUES, reverse);
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.Iterator(function () {
+      while (true) {
+        var step = iterator.next();
+        if (step.done) {
+          return step;
+        }
+        var entry = step.value;
+        // Check if entry exists first so array access doesn't throw for holes
+        // in the parent iteration.
+        if (entry) {
+          validateEntry(entry);
+          var indexedCollection = (0,_predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_2__.isCollection)(entry);
+          return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorValue)(
+            type,
+            indexedCollection ? entry.get(0) : entry[0],
+            indexedCollection ? entry.get(1) : entry[1],
+            step
+          );
+        }
+      }
+    });
+  };
+
+  return FromEntriesSequence;
+}(_Seq_js__WEBPACK_IMPORTED_MODULE_8__.KeyedSeq));
+
+ToIndexedSequence.prototype.cacheResult =
+  ToKeyedSequence.prototype.cacheResult =
+  ToSetSequence.prototype.cacheResult =
+  FromEntriesSequence.prototype.cacheResult =
+    cacheResultThrough;
+
+function flipFactory(collection) {
+  var flipSequence = makeSequence(collection);
+  flipSequence._iter = collection;
+  flipSequence.size = collection.size;
+  flipSequence.flip = function () { return collection; };
+  flipSequence.reverse = function () {
+    var reversedSequence = collection.reverse.apply(this); // super.reverse()
+    reversedSequence.flip = function () { return collection.reverse(); };
+    return reversedSequence;
+  };
+  flipSequence.has = function (key) { return collection.includes(key); };
+  flipSequence.includes = function (key) { return collection.has(key); };
+  flipSequence.cacheResult = cacheResultThrough;
+  flipSequence.__iterateUncached = function (fn, reverse) {
+    var this$1$1 = this;
+
+    return collection.__iterate(function (v, k) { return fn(k, v, this$1$1) !== false; }, reverse);
+  };
+  flipSequence.__iteratorUncached = function (type, reverse) {
+    if (type === _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_ENTRIES) {
+      var iterator = collection.__iterator(type, reverse);
+      return new _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.Iterator(function () {
+        var step = iterator.next();
+        if (!step.done) {
+          var k = step.value[0];
+          step.value[0] = step.value[1];
+          step.value[1] = k;
+        }
+        return step;
+      });
+    }
+    return collection.__iterator(
+      type === _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_VALUES ? _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_KEYS : _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_VALUES,
+      reverse
+    );
+  };
+  return flipSequence;
+}
+
+function mapFactory(collection, mapper, context) {
+  var mappedSequence = makeSequence(collection);
+  mappedSequence.size = collection.size;
+  mappedSequence.has = function (key) { return collection.has(key); };
+  mappedSequence.get = function (key, notSetValue) {
+    var v = collection.get(key, _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.NOT_SET);
+    return v === _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.NOT_SET
+      ? notSetValue
+      : mapper.call(context, v, key, collection);
+  };
+  mappedSequence.__iterateUncached = function (fn, reverse) {
+    var this$1$1 = this;
+
+    return collection.__iterate(
+      function (v, k, c) { return fn(mapper.call(context, v, k, c), k, this$1$1) !== false; },
+      reverse
+    );
+  };
+  mappedSequence.__iteratorUncached = function (type, reverse) {
+    var iterator = collection.__iterator(_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_ENTRIES, reverse);
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.Iterator(function () {
+      var step = iterator.next();
+      if (step.done) {
+        return step;
+      }
+      var entry = step.value;
+      var key = entry[0];
+      return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorValue)(
+        type,
+        key,
+        mapper.call(context, entry[1], key, collection),
+        step
+      );
+    });
+  };
+  return mappedSequence;
+}
+
+function reverseFactory(collection, useKeys) {
+  var this$1$1 = this;
+
+  var reversedSequence = makeSequence(collection);
+  reversedSequence._iter = collection;
+  reversedSequence.size = collection.size;
+  reversedSequence.reverse = function () { return collection; };
+  if (collection.flip) {
+    reversedSequence.flip = function () {
+      var flipSequence = flipFactory(collection);
+      flipSequence.reverse = function () { return collection.flip(); };
+      return flipSequence;
+    };
+  }
+  reversedSequence.get = function (key, notSetValue) { return collection.get(useKeys ? key : -1 - key, notSetValue); };
+  reversedSequence.has = function (key) { return collection.has(useKeys ? key : -1 - key); };
+  reversedSequence.includes = function (value) { return collection.includes(value); };
+  reversedSequence.cacheResult = cacheResultThrough;
+  reversedSequence.__iterate = function (fn, reverse) {
+    var this$1$1 = this;
+
+    var i = 0;
+    reverse && (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.ensureSize)(collection);
+    return collection.__iterate(
+      function (v, k) { return fn(v, useKeys ? k : reverse ? this$1$1.size - ++i : i++, this$1$1); },
+      !reverse
+    );
+  };
+  reversedSequence.__iterator = function (type, reverse) {
+    var i = 0;
+    reverse && (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.ensureSize)(collection);
+    var iterator = collection.__iterator(_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_ENTRIES, !reverse);
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.Iterator(function () {
+      var step = iterator.next();
+      if (step.done) {
+        return step;
+      }
+      var entry = step.value;
+      return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorValue)(
+        type,
+        useKeys ? entry[0] : reverse ? this$1$1.size - ++i : i++,
+        entry[1],
+        step
+      );
+    });
+  };
+  return reversedSequence;
+}
+
+function filterFactory(collection, predicate, context, useKeys) {
+  var filterSequence = makeSequence(collection);
+  if (useKeys) {
+    filterSequence.has = function (key) {
+      var v = collection.get(key, _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.NOT_SET);
+      return v !== _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.NOT_SET && !!predicate.call(context, v, key, collection);
+    };
+    filterSequence.get = function (key, notSetValue) {
+      var v = collection.get(key, _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.NOT_SET);
+      return v !== _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.NOT_SET && predicate.call(context, v, key, collection)
+        ? v
+        : notSetValue;
+    };
+  }
+  filterSequence.__iterateUncached = function (fn, reverse) {
+    var this$1$1 = this;
+
+    var iterations = 0;
+    collection.__iterate(function (v, k, c) {
+      if (predicate.call(context, v, k, c)) {
+        iterations++;
+        return fn(v, useKeys ? k : iterations - 1, this$1$1);
+      }
+    }, reverse);
+    return iterations;
+  };
+  filterSequence.__iteratorUncached = function (type, reverse) {
+    var iterator = collection.__iterator(_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_ENTRIES, reverse);
+    var iterations = 0;
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.Iterator(function () {
+      while (true) {
+        var step = iterator.next();
+        if (step.done) {
+          return step;
+        }
+        var entry = step.value;
+        var key = entry[0];
+        var value = entry[1];
+        if (predicate.call(context, value, key, collection)) {
+          return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorValue)(type, useKeys ? key : iterations++, value, step);
+        }
+      }
+    });
+  };
+  return filterSequence;
+}
+
+function countByFactory(collection, grouper, context) {
+  var groups = (0,_Map_js__WEBPACK_IMPORTED_MODULE_9__.Map)().asMutable();
+  collection.__iterate(function (v, k) {
+    groups.update(grouper.call(context, v, k, collection), 0, function (a) { return a + 1; });
+  });
+  return groups.asImmutable();
+}
+
+function groupByFactory(collection, grouper, context) {
+  var isKeyedIter = (0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.isKeyed)(collection);
+  var groups = ((0,_predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_5__.isOrdered)(collection) ? (0,_OrderedMap_js__WEBPACK_IMPORTED_MODULE_10__.OrderedMap)() : (0,_Map_js__WEBPACK_IMPORTED_MODULE_9__.Map)()).asMutable();
+  collection.__iterate(function (v, k) {
+    groups.update(
+      grouper.call(context, v, k, collection),
+      function (a) { return ((a = a || []), a.push(isKeyedIter ? [k, v] : v), a); }
+    );
+  });
+  var coerce = collectionClass(collection);
+  return groups.map(function (arr) { return reify(collection, coerce(arr)); }).asImmutable();
+}
+
+function partitionFactory(collection, predicate, context) {
+  var isKeyedIter = (0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.isKeyed)(collection);
+  var groups = [[], []];
+  collection.__iterate(function (v, k) {
+    groups[predicate.call(context, v, k, collection) ? 1 : 0].push(
+      isKeyedIter ? [k, v] : v
+    );
+  });
+  var coerce = collectionClass(collection);
+  return groups.map(function (arr) { return reify(collection, coerce(arr)); });
+}
+
+function sliceFactory(collection, begin, end, useKeys) {
+  var originalSize = collection.size;
+
+  if ((0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.wholeSlice)(begin, end, originalSize)) {
+    return collection;
+  }
+
+  var resolvedBegin = (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.resolveBegin)(begin, originalSize);
+  var resolvedEnd = (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.resolveEnd)(end, originalSize);
+
+  // begin or end will be NaN if they were provided as negative numbers and
+  // this collection's size is unknown. In that case, cache first so there is
+  // a known size and these do not resolve to NaN.
+  if (resolvedBegin !== resolvedBegin || resolvedEnd !== resolvedEnd) {
+    return sliceFactory(collection.toSeq().cacheResult(), begin, end, useKeys);
+  }
+
+  // Note: resolvedEnd is undefined when the original sequence's length is
+  // unknown and this slice did not supply an end and should contain all
+  // elements after resolvedBegin.
+  // In that case, resolvedSize will be NaN and sliceSize will remain undefined.
+  var resolvedSize = resolvedEnd - resolvedBegin;
+  var sliceSize;
+  if (resolvedSize === resolvedSize) {
+    sliceSize = resolvedSize < 0 ? 0 : resolvedSize;
+  }
+
+  var sliceSeq = makeSequence(collection);
+
+  // If collection.size is undefined, the size of the realized sliceSeq is
+  // unknown at this point unless the number of items to slice is 0
+  sliceSeq.size =
+    sliceSize === 0 ? sliceSize : (collection.size && sliceSize) || undefined;
+
+  if (!useKeys && (0,_predicates_isSeq_js__WEBPACK_IMPORTED_MODULE_6__.isSeq)(collection) && sliceSize >= 0) {
+    sliceSeq.get = function (index, notSetValue) {
+      index = (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.wrapIndex)(this, index);
+      return index >= 0 && index < sliceSize
+        ? collection.get(index + resolvedBegin, notSetValue)
+        : notSetValue;
+    };
+  }
+
+  sliceSeq.__iterateUncached = function (fn, reverse) {
+    var this$1$1 = this;
+
+    if (sliceSize === 0) {
+      return 0;
+    }
+    if (reverse) {
+      return this.cacheResult().__iterate(fn, reverse);
+    }
+    var skipped = 0;
+    var isSkipping = true;
+    var iterations = 0;
+    collection.__iterate(function (v, k) {
+      if (!(isSkipping && (isSkipping = skipped++ < resolvedBegin))) {
+        iterations++;
+        return (
+          fn(v, useKeys ? k : iterations - 1, this$1$1) !== false &&
+          iterations !== sliceSize
+        );
+      }
+    });
+    return iterations;
+  };
+
+  sliceSeq.__iteratorUncached = function (type, reverse) {
+    if (sliceSize !== 0 && reverse) {
+      return this.cacheResult().__iterator(type, reverse);
+    }
+    // Don't bother instantiating parent iterator if taking 0.
+    if (sliceSize === 0) {
+      return new _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.Iterator(_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorDone);
+    }
+    var iterator = collection.__iterator(type, reverse);
+    var skipped = 0;
+    var iterations = 0;
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.Iterator(function () {
+      while (skipped++ < resolvedBegin) {
+        iterator.next();
+      }
+      if (++iterations > sliceSize) {
+        return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorDone)();
+      }
+      var step = iterator.next();
+      if (useKeys || type === _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_VALUES || step.done) {
+        return step;
+      }
+      if (type === _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_KEYS) {
+        return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorValue)(type, iterations - 1, undefined, step);
+      }
+      return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorValue)(type, iterations - 1, step.value[1], step);
+    });
+  };
+
+  return sliceSeq;
+}
+
+function takeWhileFactory(collection, predicate, context) {
+  var takeSequence = makeSequence(collection);
+  takeSequence.__iterateUncached = function (fn, reverse) {
+    var this$1$1 = this;
+
+    if (reverse) {
+      return this.cacheResult().__iterate(fn, reverse);
+    }
+    var iterations = 0;
+    collection.__iterate(
+      function (v, k, c) { return predicate.call(context, v, k, c) && ++iterations && fn(v, k, this$1$1); }
+    );
+    return iterations;
+  };
+  takeSequence.__iteratorUncached = function (type, reverse) {
+    var this$1$1 = this;
+
+    if (reverse) {
+      return this.cacheResult().__iterator(type, reverse);
+    }
+    var iterator = collection.__iterator(_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_ENTRIES, reverse);
+    var iterating = true;
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.Iterator(function () {
+      if (!iterating) {
+        return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorDone)();
+      }
+      var step = iterator.next();
+      if (step.done) {
+        return step;
+      }
+      var entry = step.value;
+      var k = entry[0];
+      var v = entry[1];
+      if (!predicate.call(context, v, k, this$1$1)) {
+        iterating = false;
+        return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorDone)();
+      }
+      return type === _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_ENTRIES ? step : (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorValue)(type, k, v, step);
+    });
+  };
+  return takeSequence;
+}
+
+function skipWhileFactory(collection, predicate, context, useKeys) {
+  var skipSequence = makeSequence(collection);
+  skipSequence.__iterateUncached = function (fn, reverse) {
+    var this$1$1 = this;
+
+    if (reverse) {
+      return this.cacheResult().__iterate(fn, reverse);
+    }
+    var isSkipping = true;
+    var iterations = 0;
+    collection.__iterate(function (v, k, c) {
+      if (!(isSkipping && (isSkipping = predicate.call(context, v, k, c)))) {
+        iterations++;
+        return fn(v, useKeys ? k : iterations - 1, this$1$1);
+      }
+    });
+    return iterations;
+  };
+  skipSequence.__iteratorUncached = function (type, reverse) {
+    var this$1$1 = this;
+
+    if (reverse) {
+      return this.cacheResult().__iterator(type, reverse);
+    }
+    var iterator = collection.__iterator(_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_ENTRIES, reverse);
+    var skipping = true;
+    var iterations = 0;
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.Iterator(function () {
+      var step;
+      var k;
+      var v;
+      do {
+        step = iterator.next();
+        if (step.done) {
+          if (useKeys || type === _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_VALUES) {
+            return step;
+          }
+          if (type === _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_KEYS) {
+            return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorValue)(type, iterations++, undefined, step);
+          }
+          return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorValue)(type, iterations++, step.value[1], step);
+        }
+        var entry = step.value;
+        k = entry[0];
+        v = entry[1];
+        skipping && (skipping = predicate.call(context, v, k, this$1$1));
+      } while (skipping);
+      return type === _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_ENTRIES ? step : (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorValue)(type, k, v, step);
+    });
+  };
+  return skipSequence;
+}
+
+function concatFactory(collection, values) {
+  var isKeyedCollection = (0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.isKeyed)(collection);
+  var iters = [collection]
+    .concat(values)
+    .map(function (v) {
+      if (!(0,_predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_2__.isCollection)(v)) {
+        v = isKeyedCollection
+          ? (0,_Seq_js__WEBPACK_IMPORTED_MODULE_8__.keyedSeqFromValue)(v)
+          : (0,_Seq_js__WEBPACK_IMPORTED_MODULE_8__.indexedSeqFromValue)(Array.isArray(v) ? v : [v]);
+      } else if (isKeyedCollection) {
+        v = (0,_Collection_js__WEBPACK_IMPORTED_MODULE_1__.KeyedCollection)(v);
+      }
+      return v;
+    })
+    .filter(function (v) { return v.size !== 0; });
+
+  if (iters.length === 0) {
+    return collection;
+  }
+
+  if (iters.length === 1) {
+    var singleton = iters[0];
+    if (
+      singleton === collection ||
+      (isKeyedCollection && (0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.isKeyed)(singleton)) ||
+      ((0,_predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_4__.isIndexed)(collection) && (0,_predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_4__.isIndexed)(singleton))
+    ) {
+      return singleton;
+    }
+  }
+
+  var concatSeq = new _Seq_js__WEBPACK_IMPORTED_MODULE_8__.ArraySeq(iters);
+  if (isKeyedCollection) {
+    concatSeq = concatSeq.toKeyedSeq();
+  } else if (!(0,_predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_4__.isIndexed)(collection)) {
+    concatSeq = concatSeq.toSetSeq();
+  }
+  concatSeq = concatSeq.flatten(true);
+  concatSeq.size = iters.reduce(function (sum, seq) {
+    if (sum !== undefined) {
+      var size = seq.size;
+      if (size !== undefined) {
+        return sum + size;
+      }
+    }
+  }, 0);
+  return concatSeq;
+}
+
+function flattenFactory(collection, depth, useKeys) {
+  var flatSequence = makeSequence(collection);
+  flatSequence.__iterateUncached = function (fn, reverse) {
+    if (reverse) {
+      return this.cacheResult().__iterate(fn, reverse);
+    }
+    var iterations = 0;
+    var stopped = false;
+    function flatDeep(iter, currentDepth) {
+      iter.__iterate(function (v, k) {
+        if ((!depth || currentDepth < depth) && (0,_predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_2__.isCollection)(v)) {
+          flatDeep(v, currentDepth + 1);
+        } else {
+          iterations++;
+          if (fn(v, useKeys ? k : iterations - 1, flatSequence) === false) {
+            stopped = true;
+          }
+        }
+        return !stopped;
+      }, reverse);
+    }
+    flatDeep(collection, 0);
+    return iterations;
+  };
+  flatSequence.__iteratorUncached = function (type, reverse) {
+    if (reverse) {
+      return this.cacheResult().__iterator(type, reverse);
+    }
+    var iterator = collection.__iterator(type, reverse);
+    var stack = [];
+    var iterations = 0;
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.Iterator(function () {
+      while (iterator) {
+        var step = iterator.next();
+        if (step.done !== false) {
+          iterator = stack.pop();
+          continue;
+        }
+        var v = step.value;
+        if (type === _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_ENTRIES) {
+          v = v[1];
+        }
+        if ((!depth || stack.length < depth) && (0,_predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_2__.isCollection)(v)) {
+          stack.push(iterator);
+          iterator = v.__iterator(type, reverse);
+        } else {
+          return useKeys ? step : (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorValue)(type, iterations++, v, step);
+        }
+      }
+      return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorDone)();
+    });
+  };
+  return flatSequence;
+}
+
+function flatMapFactory(collection, mapper, context) {
+  var coerce = collectionClass(collection);
+  return collection
+    .toSeq()
+    .map(function (v, k) { return coerce(mapper.call(context, v, k, collection)); })
+    .flatten(true);
+}
+
+function interposeFactory(collection, separator) {
+  var interposedSequence = makeSequence(collection);
+  interposedSequence.size = collection.size && collection.size * 2 - 1;
+  interposedSequence.__iterateUncached = function (fn, reverse) {
+    var this$1$1 = this;
+
+    var iterations = 0;
+    collection.__iterate(
+      function (v) { return (!iterations || fn(separator, iterations++, this$1$1) !== false) &&
+        fn(v, iterations++, this$1$1) !== false; },
+      reverse
+    );
+    return iterations;
+  };
+  interposedSequence.__iteratorUncached = function (type, reverse) {
+    var iterator = collection.__iterator(_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_VALUES, reverse);
+    var iterations = 0;
+    var step;
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.Iterator(function () {
+      if (!step || iterations % 2) {
+        step = iterator.next();
+        if (step.done) {
+          return step;
+        }
+      }
+      return iterations % 2
+        ? (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorValue)(type, iterations++, separator)
+        : (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorValue)(type, iterations++, step.value, step);
+    });
+  };
+  return interposedSequence;
+}
+
+function sortFactory(collection, comparator, mapper) {
+  if (!comparator) {
+    comparator = defaultComparator;
+  }
+  var isKeyedCollection = (0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.isKeyed)(collection);
+  var index = 0;
+  var entries = collection
+    .toSeq()
+    .map(function (v, k) { return [k, v, index++, mapper ? mapper(v, k, collection) : v]; })
+    .valueSeq()
+    .toArray();
+  entries
+    .sort(function (a, b) { return comparator(a[3], b[3]) || a[2] - b[2]; })
+    .forEach(
+      isKeyedCollection
+        ? function (v, i) {
+            entries[i].length = 2;
+          }
+        : function (v, i) {
+            entries[i] = v[1];
+          }
+    );
+  return isKeyedCollection
+    ? (0,_Seq_js__WEBPACK_IMPORTED_MODULE_8__.KeyedSeq)(entries)
+    : (0,_predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_4__.isIndexed)(collection)
+    ? (0,_Seq_js__WEBPACK_IMPORTED_MODULE_8__.IndexedSeq)(entries)
+    : (0,_Seq_js__WEBPACK_IMPORTED_MODULE_8__.SetSeq)(entries);
+}
+
+function maxFactory(collection, comparator, mapper) {
+  if (!comparator) {
+    comparator = defaultComparator;
+  }
+  if (mapper) {
+    var entry = collection
+      .toSeq()
+      .map(function (v, k) { return [v, mapper(v, k, collection)]; })
+      .reduce(function (a, b) { return (maxCompare(comparator, a[1], b[1]) ? b : a); });
+    return entry && entry[0];
+  }
+  return collection.reduce(function (a, b) { return (maxCompare(comparator, a, b) ? b : a); });
+}
+
+function maxCompare(comparator, a, b) {
+  var comp = comparator(b, a);
+  // b is considered the new max if the comparator declares them equal, but
+  // they are not equal and b is in fact a nullish value.
+  return (
+    (comp === 0 && b !== a && (b === undefined || b === null || b !== b)) ||
+    comp > 0
+  );
+}
+
+function zipWithFactory(keyIter, zipper, iters, zipAll) {
+  var zipSequence = makeSequence(keyIter);
+  var sizes = new _Seq_js__WEBPACK_IMPORTED_MODULE_8__.ArraySeq(iters).map(function (i) { return i.size; });
+  zipSequence.size = zipAll ? sizes.max() : sizes.min();
+  // Note: this a generic base implementation of __iterate in terms of
+  // __iterator which may be more generically useful in the future.
+  zipSequence.__iterate = function (fn, reverse) {
+    /* generic:
+    var iterator = this.__iterator(ITERATE_ENTRIES, reverse);
+    var step;
+    var iterations = 0;
+    while (!(step = iterator.next()).done) {
+      iterations++;
+      if (fn(step.value[1], step.value[0], this) === false) {
+        break;
+      }
+    }
+    return iterations;
+    */
+    // indexed:
+    var iterator = this.__iterator(_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.ITERATE_VALUES, reverse);
+    var step;
+    var iterations = 0;
+    while (!(step = iterator.next()).done) {
+      if (fn(step.value, iterations++, this) === false) {
+        break;
+      }
+    }
+    return iterations;
+  };
+  zipSequence.__iteratorUncached = function (type, reverse) {
+    var iterators = iters.map(
+      function (i) { return ((i = (0,_Collection_js__WEBPACK_IMPORTED_MODULE_1__.Collection)(i)), (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.getIterator)(reverse ? i.reverse() : i)); }
+    );
+    var iterations = 0;
+    var isDone = false;
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_7__.Iterator(function () {
+      var steps;
+      if (!isDone) {
+        steps = iterators.map(function (i) { return i.next(); });
+        isDone = zipAll ? steps.every(function (s) { return s.done; }) : steps.some(function (s) { return s.done; });
+      }
+      if (isDone) {
+        return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorDone)();
+      }
+      return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_7__.iteratorValue)(
+        type,
+        iterations++,
+        zipper.apply(
+          null,
+          steps.map(function (s) { return s.value; })
+        )
+      );
+    });
+  };
+  return zipSequence;
+}
+
+// #pragma Helper Functions
+
+function reify(iter, seq) {
+  return iter === seq ? iter : (0,_predicates_isSeq_js__WEBPACK_IMPORTED_MODULE_6__.isSeq)(iter) ? seq : iter.constructor(seq);
+}
+
+function validateEntry(entry) {
+  if (entry !== Object(entry)) {
+    throw new TypeError('Expected [K, V] tuple: ' + entry);
+  }
+}
+
+function collectionClass(collection) {
+  return (0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.isKeyed)(collection)
+    ? _Collection_js__WEBPACK_IMPORTED_MODULE_1__.KeyedCollection
+    : (0,_predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_4__.isIndexed)(collection)
+    ? _Collection_js__WEBPACK_IMPORTED_MODULE_1__.IndexedCollection
+    : _Collection_js__WEBPACK_IMPORTED_MODULE_1__.SetCollection;
+}
+
+function makeSequence(collection) {
+  return Object.create(
+    ((0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.isKeyed)(collection)
+      ? _Seq_js__WEBPACK_IMPORTED_MODULE_8__.KeyedSeq
+      : (0,_predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_4__.isIndexed)(collection)
+      ? _Seq_js__WEBPACK_IMPORTED_MODULE_8__.IndexedSeq
+      : _Seq_js__WEBPACK_IMPORTED_MODULE_8__.SetSeq
+    ).prototype
+  );
+}
+
+function cacheResultThrough() {
+  if (this._iter.cacheResult) {
+    this._iter.cacheResult();
+    this.size = this._iter.size;
+    return this;
+  }
+  return _Seq_js__WEBPACK_IMPORTED_MODULE_8__.Seq.prototype.cacheResult.call(this);
+}
+
+function defaultComparator(a, b) {
+  if (a === undefined && b === undefined) {
+    return 0;
+  }
+
+  if (a === undefined) {
+    return 1;
+  }
+
+  if (b === undefined) {
+    return -1;
+  }
+
+  return a > b ? 1 : a < b ? -1 : 0;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/OrderedMap.js":
+/*!******************************************************!*\
+  !*** ./node_modules/immutable/dist/es/OrderedMap.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   OrderedMap: () => (/* binding */ OrderedMap),
+/* harmony export */   emptyOrderedMap: () => (/* binding */ emptyOrderedMap)
+/* harmony export */ });
+/* harmony import */ var _Collection_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Collection.js */ "./node_modules/immutable/dist/es/Collection.js");
+/* harmony import */ var _predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./predicates/isOrdered.js */ "./node_modules/immutable/dist/es/predicates/isOrdered.js");
+/* harmony import */ var _predicates_isOrderedMap_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./predicates/isOrderedMap.js */ "./node_modules/immutable/dist/es/predicates/isOrderedMap.js");
+/* harmony import */ var _Map_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Map.js */ "./node_modules/immutable/dist/es/Map.js");
+/* harmony import */ var _List_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./List.js */ "./node_modules/immutable/dist/es/List.js");
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/* harmony import */ var _utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils/assertNotInfinite.js */ "./node_modules/immutable/dist/es/utils/assertNotInfinite.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+var OrderedMap = /*@__PURE__*/(function (Map) {
+  function OrderedMap(value) {
+    return value === undefined || value === null
+      ? emptyOrderedMap()
+      : (0,_predicates_isOrderedMap_js__WEBPACK_IMPORTED_MODULE_2__.isOrderedMap)(value)
+      ? value
+      : emptyOrderedMap().withMutations(function (map) {
+          var iter = (0,_Collection_js__WEBPACK_IMPORTED_MODULE_0__.KeyedCollection)(value);
+          (0,_utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_6__["default"])(iter.size);
+          iter.forEach(function (v, k) { return map.set(k, v); });
+        });
+  }
+
+  if ( Map ) OrderedMap.__proto__ = Map;
+  OrderedMap.prototype = Object.create( Map && Map.prototype );
+  OrderedMap.prototype.constructor = OrderedMap;
+
+  OrderedMap.of = function of (/*...values*/) {
+    return this(arguments);
+  };
+
+  OrderedMap.prototype.toString = function toString () {
+    return this.__toString('OrderedMap {', '}');
+  };
+
+  // @pragma Access
+
+  OrderedMap.prototype.get = function get (k, notSetValue) {
+    var index = this._map.get(k);
+    return index !== undefined ? this._list.get(index)[1] : notSetValue;
+  };
+
+  // @pragma Modification
+
+  OrderedMap.prototype.clear = function clear () {
+    if (this.size === 0) {
+      return this;
+    }
+    if (this.__ownerID) {
+      this.size = 0;
+      this._map.clear();
+      this._list.clear();
+      this.__altered = true;
+      return this;
+    }
+    return emptyOrderedMap();
+  };
+
+  OrderedMap.prototype.set = function set (k, v) {
+    return updateOrderedMap(this, k, v);
+  };
+
+  OrderedMap.prototype.remove = function remove (k) {
+    return updateOrderedMap(this, k, _TrieUtils_js__WEBPACK_IMPORTED_MODULE_5__.NOT_SET);
+  };
+
+  OrderedMap.prototype.__iterate = function __iterate (fn, reverse) {
+    var this$1$1 = this;
+
+    return this._list.__iterate(
+      function (entry) { return entry && fn(entry[1], entry[0], this$1$1); },
+      reverse
+    );
+  };
+
+  OrderedMap.prototype.__iterator = function __iterator (type, reverse) {
+    return this._list.fromEntrySeq().__iterator(type, reverse);
+  };
+
+  OrderedMap.prototype.__ensureOwner = function __ensureOwner (ownerID) {
+    if (ownerID === this.__ownerID) {
+      return this;
+    }
+    var newMap = this._map.__ensureOwner(ownerID);
+    var newList = this._list.__ensureOwner(ownerID);
+    if (!ownerID) {
+      if (this.size === 0) {
+        return emptyOrderedMap();
+      }
+      this.__ownerID = ownerID;
+      this.__altered = false;
+      this._map = newMap;
+      this._list = newList;
+      return this;
+    }
+    return makeOrderedMap(newMap, newList, ownerID, this.__hash);
+  };
+
+  return OrderedMap;
+}(_Map_js__WEBPACK_IMPORTED_MODULE_3__.Map));
+
+OrderedMap.isOrderedMap = _predicates_isOrderedMap_js__WEBPACK_IMPORTED_MODULE_2__.isOrderedMap;
+
+OrderedMap.prototype[_predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_1__.IS_ORDERED_SYMBOL] = true;
+OrderedMap.prototype[_TrieUtils_js__WEBPACK_IMPORTED_MODULE_5__.DELETE] = OrderedMap.prototype.remove;
+
+function makeOrderedMap(map, list, ownerID, hash) {
+  var omap = Object.create(OrderedMap.prototype);
+  omap.size = map ? map.size : 0;
+  omap._map = map;
+  omap._list = list;
+  omap.__ownerID = ownerID;
+  omap.__hash = hash;
+  omap.__altered = false;
+  return omap;
+}
+
+var EMPTY_ORDERED_MAP;
+function emptyOrderedMap() {
+  return (
+    EMPTY_ORDERED_MAP ||
+    (EMPTY_ORDERED_MAP = makeOrderedMap((0,_Map_js__WEBPACK_IMPORTED_MODULE_3__.emptyMap)(), (0,_List_js__WEBPACK_IMPORTED_MODULE_4__.emptyList)()))
+  );
+}
+
+function updateOrderedMap(omap, k, v) {
+  var map = omap._map;
+  var list = omap._list;
+  var i = map.get(k);
+  var has = i !== undefined;
+  var newMap;
+  var newList;
+  if (v === _TrieUtils_js__WEBPACK_IMPORTED_MODULE_5__.NOT_SET) {
+    // removed
+    if (!has) {
+      return omap;
+    }
+    if (list.size >= _TrieUtils_js__WEBPACK_IMPORTED_MODULE_5__.SIZE && list.size >= map.size * 2) {
+      newList = list.filter(function (entry, idx) { return entry !== undefined && i !== idx; });
+      newMap = newList
+        .toKeyedSeq()
+        .map(function (entry) { return entry[0]; })
+        .flip()
+        .toMap();
+      if (omap.__ownerID) {
+        newMap.__ownerID = newList.__ownerID = omap.__ownerID;
+      }
+    } else {
+      newMap = map.remove(k);
+      newList = i === list.size - 1 ? list.pop() : list.set(i, undefined);
+    }
+  } else if (has) {
+    if (v === list.get(i)[1]) {
+      return omap;
+    }
+    newMap = map;
+    newList = list.set(i, [k, v]);
+  } else {
+    newMap = map.set(k, list.size);
+    newList = list.set(list.size, [k, v]);
+  }
+  if (omap.__ownerID) {
+    omap.size = newMap.size;
+    omap._map = newMap;
+    omap._list = newList;
+    omap.__hash = undefined;
+    omap.__altered = true;
+    return omap;
+  }
+  return makeOrderedMap(newMap, newList);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/OrderedSet.js":
+/*!******************************************************!*\
+  !*** ./node_modules/immutable/dist/es/OrderedSet.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   OrderedSet: () => (/* binding */ OrderedSet)
+/* harmony export */ });
+/* harmony import */ var _Collection_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Collection.js */ "./node_modules/immutable/dist/es/Collection.js");
+/* harmony import */ var _predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./predicates/isOrdered.js */ "./node_modules/immutable/dist/es/predicates/isOrdered.js");
+/* harmony import */ var _predicates_isOrderedSet_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./predicates/isOrderedSet.js */ "./node_modules/immutable/dist/es/predicates/isOrderedSet.js");
+/* harmony import */ var _CollectionImpl_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CollectionImpl.js */ "./node_modules/immutable/dist/es/CollectionImpl.js");
+/* harmony import */ var _Set_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Set.js */ "./node_modules/immutable/dist/es/Set.js");
+/* harmony import */ var _OrderedMap_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./OrderedMap.js */ "./node_modules/immutable/dist/es/OrderedMap.js");
+/* harmony import */ var _utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils/assertNotInfinite.js */ "./node_modules/immutable/dist/es/utils/assertNotInfinite.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+var OrderedSet = /*@__PURE__*/(function (Set) {
+  function OrderedSet(value) {
+    return value === undefined || value === null
+      ? emptyOrderedSet()
+      : (0,_predicates_isOrderedSet_js__WEBPACK_IMPORTED_MODULE_2__.isOrderedSet)(value)
+      ? value
+      : emptyOrderedSet().withMutations(function (set) {
+          var iter = (0,_Collection_js__WEBPACK_IMPORTED_MODULE_0__.SetCollection)(value);
+          (0,_utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_6__["default"])(iter.size);
+          iter.forEach(function (v) { return set.add(v); });
+        });
+  }
+
+  if ( Set ) OrderedSet.__proto__ = Set;
+  OrderedSet.prototype = Object.create( Set && Set.prototype );
+  OrderedSet.prototype.constructor = OrderedSet;
+
+  OrderedSet.of = function of (/*...values*/) {
+    return this(arguments);
+  };
+
+  OrderedSet.fromKeys = function fromKeys (value) {
+    return this((0,_Collection_js__WEBPACK_IMPORTED_MODULE_0__.KeyedCollection)(value).keySeq());
+  };
+
+  OrderedSet.prototype.toString = function toString () {
+    return this.__toString('OrderedSet {', '}');
+  };
+
+  return OrderedSet;
+}(_Set_js__WEBPACK_IMPORTED_MODULE_4__.Set));
+
+OrderedSet.isOrderedSet = _predicates_isOrderedSet_js__WEBPACK_IMPORTED_MODULE_2__.isOrderedSet;
+
+var OrderedSetPrototype = OrderedSet.prototype;
+OrderedSetPrototype[_predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_1__.IS_ORDERED_SYMBOL] = true;
+OrderedSetPrototype.zip = _CollectionImpl_js__WEBPACK_IMPORTED_MODULE_3__.IndexedCollectionPrototype.zip;
+OrderedSetPrototype.zipWith = _CollectionImpl_js__WEBPACK_IMPORTED_MODULE_3__.IndexedCollectionPrototype.zipWith;
+OrderedSetPrototype.zipAll = _CollectionImpl_js__WEBPACK_IMPORTED_MODULE_3__.IndexedCollectionPrototype.zipAll;
+
+OrderedSetPrototype.__empty = emptyOrderedSet;
+OrderedSetPrototype.__make = makeOrderedSet;
+
+function makeOrderedSet(map, ownerID) {
+  var set = Object.create(OrderedSetPrototype);
+  set.size = map ? map.size : 0;
+  set._map = map;
+  set.__ownerID = ownerID;
+  return set;
+}
+
+var EMPTY_ORDERED_SET;
+function emptyOrderedSet() {
+  return (
+    EMPTY_ORDERED_SET || (EMPTY_ORDERED_SET = makeOrderedSet((0,_OrderedMap_js__WEBPACK_IMPORTED_MODULE_5__.emptyOrderedMap)()))
+  );
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/PairSorting.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/immutable/dist/es/PairSorting.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* unused harmony export PairSorting */
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var PairSorting = {
+  LeftThenRight: -1,
+  RightThenLeft: +1,
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/Range.js":
+/*!*************************************************!*\
+  !*** ./node_modules/immutable/dist/es/Range.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Range: () => (/* binding */ Range)
+/* harmony export */ });
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/* harmony import */ var _Seq_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Seq.js */ "./node_modules/immutable/dist/es/Seq.js");
+/* harmony import */ var _Iterator_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Iterator.js */ "./node_modules/immutable/dist/es/Iterator.js");
+/* harmony import */ var _utils_invariant_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/invariant.js */ "./node_modules/immutable/dist/es/utils/invariant.js");
+/* harmony import */ var _utils_deepEqual_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/deepEqual.js */ "./node_modules/immutable/dist/es/utils/deepEqual.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+/**
+ * Returns a lazy seq of nums from start (inclusive) to end
+ * (exclusive), by step, where start defaults to 0, step to 1, and end to
+ * infinity. When start is equal to end, returns empty list.
+ */
+var Range = /*@__PURE__*/(function (IndexedSeq) {
+  function Range(start, end, step) {
+    if (!(this instanceof Range)) {
+      return new Range(start, end, step);
+    }
+    (0,_utils_invariant_js__WEBPACK_IMPORTED_MODULE_3__["default"])(step !== 0, 'Cannot step a Range by 0');
+    start = start || 0;
+    if (end === undefined) {
+      end = Infinity;
+    }
+    step = step === undefined ? 1 : Math.abs(step);
+    if (end < start) {
+      step = -step;
+    }
+    this._start = start;
+    this._end = end;
+    this._step = step;
+    this.size = Math.max(0, Math.ceil((end - start) / step - 1) + 1);
+    if (this.size === 0) {
+      if (EMPTY_RANGE) {
+        return EMPTY_RANGE;
+      }
+      EMPTY_RANGE = this;
+    }
+  }
+
+  if ( IndexedSeq ) Range.__proto__ = IndexedSeq;
+  Range.prototype = Object.create( IndexedSeq && IndexedSeq.prototype );
+  Range.prototype.constructor = Range;
+
+  Range.prototype.toString = function toString () {
+    if (this.size === 0) {
+      return 'Range []';
+    }
+    return (
+      'Range [ ' +
+      this._start +
+      '...' +
+      this._end +
+      (this._step !== 1 ? ' by ' + this._step : '') +
+      ' ]'
+    );
+  };
+
+  Range.prototype.get = function get (index, notSetValue) {
+    return this.has(index)
+      ? this._start + (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.wrapIndex)(this, index) * this._step
+      : notSetValue;
+  };
+
+  Range.prototype.includes = function includes (searchValue) {
+    var possibleIndex = (searchValue - this._start) / this._step;
+    return (
+      possibleIndex >= 0 &&
+      possibleIndex < this.size &&
+      possibleIndex === Math.floor(possibleIndex)
+    );
+  };
+
+  Range.prototype.slice = function slice (begin, end) {
+    if ((0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.wholeSlice)(begin, end, this.size)) {
+      return this;
+    }
+    begin = (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.resolveBegin)(begin, this.size);
+    end = (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.resolveEnd)(end, this.size);
+    if (end <= begin) {
+      return new Range(0, 0);
+    }
+    return new Range(
+      this.get(begin, this._end),
+      this.get(end, this._end),
+      this._step
+    );
+  };
+
+  Range.prototype.indexOf = function indexOf (searchValue) {
+    var offsetValue = searchValue - this._start;
+    if (offsetValue % this._step === 0) {
+      var index = offsetValue / this._step;
+      if (index >= 0 && index < this.size) {
+        return index;
+      }
+    }
+    return -1;
+  };
+
+  Range.prototype.lastIndexOf = function lastIndexOf (searchValue) {
+    return this.indexOf(searchValue);
+  };
+
+  Range.prototype.__iterate = function __iterate (fn, reverse) {
+    var size = this.size;
+    var step = this._step;
+    var value = reverse ? this._start + (size - 1) * step : this._start;
+    var i = 0;
+    while (i !== size) {
+      if (fn(value, reverse ? size - ++i : i++, this) === false) {
+        break;
+      }
+      value += reverse ? -step : step;
+    }
+    return i;
+  };
+
+  Range.prototype.__iterator = function __iterator (type, reverse) {
+    var size = this.size;
+    var step = this._step;
+    var value = reverse ? this._start + (size - 1) * step : this._start;
+    var i = 0;
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_2__.Iterator(function () {
+      if (i === size) {
+        return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_2__.iteratorDone)();
+      }
+      var v = value;
+      value += reverse ? -step : step;
+      return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_2__.iteratorValue)(type, reverse ? size - ++i : i++, v);
+    });
+  };
+
+  Range.prototype.equals = function equals (other) {
+    return other instanceof Range
+      ? this._start === other._start &&
+          this._end === other._end &&
+          this._step === other._step
+      : (0,_utils_deepEqual_js__WEBPACK_IMPORTED_MODULE_4__["default"])(this, other);
+  };
+
+  return Range;
+}(_Seq_js__WEBPACK_IMPORTED_MODULE_1__.IndexedSeq));
+
+var EMPTY_RANGE;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/Record.js":
+/*!**************************************************!*\
+  !*** ./node_modules/immutable/dist/es/Record.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* unused harmony export Record */
+/* harmony import */ var _toJS_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toJS.js */ "./node_modules/immutable/dist/es/toJS.js");
+/* harmony import */ var _Collection_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Collection.js */ "./node_modules/immutable/dist/es/Collection.js");
+/* harmony import */ var _Seq_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Seq.js */ "./node_modules/immutable/dist/es/Seq.js");
+/* harmony import */ var _List_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./List.js */ "./node_modules/immutable/dist/es/List.js");
+/* harmony import */ var _Iterator_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Iterator.js */ "./node_modules/immutable/dist/es/Iterator.js");
+/* harmony import */ var _predicates_isRecord_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./predicates/isRecord.js */ "./node_modules/immutable/dist/es/predicates/isRecord.js");
+/* harmony import */ var _CollectionImpl_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./CollectionImpl.js */ "./node_modules/immutable/dist/es/CollectionImpl.js");
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/* harmony import */ var _methods_getIn_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./methods/getIn.js */ "./node_modules/immutable/dist/es/methods/getIn.js");
+/* harmony import */ var _methods_setIn_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./methods/setIn.js */ "./node_modules/immutable/dist/es/methods/setIn.js");
+/* harmony import */ var _methods_deleteIn_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./methods/deleteIn.js */ "./node_modules/immutable/dist/es/methods/deleteIn.js");
+/* harmony import */ var _methods_update_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./methods/update.js */ "./node_modules/immutable/dist/es/methods/update.js");
+/* harmony import */ var _methods_updateIn_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./methods/updateIn.js */ "./node_modules/immutable/dist/es/methods/updateIn.js");
+/* harmony import */ var _methods_merge_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./methods/merge.js */ "./node_modules/immutable/dist/es/methods/merge.js");
+/* harmony import */ var _methods_mergeDeep_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./methods/mergeDeep.js */ "./node_modules/immutable/dist/es/methods/mergeDeep.js");
+/* harmony import */ var _methods_mergeIn_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./methods/mergeIn.js */ "./node_modules/immutable/dist/es/methods/mergeIn.js");
+/* harmony import */ var _methods_mergeDeepIn_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./methods/mergeDeepIn.js */ "./node_modules/immutable/dist/es/methods/mergeDeepIn.js");
+/* harmony import */ var _methods_withMutations_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./methods/withMutations.js */ "./node_modules/immutable/dist/es/methods/withMutations.js");
+/* harmony import */ var _methods_asMutable_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./methods/asMutable.js */ "./node_modules/immutable/dist/es/methods/asMutable.js");
+/* harmony import */ var _methods_asImmutable_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./methods/asImmutable.js */ "./node_modules/immutable/dist/es/methods/asImmutable.js");
+/* harmony import */ var _utils_invariant_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./utils/invariant.js */ "./node_modules/immutable/dist/es/utils/invariant.js");
+/* harmony import */ var _utils_quoteString_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./utils/quoteString.js */ "./node_modules/immutable/dist/es/utils/quoteString.js");
+/* harmony import */ var _predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./predicates/isImmutable.js */ "./node_modules/immutable/dist/es/predicates/isImmutable.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function throwOnInvalidDefaultValues(defaultValues) {
+  if ((0,_predicates_isRecord_js__WEBPACK_IMPORTED_MODULE_5__.isRecord)(defaultValues)) {
+    throw new Error(
+      'Can not call `Record` with an immutable Record as default values. Use a plain javascript object instead.'
+    );
+  }
+
+  if ((0,_predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_22__.isImmutable)(defaultValues)) {
+    throw new Error(
+      'Can not call `Record` with an immutable Collection as default values. Use a plain javascript object instead.'
+    );
+  }
+
+  if (defaultValues === null || typeof defaultValues !== 'object') {
+    throw new Error(
+      'Can not call `Record` with a non-object as default values. Use a plain javascript object instead.'
+    );
+  }
+}
+
+var Record = function Record(defaultValues, name) {
+  var hasInitialized;
+
+  throwOnInvalidDefaultValues(defaultValues);
+
+  var RecordType = function Record(values) {
+    var this$1$1 = this;
+
+    if (values instanceof RecordType) {
+      return values;
+    }
+    if (!(this instanceof RecordType)) {
+      return new RecordType(values);
+    }
+    if (!hasInitialized) {
+      hasInitialized = true;
+      var keys = Object.keys(defaultValues);
+      var indices = (RecordTypePrototype._indices = {});
+      // Deprecated: left to attempt not to break any external code which
+      // relies on a ._name property existing on record instances.
+      // Use Record.getDescriptiveName() instead
+      RecordTypePrototype._name = name;
+      RecordTypePrototype._keys = keys;
+      RecordTypePrototype._defaultValues = defaultValues;
+      for (var i = 0; i < keys.length; i++) {
+        var propName = keys[i];
+        indices[propName] = i;
+        if (RecordTypePrototype[propName]) {
+          /* eslint-disable no-console */
+          typeof console === 'object' &&
+            console.warn &&
+            console.warn(
+              'Cannot define ' +
+                recordName(this) +
+                ' with property "' +
+                propName +
+                '" since that property name is part of the Record API.'
+            );
+          /* eslint-enable no-console */
+        } else {
+          setProp(RecordTypePrototype, propName);
+        }
+      }
+    }
+    this.__ownerID = undefined;
+    this._values = (0,_List_js__WEBPACK_IMPORTED_MODULE_3__.List)().withMutations(function (l) {
+      l.setSize(this$1$1._keys.length);
+      (0,_Collection_js__WEBPACK_IMPORTED_MODULE_1__.KeyedCollection)(values).forEach(function (v, k) {
+        l.set(this$1$1._indices[k], v === this$1$1._defaultValues[k] ? undefined : v);
+      });
+    });
+    return this;
+  };
+
+  var RecordTypePrototype = (RecordType.prototype =
+    Object.create(RecordPrototype));
+  RecordTypePrototype.constructor = RecordType;
+
+  if (name) {
+    RecordType.displayName = name;
+  }
+
+  return RecordType;
+};
+
+Record.prototype.toString = function toString () {
+  var str = recordName(this) + ' { ';
+  var keys = this._keys;
+  var k;
+  for (var i = 0, l = keys.length; i !== l; i++) {
+    k = keys[i];
+    str += (i ? ', ' : '') + k + ': ' + (0,_utils_quoteString_js__WEBPACK_IMPORTED_MODULE_21__["default"])(this.get(k));
+  }
+  return str + ' }';
+};
+
+Record.prototype.equals = function equals (other) {
+  return (
+    this === other ||
+    ((0,_predicates_isRecord_js__WEBPACK_IMPORTED_MODULE_5__.isRecord)(other) && recordSeq(this).equals(recordSeq(other)))
+  );
+};
+
+Record.prototype.hashCode = function hashCode () {
+  return recordSeq(this).hashCode();
+};
+
+// @pragma Access
+
+Record.prototype.has = function has (k) {
+  return this._indices.hasOwnProperty(k);
+};
+
+Record.prototype.get = function get (k, notSetValue) {
+  if (!this.has(k)) {
+    return notSetValue;
+  }
+  var index = this._indices[k];
+  var value = this._values.get(index);
+  return value === undefined ? this._defaultValues[k] : value;
+};
+
+// @pragma Modification
+
+Record.prototype.set = function set (k, v) {
+  if (this.has(k)) {
+    var newValues = this._values.set(
+      this._indices[k],
+      v === this._defaultValues[k] ? undefined : v
+    );
+    if (newValues !== this._values && !this.__ownerID) {
+      return makeRecord(this, newValues);
+    }
+  }
+  return this;
+};
+
+Record.prototype.remove = function remove (k) {
+  return this.set(k);
+};
+
+Record.prototype.clear = function clear () {
+  var newValues = this._values.clear().setSize(this._keys.length);
+
+  return this.__ownerID ? this : makeRecord(this, newValues);
+};
+
+Record.prototype.wasAltered = function wasAltered () {
+  return this._values.wasAltered();
+};
+
+Record.prototype.toSeq = function toSeq () {
+  return recordSeq(this);
+};
+
+Record.prototype.toJS = function toJS$1 () {
+  return (0,_toJS_js__WEBPACK_IMPORTED_MODULE_0__.toJS)(this);
+};
+
+Record.prototype.entries = function entries () {
+  return this.__iterator(_Iterator_js__WEBPACK_IMPORTED_MODULE_4__.ITERATE_ENTRIES);
+};
+
+Record.prototype.__iterator = function __iterator (type, reverse) {
+  return recordSeq(this).__iterator(type, reverse);
+};
+
+Record.prototype.__iterate = function __iterate (fn, reverse) {
+  return recordSeq(this).__iterate(fn, reverse);
+};
+
+Record.prototype.__ensureOwner = function __ensureOwner (ownerID) {
+  if (ownerID === this.__ownerID) {
+    return this;
+  }
+  var newValues = this._values.__ensureOwner(ownerID);
+  if (!ownerID) {
+    this.__ownerID = ownerID;
+    this._values = newValues;
+    return this;
+  }
+  return makeRecord(this, newValues, ownerID);
+};
+
+Record.isRecord = _predicates_isRecord_js__WEBPACK_IMPORTED_MODULE_5__.isRecord;
+Record.getDescriptiveName = recordName;
+var RecordPrototype = Record.prototype;
+RecordPrototype[_predicates_isRecord_js__WEBPACK_IMPORTED_MODULE_5__.IS_RECORD_SYMBOL] = true;
+RecordPrototype[_TrieUtils_js__WEBPACK_IMPORTED_MODULE_7__.DELETE] = RecordPrototype.remove;
+RecordPrototype.deleteIn = RecordPrototype.removeIn = _methods_deleteIn_js__WEBPACK_IMPORTED_MODULE_10__.deleteIn;
+RecordPrototype.getIn = _methods_getIn_js__WEBPACK_IMPORTED_MODULE_8__.getIn;
+RecordPrototype.hasIn = _CollectionImpl_js__WEBPACK_IMPORTED_MODULE_6__.CollectionPrototype.hasIn;
+RecordPrototype.merge = _methods_merge_js__WEBPACK_IMPORTED_MODULE_13__.merge;
+RecordPrototype.mergeWith = _methods_merge_js__WEBPACK_IMPORTED_MODULE_13__.mergeWith;
+RecordPrototype.mergeIn = _methods_mergeIn_js__WEBPACK_IMPORTED_MODULE_15__.mergeIn;
+RecordPrototype.mergeDeep = _methods_mergeDeep_js__WEBPACK_IMPORTED_MODULE_14__.mergeDeep;
+RecordPrototype.mergeDeepWith = _methods_mergeDeep_js__WEBPACK_IMPORTED_MODULE_14__.mergeDeepWith;
+RecordPrototype.mergeDeepIn = _methods_mergeDeepIn_js__WEBPACK_IMPORTED_MODULE_16__.mergeDeepIn;
+RecordPrototype.setIn = _methods_setIn_js__WEBPACK_IMPORTED_MODULE_9__.setIn;
+RecordPrototype.update = _methods_update_js__WEBPACK_IMPORTED_MODULE_11__.update;
+RecordPrototype.updateIn = _methods_updateIn_js__WEBPACK_IMPORTED_MODULE_12__.updateIn;
+RecordPrototype.withMutations = _methods_withMutations_js__WEBPACK_IMPORTED_MODULE_17__.withMutations;
+RecordPrototype.asMutable = _methods_asMutable_js__WEBPACK_IMPORTED_MODULE_18__.asMutable;
+RecordPrototype.asImmutable = _methods_asImmutable_js__WEBPACK_IMPORTED_MODULE_19__.asImmutable;
+RecordPrototype[_Iterator_js__WEBPACK_IMPORTED_MODULE_4__.ITERATOR_SYMBOL] = RecordPrototype.entries;
+RecordPrototype.toJSON = RecordPrototype.toObject =
+  _CollectionImpl_js__WEBPACK_IMPORTED_MODULE_6__.CollectionPrototype.toObject;
+RecordPrototype.inspect = RecordPrototype.toSource = function () {
+  return this.toString();
+};
+
+function makeRecord(likeRecord, values, ownerID) {
+  var record = Object.create(Object.getPrototypeOf(likeRecord));
+  record._values = values;
+  record.__ownerID = ownerID;
+  return record;
+}
+
+function recordName(record) {
+  return record.constructor.displayName || record.constructor.name || 'Record';
+}
+
+function recordSeq(record) {
+  return (0,_Seq_js__WEBPACK_IMPORTED_MODULE_2__.keyedSeqFromValue)(record._keys.map(function (k) { return [k, record.get(k)]; }));
+}
+
+function setProp(prototype, name) {
+  try {
+    Object.defineProperty(prototype, name, {
+      get: function () {
+        return this.get(name);
+      },
+      set: function (value) {
+        (0,_utils_invariant_js__WEBPACK_IMPORTED_MODULE_20__["default"])(this.__ownerID, 'Cannot set on an immutable record.');
+        this.set(name, value);
+      },
+    });
+  } catch (error) {
+    // Object.defineProperty failed. Probably IE8.
+  }
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/Repeat.js":
+/*!**************************************************!*\
+  !*** ./node_modules/immutable/dist/es/Repeat.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* unused harmony export Repeat */
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/* harmony import */ var _Seq_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Seq.js */ "./node_modules/immutable/dist/es/Seq.js");
+/* harmony import */ var _is_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./is.js */ "./node_modules/immutable/dist/es/is.js");
+/* harmony import */ var _Iterator_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Iterator.js */ "./node_modules/immutable/dist/es/Iterator.js");
+/* harmony import */ var _utils_deepEqual_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/deepEqual.js */ "./node_modules/immutable/dist/es/utils/deepEqual.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+/**
+ * Returns a lazy Seq of `value` repeated `times` times. When `times` is
+ * undefined, returns an infinite sequence of `value`.
+ */
+var Repeat = /*@__PURE__*/(function (IndexedSeq) {
+  function Repeat(value, times) {
+    if (!(this instanceof Repeat)) {
+      return new Repeat(value, times);
+    }
+    this._value = value;
+    this.size = times === undefined ? Infinity : Math.max(0, times);
+    if (this.size === 0) {
+      if (EMPTY_REPEAT) {
+        return EMPTY_REPEAT;
+      }
+      EMPTY_REPEAT = this;
+    }
+  }
+
+  if ( IndexedSeq ) Repeat.__proto__ = IndexedSeq;
+  Repeat.prototype = Object.create( IndexedSeq && IndexedSeq.prototype );
+  Repeat.prototype.constructor = Repeat;
+
+  Repeat.prototype.toString = function toString () {
+    if (this.size === 0) {
+      return 'Repeat []';
+    }
+    return 'Repeat [ ' + this._value + ' ' + this.size + ' times ]';
+  };
+
+  Repeat.prototype.get = function get (index, notSetValue) {
+    return this.has(index) ? this._value : notSetValue;
+  };
+
+  Repeat.prototype.includes = function includes (searchValue) {
+    return (0,_is_js__WEBPACK_IMPORTED_MODULE_2__.is)(this._value, searchValue);
+  };
+
+  Repeat.prototype.slice = function slice (begin, end) {
+    var size = this.size;
+    return (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.wholeSlice)(begin, end, size)
+      ? this
+      : new Repeat(
+          this._value,
+          (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.resolveEnd)(end, size) - (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.resolveBegin)(begin, size)
+        );
+  };
+
+  Repeat.prototype.reverse = function reverse () {
+    return this;
+  };
+
+  Repeat.prototype.indexOf = function indexOf (searchValue) {
+    if ((0,_is_js__WEBPACK_IMPORTED_MODULE_2__.is)(this._value, searchValue)) {
+      return 0;
+    }
+    return -1;
+  };
+
+  Repeat.prototype.lastIndexOf = function lastIndexOf (searchValue) {
+    if ((0,_is_js__WEBPACK_IMPORTED_MODULE_2__.is)(this._value, searchValue)) {
+      return this.size;
+    }
+    return -1;
+  };
+
+  Repeat.prototype.__iterate = function __iterate (fn, reverse) {
+    var size = this.size;
+    var i = 0;
+    while (i !== size) {
+      if (fn(this._value, reverse ? size - ++i : i++, this) === false) {
+        break;
+      }
+    }
+    return i;
+  };
+
+  Repeat.prototype.__iterator = function __iterator (type, reverse) {
+    var this$1$1 = this;
+
+    var size = this.size;
+    var i = 0;
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_3__.Iterator(function () { return i === size
+        ? (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_3__.iteratorDone)()
+        : (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_3__.iteratorValue)(type, reverse ? size - ++i : i++, this$1$1._value); }
+    );
+  };
+
+  Repeat.prototype.equals = function equals (other) {
+    return other instanceof Repeat
+      ? (0,_is_js__WEBPACK_IMPORTED_MODULE_2__.is)(this._value, other._value)
+      : (0,_utils_deepEqual_js__WEBPACK_IMPORTED_MODULE_4__["default"])(other);
+  };
+
+  return Repeat;
+}(_Seq_js__WEBPACK_IMPORTED_MODULE_1__.IndexedSeq));
+
+var EMPTY_REPEAT;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/Seq.js":
+/*!***********************************************!*\
+  !*** ./node_modules/immutable/dist/es/Seq.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ArraySeq: () => (/* binding */ ArraySeq),
+/* harmony export */   IndexedSeq: () => (/* binding */ IndexedSeq),
+/* harmony export */   KeyedSeq: () => (/* binding */ KeyedSeq),
+/* harmony export */   Seq: () => (/* binding */ Seq),
+/* harmony export */   SetSeq: () => (/* binding */ SetSeq),
+/* harmony export */   indexedSeqFromValue: () => (/* binding */ indexedSeqFromValue),
+/* harmony export */   keyedSeqFromValue: () => (/* binding */ keyedSeqFromValue)
+/* harmony export */ });
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/* harmony import */ var _Collection_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Collection.js */ "./node_modules/immutable/dist/es/Collection.js");
+/* harmony import */ var _predicates_isSeq_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./predicates/isSeq.js */ "./node_modules/immutable/dist/es/predicates/isSeq.js");
+/* harmony import */ var _predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./predicates/isImmutable.js */ "./node_modules/immutable/dist/es/predicates/isImmutable.js");
+/* harmony import */ var _predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./predicates/isCollection.js */ "./node_modules/immutable/dist/es/predicates/isCollection.js");
+/* harmony import */ var _predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./predicates/isKeyed.js */ "./node_modules/immutable/dist/es/predicates/isKeyed.js");
+/* harmony import */ var _predicates_isAssociative_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./predicates/isAssociative.js */ "./node_modules/immutable/dist/es/predicates/isAssociative.js");
+/* harmony import */ var _predicates_isRecord_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./predicates/isRecord.js */ "./node_modules/immutable/dist/es/predicates/isRecord.js");
+/* harmony import */ var _predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./predicates/isOrdered.js */ "./node_modules/immutable/dist/es/predicates/isOrdered.js");
+/* harmony import */ var _Iterator_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Iterator.js */ "./node_modules/immutable/dist/es/Iterator.js");
+/* harmony import */ var _utils_hasOwnProperty_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./utils/hasOwnProperty.js */ "./node_modules/immutable/dist/es/utils/hasOwnProperty.js");
+/* harmony import */ var _utils_isArrayLike_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./utils/isArrayLike.js */ "./node_modules/immutable/dist/es/utils/isArrayLike.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+var Seq = /*@__PURE__*/(function (Collection) {
+  function Seq(value) {
+    return value === undefined || value === null
+      ? emptySequence()
+      : (0,_predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_3__.isImmutable)(value)
+      ? value.toSeq()
+      : seqFromValue(value);
+  }
+
+  if ( Collection ) Seq.__proto__ = Collection;
+  Seq.prototype = Object.create( Collection && Collection.prototype );
+  Seq.prototype.constructor = Seq;
+
+  Seq.prototype.toSeq = function toSeq () {
+    return this;
+  };
+
+  Seq.prototype.toString = function toString () {
+    return this.__toString('Seq {', '}');
+  };
+
+  Seq.prototype.cacheResult = function cacheResult () {
+    if (!this._cache && this.__iterateUncached) {
+      this._cache = this.entrySeq().toArray();
+      this.size = this._cache.length;
+    }
+    return this;
+  };
+
+  // abstract __iterateUncached(fn, reverse)
+
+  Seq.prototype.__iterate = function __iterate (fn, reverse) {
+    var cache = this._cache;
+    if (cache) {
+      var size = cache.length;
+      var i = 0;
+      while (i !== size) {
+        var entry = cache[reverse ? size - ++i : i++];
+        if (fn(entry[1], entry[0], this) === false) {
+          break;
+        }
+      }
+      return i;
+    }
+    return this.__iterateUncached(fn, reverse);
+  };
+
+  // abstract __iteratorUncached(type, reverse)
+
+  Seq.prototype.__iterator = function __iterator (type, reverse) {
+    var cache = this._cache;
+    if (cache) {
+      var size = cache.length;
+      var i = 0;
+      return new _Iterator_js__WEBPACK_IMPORTED_MODULE_9__.Iterator(function () {
+        if (i === size) {
+          return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_9__.iteratorDone)();
+        }
+        var entry = cache[reverse ? size - ++i : i++];
+        return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_9__.iteratorValue)(type, entry[0], entry[1]);
+      });
+    }
+    return this.__iteratorUncached(type, reverse);
+  };
+
+  return Seq;
+}(_Collection_js__WEBPACK_IMPORTED_MODULE_1__.Collection));
+
+var KeyedSeq = /*@__PURE__*/(function (Seq) {
+  function KeyedSeq(value) {
+    return value === undefined || value === null
+      ? emptySequence().toKeyedSeq()
+      : (0,_predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_4__.isCollection)(value)
+      ? (0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_5__.isKeyed)(value)
+        ? value.toSeq()
+        : value.fromEntrySeq()
+      : (0,_predicates_isRecord_js__WEBPACK_IMPORTED_MODULE_7__.isRecord)(value)
+      ? value.toSeq()
+      : keyedSeqFromValue(value);
+  }
+
+  if ( Seq ) KeyedSeq.__proto__ = Seq;
+  KeyedSeq.prototype = Object.create( Seq && Seq.prototype );
+  KeyedSeq.prototype.constructor = KeyedSeq;
+
+  KeyedSeq.prototype.toKeyedSeq = function toKeyedSeq () {
+    return this;
+  };
+
+  return KeyedSeq;
+}(Seq));
+
+var IndexedSeq = /*@__PURE__*/(function (Seq) {
+  function IndexedSeq(value) {
+    return value === undefined || value === null
+      ? emptySequence()
+      : (0,_predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_4__.isCollection)(value)
+      ? (0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_5__.isKeyed)(value)
+        ? value.entrySeq()
+        : value.toIndexedSeq()
+      : (0,_predicates_isRecord_js__WEBPACK_IMPORTED_MODULE_7__.isRecord)(value)
+      ? value.toSeq().entrySeq()
+      : indexedSeqFromValue(value);
+  }
+
+  if ( Seq ) IndexedSeq.__proto__ = Seq;
+  IndexedSeq.prototype = Object.create( Seq && Seq.prototype );
+  IndexedSeq.prototype.constructor = IndexedSeq;
+
+  IndexedSeq.of = function of (/*...values*/) {
+    return IndexedSeq(arguments);
+  };
+
+  IndexedSeq.prototype.toIndexedSeq = function toIndexedSeq () {
+    return this;
+  };
+
+  IndexedSeq.prototype.toString = function toString () {
+    return this.__toString('Seq [', ']');
+  };
+
+  return IndexedSeq;
+}(Seq));
+
+var SetSeq = /*@__PURE__*/(function (Seq) {
+  function SetSeq(value) {
+    return (
+      (0,_predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_4__.isCollection)(value) && !(0,_predicates_isAssociative_js__WEBPACK_IMPORTED_MODULE_6__.isAssociative)(value) ? value : IndexedSeq(value)
+    ).toSetSeq();
+  }
+
+  if ( Seq ) SetSeq.__proto__ = Seq;
+  SetSeq.prototype = Object.create( Seq && Seq.prototype );
+  SetSeq.prototype.constructor = SetSeq;
+
+  SetSeq.of = function of (/*...values*/) {
+    return SetSeq(arguments);
+  };
+
+  SetSeq.prototype.toSetSeq = function toSetSeq () {
+    return this;
+  };
+
+  return SetSeq;
+}(Seq));
+
+Seq.isSeq = _predicates_isSeq_js__WEBPACK_IMPORTED_MODULE_2__.isSeq;
+Seq.Keyed = KeyedSeq;
+Seq.Set = SetSeq;
+Seq.Indexed = IndexedSeq;
+
+Seq.prototype[_predicates_isSeq_js__WEBPACK_IMPORTED_MODULE_2__.IS_SEQ_SYMBOL] = true;
+
+// #pragma Root Sequences
+
+var ArraySeq = /*@__PURE__*/(function (IndexedSeq) {
+  function ArraySeq(array) {
+    this._array = array;
+    this.size = array.length;
+  }
+
+  if ( IndexedSeq ) ArraySeq.__proto__ = IndexedSeq;
+  ArraySeq.prototype = Object.create( IndexedSeq && IndexedSeq.prototype );
+  ArraySeq.prototype.constructor = ArraySeq;
+
+  ArraySeq.prototype.get = function get (index, notSetValue) {
+    return this.has(index) ? this._array[(0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.wrapIndex)(this, index)] : notSetValue;
+  };
+
+  ArraySeq.prototype.__iterate = function __iterate (fn, reverse) {
+    var array = this._array;
+    var size = array.length;
+    var i = 0;
+    while (i !== size) {
+      var ii = reverse ? size - ++i : i++;
+      if (fn(array[ii], ii, this) === false) {
+        break;
+      }
+    }
+    return i;
+  };
+
+  ArraySeq.prototype.__iterator = function __iterator (type, reverse) {
+    var array = this._array;
+    var size = array.length;
+    var i = 0;
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_9__.Iterator(function () {
+      if (i === size) {
+        return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_9__.iteratorDone)();
+      }
+      var ii = reverse ? size - ++i : i++;
+      return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_9__.iteratorValue)(type, ii, array[ii]);
+    });
+  };
+
+  return ArraySeq;
+}(IndexedSeq));
+
+var ObjectSeq = /*@__PURE__*/(function (KeyedSeq) {
+  function ObjectSeq(object) {
+    var keys = Object.keys(object).concat(
+      Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(object) : []
+    );
+    this._object = object;
+    this._keys = keys;
+    this.size = keys.length;
+  }
+
+  if ( KeyedSeq ) ObjectSeq.__proto__ = KeyedSeq;
+  ObjectSeq.prototype = Object.create( KeyedSeq && KeyedSeq.prototype );
+  ObjectSeq.prototype.constructor = ObjectSeq;
+
+  ObjectSeq.prototype.get = function get (key, notSetValue) {
+    if (notSetValue !== undefined && !this.has(key)) {
+      return notSetValue;
+    }
+    return this._object[key];
+  };
+
+  ObjectSeq.prototype.has = function has (key) {
+    return _utils_hasOwnProperty_js__WEBPACK_IMPORTED_MODULE_10__["default"].call(this._object, key);
+  };
+
+  ObjectSeq.prototype.__iterate = function __iterate (fn, reverse) {
+    var object = this._object;
+    var keys = this._keys;
+    var size = keys.length;
+    var i = 0;
+    while (i !== size) {
+      var key = keys[reverse ? size - ++i : i++];
+      if (fn(object[key], key, this) === false) {
+        break;
+      }
+    }
+    return i;
+  };
+
+  ObjectSeq.prototype.__iterator = function __iterator (type, reverse) {
+    var object = this._object;
+    var keys = this._keys;
+    var size = keys.length;
+    var i = 0;
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_9__.Iterator(function () {
+      if (i === size) {
+        return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_9__.iteratorDone)();
+      }
+      var key = keys[reverse ? size - ++i : i++];
+      return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_9__.iteratorValue)(type, key, object[key]);
+    });
+  };
+
+  return ObjectSeq;
+}(KeyedSeq));
+ObjectSeq.prototype[_predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_8__.IS_ORDERED_SYMBOL] = true;
+
+var CollectionSeq = /*@__PURE__*/(function (IndexedSeq) {
+  function CollectionSeq(collection) {
+    this._collection = collection;
+    this.size = collection.length || collection.size;
+  }
+
+  if ( IndexedSeq ) CollectionSeq.__proto__ = IndexedSeq;
+  CollectionSeq.prototype = Object.create( IndexedSeq && IndexedSeq.prototype );
+  CollectionSeq.prototype.constructor = CollectionSeq;
+
+  CollectionSeq.prototype.__iterateUncached = function __iterateUncached (fn, reverse) {
+    if (reverse) {
+      return this.cacheResult().__iterate(fn, reverse);
+    }
+    var collection = this._collection;
+    var iterator = (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_9__.getIterator)(collection);
+    var iterations = 0;
+    if ((0,_Iterator_js__WEBPACK_IMPORTED_MODULE_9__.isIterator)(iterator)) {
+      var step;
+      while (!(step = iterator.next()).done) {
+        if (fn(step.value, iterations++, this) === false) {
+          break;
+        }
+      }
+    }
+    return iterations;
+  };
+
+  CollectionSeq.prototype.__iteratorUncached = function __iteratorUncached (type, reverse) {
+    if (reverse) {
+      return this.cacheResult().__iterator(type, reverse);
+    }
+    var collection = this._collection;
+    var iterator = (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_9__.getIterator)(collection);
+    if (!(0,_Iterator_js__WEBPACK_IMPORTED_MODULE_9__.isIterator)(iterator)) {
+      return new _Iterator_js__WEBPACK_IMPORTED_MODULE_9__.Iterator(_Iterator_js__WEBPACK_IMPORTED_MODULE_9__.iteratorDone);
+    }
+    var iterations = 0;
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_9__.Iterator(function () {
+      var step = iterator.next();
+      return step.done ? step : (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_9__.iteratorValue)(type, iterations++, step.value);
+    });
+  };
+
+  return CollectionSeq;
+}(IndexedSeq));
+
+// # pragma Helper functions
+
+var EMPTY_SEQ;
+
+function emptySequence() {
+  return EMPTY_SEQ || (EMPTY_SEQ = new ArraySeq([]));
+}
+
+function keyedSeqFromValue(value) {
+  var seq = maybeIndexedSeqFromValue(value);
+  if (seq) {
+    return seq.fromEntrySeq();
+  }
+  if (typeof value === 'object') {
+    return new ObjectSeq(value);
+  }
+  throw new TypeError(
+    'Expected Array or collection object of [k, v] entries, or keyed object: ' +
+      value
+  );
+}
+
+function indexedSeqFromValue(value) {
+  var seq = maybeIndexedSeqFromValue(value);
+  if (seq) {
+    return seq;
+  }
+  throw new TypeError(
+    'Expected Array or collection object of values: ' + value
+  );
+}
+
+function seqFromValue(value) {
+  var seq = maybeIndexedSeqFromValue(value);
+  if (seq) {
+    return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_9__.isEntriesIterable)(value)
+      ? seq.fromEntrySeq()
+      : (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_9__.isKeysIterable)(value)
+      ? seq.toSetSeq()
+      : seq;
+  }
+  if (typeof value === 'object') {
+    return new ObjectSeq(value);
+  }
+  throw new TypeError(
+    'Expected Array or collection object of values, or keyed object: ' + value
+  );
+}
+
+function maybeIndexedSeqFromValue(value) {
+  return (0,_utils_isArrayLike_js__WEBPACK_IMPORTED_MODULE_11__["default"])(value)
+    ? new ArraySeq(value)
+    : (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_9__.hasIterator)(value)
+    ? new CollectionSeq(value)
+    : undefined;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/Set.js":
+/*!***********************************************!*\
+  !*** ./node_modules/immutable/dist/es/Set.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Set: () => (/* binding */ Set)
+/* harmony export */ });
+/* harmony import */ var _Collection_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Collection.js */ "./node_modules/immutable/dist/es/Collection.js");
+/* harmony import */ var _predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./predicates/isOrdered.js */ "./node_modules/immutable/dist/es/predicates/isOrdered.js");
+/* harmony import */ var _predicates_isSet_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./predicates/isSet.js */ "./node_modules/immutable/dist/es/predicates/isSet.js");
+/* harmony import */ var _Map_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Map.js */ "./node_modules/immutable/dist/es/Map.js");
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/* harmony import */ var _Operations_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Operations.js */ "./node_modules/immutable/dist/es/Operations.js");
+/* harmony import */ var _utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils/assertNotInfinite.js */ "./node_modules/immutable/dist/es/utils/assertNotInfinite.js");
+/* harmony import */ var _methods_asImmutable_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./methods/asImmutable.js */ "./node_modules/immutable/dist/es/methods/asImmutable.js");
+/* harmony import */ var _methods_asMutable_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./methods/asMutable.js */ "./node_modules/immutable/dist/es/methods/asMutable.js");
+/* harmony import */ var _methods_withMutations_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./methods/withMutations.js */ "./node_modules/immutable/dist/es/methods/withMutations.js");
+/* harmony import */ var _OrderedSet_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./OrderedSet.js */ "./node_modules/immutable/dist/es/OrderedSet.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+var Set = /*@__PURE__*/(function (SetCollection) {
+  function Set(value) {
+    return value === undefined || value === null
+      ? emptySet()
+      : (0,_predicates_isSet_js__WEBPACK_IMPORTED_MODULE_2__.isSet)(value) && !(0,_predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_1__.isOrdered)(value)
+      ? value
+      : emptySet().withMutations(function (set) {
+          var iter = SetCollection(value);
+          (0,_utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_6__["default"])(iter.size);
+          iter.forEach(function (v) { return set.add(v); });
+        });
+  }
+
+  if ( SetCollection ) Set.__proto__ = SetCollection;
+  Set.prototype = Object.create( SetCollection && SetCollection.prototype );
+  Set.prototype.constructor = Set;
+
+  Set.of = function of (/*...values*/) {
+    return this(arguments);
+  };
+
+  Set.fromKeys = function fromKeys (value) {
+    return this((0,_Collection_js__WEBPACK_IMPORTED_MODULE_0__.KeyedCollection)(value).keySeq());
+  };
+
+  Set.intersect = function intersect (sets) {
+    sets = (0,_Collection_js__WEBPACK_IMPORTED_MODULE_0__.Collection)(sets).toArray();
+    return sets.length
+      ? SetPrototype.intersect.apply(Set(sets.pop()), sets)
+      : emptySet();
+  };
+
+  Set.union = function union (sets) {
+    sets = (0,_Collection_js__WEBPACK_IMPORTED_MODULE_0__.Collection)(sets).toArray();
+    return sets.length
+      ? SetPrototype.union.apply(Set(sets.pop()), sets)
+      : emptySet();
+  };
+
+  Set.prototype.toString = function toString () {
+    return this.__toString('Set {', '}');
+  };
+
+  // @pragma Access
+
+  Set.prototype.has = function has (value) {
+    return this._map.has(value);
+  };
+
+  // @pragma Modification
+
+  Set.prototype.add = function add (value) {
+    return updateSet(this, this._map.set(value, value));
+  };
+
+  Set.prototype.remove = function remove (value) {
+    return updateSet(this, this._map.remove(value));
+  };
+
+  Set.prototype.clear = function clear () {
+    return updateSet(this, this._map.clear());
+  };
+
+  // @pragma Composition
+
+  Set.prototype.map = function map (mapper, context) {
+    var this$1$1 = this;
+
+    // keep track if the set is altered by the map function
+    var didChanges = false;
+
+    var newMap = updateSet(
+      this,
+      this._map.mapEntries(function (ref) {
+        var v = ref[1];
+
+        var mapped = mapper.call(context, v, v, this$1$1);
+
+        if (mapped !== v) {
+          didChanges = true;
+        }
+
+        return [mapped, mapped];
+      }, context)
+    );
+
+    return didChanges ? newMap : this;
+  };
+
+  Set.prototype.union = function union () {
+    var iters = [], len = arguments.length;
+    while ( len-- ) iters[ len ] = arguments[ len ];
+
+    iters = iters.filter(function (x) { return x.size !== 0; });
+    if (iters.length === 0) {
+      return this;
+    }
+    if (this.size === 0 && !this.__ownerID && iters.length === 1) {
+      return this.constructor(iters[0]);
+    }
+    return this.withMutations(function (set) {
+      for (var ii = 0; ii < iters.length; ii++) {
+        if (typeof iters[ii] === 'string') {
+          set.add(iters[ii]);
+        } else {
+          SetCollection(iters[ii]).forEach(function (value) { return set.add(value); });
+        }
+      }
+    });
+  };
+
+  Set.prototype.intersect = function intersect () {
+    var iters = [], len = arguments.length;
+    while ( len-- ) iters[ len ] = arguments[ len ];
+
+    if (iters.length === 0) {
+      return this;
+    }
+    iters = iters.map(function (iter) { return SetCollection(iter); });
+    var toRemove = [];
+    this.forEach(function (value) {
+      if (!iters.every(function (iter) { return iter.includes(value); })) {
+        toRemove.push(value);
+      }
+    });
+    return this.withMutations(function (set) {
+      toRemove.forEach(function (value) {
+        set.remove(value);
+      });
+    });
+  };
+
+  Set.prototype.subtract = function subtract () {
+    var iters = [], len = arguments.length;
+    while ( len-- ) iters[ len ] = arguments[ len ];
+
+    if (iters.length === 0) {
+      return this;
+    }
+    iters = iters.map(function (iter) { return SetCollection(iter); });
+    var toRemove = [];
+    this.forEach(function (value) {
+      if (iters.some(function (iter) { return iter.includes(value); })) {
+        toRemove.push(value);
+      }
+    });
+    return this.withMutations(function (set) {
+      toRemove.forEach(function (value) {
+        set.remove(value);
+      });
+    });
+  };
+
+  Set.prototype.sort = function sort (comparator) {
+    // Late binding
+    return (0,_OrderedSet_js__WEBPACK_IMPORTED_MODULE_10__.OrderedSet)((0,_Operations_js__WEBPACK_IMPORTED_MODULE_5__.sortFactory)(this, comparator));
+  };
+
+  Set.prototype.sortBy = function sortBy (mapper, comparator) {
+    // Late binding
+    return (0,_OrderedSet_js__WEBPACK_IMPORTED_MODULE_10__.OrderedSet)((0,_Operations_js__WEBPACK_IMPORTED_MODULE_5__.sortFactory)(this, comparator, mapper));
+  };
+
+  Set.prototype.wasAltered = function wasAltered () {
+    return this._map.wasAltered();
+  };
+
+  Set.prototype.__iterate = function __iterate (fn, reverse) {
+    var this$1$1 = this;
+
+    return this._map.__iterate(function (k) { return fn(k, k, this$1$1); }, reverse);
+  };
+
+  Set.prototype.__iterator = function __iterator (type, reverse) {
+    return this._map.__iterator(type, reverse);
+  };
+
+  Set.prototype.__ensureOwner = function __ensureOwner (ownerID) {
+    if (ownerID === this.__ownerID) {
+      return this;
+    }
+    var newMap = this._map.__ensureOwner(ownerID);
+    if (!ownerID) {
+      if (this.size === 0) {
+        return this.__empty();
+      }
+      this.__ownerID = ownerID;
+      this._map = newMap;
+      return this;
+    }
+    return this.__make(newMap, ownerID);
+  };
+
+  return Set;
+}(_Collection_js__WEBPACK_IMPORTED_MODULE_0__.SetCollection));
+
+Set.isSet = _predicates_isSet_js__WEBPACK_IMPORTED_MODULE_2__.isSet;
+
+var SetPrototype = Set.prototype;
+SetPrototype[_predicates_isSet_js__WEBPACK_IMPORTED_MODULE_2__.IS_SET_SYMBOL] = true;
+SetPrototype[_TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.DELETE] = SetPrototype.remove;
+SetPrototype.merge = SetPrototype.concat = SetPrototype.union;
+SetPrototype.withMutations = _methods_withMutations_js__WEBPACK_IMPORTED_MODULE_9__.withMutations;
+SetPrototype.asImmutable = _methods_asImmutable_js__WEBPACK_IMPORTED_MODULE_7__.asImmutable;
+SetPrototype['@@transducer/init'] = SetPrototype.asMutable = _methods_asMutable_js__WEBPACK_IMPORTED_MODULE_8__.asMutable;
+SetPrototype['@@transducer/step'] = function (result, arr) {
+  return result.add(arr);
+};
+SetPrototype['@@transducer/result'] = function (obj) {
+  return obj.asImmutable();
+};
+
+SetPrototype.__empty = emptySet;
+SetPrototype.__make = makeSet;
+
+function updateSet(set, newMap) {
+  if (set.__ownerID) {
+    set.size = newMap.size;
+    set._map = newMap;
+    return set;
+  }
+  return newMap === set._map
+    ? set
+    : newMap.size === 0
+    ? set.__empty()
+    : set.__make(newMap);
+}
+
+function makeSet(map, ownerID) {
+  var set = Object.create(SetPrototype);
+  set.size = map ? map.size : 0;
+  set._map = map;
+  set.__ownerID = ownerID;
+  return set;
+}
+
+var EMPTY_SET;
+function emptySet() {
+  return EMPTY_SET || (EMPTY_SET = makeSet((0,_Map_js__WEBPACK_IMPORTED_MODULE_3__.emptyMap)()));
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/Stack.js":
+/*!*************************************************!*\
+  !*** ./node_modules/immutable/dist/es/Stack.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Stack: () => (/* binding */ Stack)
+/* harmony export */ });
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/* harmony import */ var _Collection_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Collection.js */ "./node_modules/immutable/dist/es/Collection.js");
+/* harmony import */ var _Seq_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Seq.js */ "./node_modules/immutable/dist/es/Seq.js");
+/* harmony import */ var _Iterator_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Iterator.js */ "./node_modules/immutable/dist/es/Iterator.js");
+/* harmony import */ var _predicates_isStack_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./predicates/isStack.js */ "./node_modules/immutable/dist/es/predicates/isStack.js");
+/* harmony import */ var _utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/assertNotInfinite.js */ "./node_modules/immutable/dist/es/utils/assertNotInfinite.js");
+/* harmony import */ var _methods_asImmutable_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./methods/asImmutable.js */ "./node_modules/immutable/dist/es/methods/asImmutable.js");
+/* harmony import */ var _methods_asMutable_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./methods/asMutable.js */ "./node_modules/immutable/dist/es/methods/asMutable.js");
+/* harmony import */ var _methods_wasAltered_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./methods/wasAltered.js */ "./node_modules/immutable/dist/es/methods/wasAltered.js");
+/* harmony import */ var _methods_withMutations_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./methods/withMutations.js */ "./node_modules/immutable/dist/es/methods/withMutations.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+
+
+
+var Stack = /*@__PURE__*/(function (IndexedCollection) {
+  function Stack(value) {
+    return value === undefined || value === null
+      ? emptyStack()
+      : (0,_predicates_isStack_js__WEBPACK_IMPORTED_MODULE_4__.isStack)(value)
+      ? value
+      : emptyStack().pushAll(value);
+  }
+
+  if ( IndexedCollection ) Stack.__proto__ = IndexedCollection;
+  Stack.prototype = Object.create( IndexedCollection && IndexedCollection.prototype );
+  Stack.prototype.constructor = Stack;
+
+  Stack.of = function of (/*...values*/) {
+    return this(arguments);
+  };
+
+  Stack.prototype.toString = function toString () {
+    return this.__toString('Stack [', ']');
+  };
+
+  // @pragma Access
+
+  Stack.prototype.get = function get (index, notSetValue) {
+    var head = this._head;
+    index = (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.wrapIndex)(this, index);
+    while (head && index--) {
+      head = head.next;
+    }
+    return head ? head.value : notSetValue;
+  };
+
+  Stack.prototype.peek = function peek () {
+    return this._head && this._head.value;
+  };
+
+  // @pragma Modification
+
+  Stack.prototype.push = function push (/*...values*/) {
+    var arguments$1 = arguments;
+
+    if (arguments.length === 0) {
+      return this;
+    }
+    var newSize = this.size + arguments.length;
+    var head = this._head;
+    for (var ii = arguments.length - 1; ii >= 0; ii--) {
+      head = {
+        value: arguments$1[ii],
+        next: head,
+      };
+    }
+    if (this.__ownerID) {
+      this.size = newSize;
+      this._head = head;
+      this.__hash = undefined;
+      this.__altered = true;
+      return this;
+    }
+    return makeStack(newSize, head);
+  };
+
+  Stack.prototype.pushAll = function pushAll (iter) {
+    iter = IndexedCollection(iter);
+    if (iter.size === 0) {
+      return this;
+    }
+    if (this.size === 0 && (0,_predicates_isStack_js__WEBPACK_IMPORTED_MODULE_4__.isStack)(iter)) {
+      return iter;
+    }
+    (0,_utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_5__["default"])(iter.size);
+    var newSize = this.size;
+    var head = this._head;
+    iter.__iterate(function (value) {
+      newSize++;
+      head = {
+        value: value,
+        next: head,
+      };
+    }, /* reverse */ true);
+    if (this.__ownerID) {
+      this.size = newSize;
+      this._head = head;
+      this.__hash = undefined;
+      this.__altered = true;
+      return this;
+    }
+    return makeStack(newSize, head);
+  };
+
+  Stack.prototype.pop = function pop () {
+    return this.slice(1);
+  };
+
+  Stack.prototype.clear = function clear () {
+    if (this.size === 0) {
+      return this;
+    }
+    if (this.__ownerID) {
+      this.size = 0;
+      this._head = undefined;
+      this.__hash = undefined;
+      this.__altered = true;
+      return this;
+    }
+    return emptyStack();
+  };
+
+  Stack.prototype.slice = function slice (begin, end) {
+    if ((0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.wholeSlice)(begin, end, this.size)) {
+      return this;
+    }
+    var resolvedBegin = (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.resolveBegin)(begin, this.size);
+    var resolvedEnd = (0,_TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.resolveEnd)(end, this.size);
+    if (resolvedEnd !== this.size) {
+      // super.slice(begin, end);
+      return IndexedCollection.prototype.slice.call(this, begin, end);
+    }
+    var newSize = this.size - resolvedBegin;
+    var head = this._head;
+    while (resolvedBegin--) {
+      head = head.next;
+    }
+    if (this.__ownerID) {
+      this.size = newSize;
+      this._head = head;
+      this.__hash = undefined;
+      this.__altered = true;
+      return this;
+    }
+    return makeStack(newSize, head);
+  };
+
+  // @pragma Mutability
+
+  Stack.prototype.__ensureOwner = function __ensureOwner (ownerID) {
+    if (ownerID === this.__ownerID) {
+      return this;
+    }
+    if (!ownerID) {
+      if (this.size === 0) {
+        return emptyStack();
+      }
+      this.__ownerID = ownerID;
+      this.__altered = false;
+      return this;
+    }
+    return makeStack(this.size, this._head, ownerID, this.__hash);
+  };
+
+  // @pragma Iteration
+
+  Stack.prototype.__iterate = function __iterate (fn, reverse) {
+    var this$1$1 = this;
+
+    if (reverse) {
+      return new _Seq_js__WEBPACK_IMPORTED_MODULE_2__.ArraySeq(this.toArray()).__iterate(
+        function (v, k) { return fn(v, k, this$1$1); },
+        reverse
+      );
+    }
+    var iterations = 0;
+    var node = this._head;
+    while (node) {
+      if (fn(node.value, iterations++, this) === false) {
+        break;
+      }
+      node = node.next;
+    }
+    return iterations;
+  };
+
+  Stack.prototype.__iterator = function __iterator (type, reverse) {
+    if (reverse) {
+      return new _Seq_js__WEBPACK_IMPORTED_MODULE_2__.ArraySeq(this.toArray()).__iterator(type, reverse);
+    }
+    var iterations = 0;
+    var node = this._head;
+    return new _Iterator_js__WEBPACK_IMPORTED_MODULE_3__.Iterator(function () {
+      if (node) {
+        var value = node.value;
+        node = node.next;
+        return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_3__.iteratorValue)(type, iterations++, value);
+      }
+      return (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_3__.iteratorDone)();
+    });
+  };
+
+  return Stack;
+}(_Collection_js__WEBPACK_IMPORTED_MODULE_1__.IndexedCollection));
+
+Stack.isStack = _predicates_isStack_js__WEBPACK_IMPORTED_MODULE_4__.isStack;
+
+var StackPrototype = Stack.prototype;
+StackPrototype[_predicates_isStack_js__WEBPACK_IMPORTED_MODULE_4__.IS_STACK_SYMBOL] = true;
+StackPrototype.shift = StackPrototype.pop;
+StackPrototype.unshift = StackPrototype.push;
+StackPrototype.unshiftAll = StackPrototype.pushAll;
+StackPrototype.withMutations = _methods_withMutations_js__WEBPACK_IMPORTED_MODULE_9__.withMutations;
+StackPrototype.wasAltered = _methods_wasAltered_js__WEBPACK_IMPORTED_MODULE_8__.wasAltered;
+StackPrototype.asImmutable = _methods_asImmutable_js__WEBPACK_IMPORTED_MODULE_6__.asImmutable;
+StackPrototype['@@transducer/init'] = StackPrototype.asMutable = _methods_asMutable_js__WEBPACK_IMPORTED_MODULE_7__.asMutable;
+StackPrototype['@@transducer/step'] = function (result, arr) {
+  return result.unshift(arr);
+};
+StackPrototype['@@transducer/result'] = function (obj) {
+  return obj.asImmutable();
+};
+
+function makeStack(size, head, ownerID, hash) {
+  var map = Object.create(StackPrototype);
+  map.size = size;
+  map._head = head;
+  map.__ownerID = ownerID;
+  map.__hash = hash;
+  map.__altered = false;
+  return map;
+}
+
+var EMPTY_STACK;
+function emptyStack() {
+  return EMPTY_STACK || (EMPTY_STACK = makeStack(0));
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/TrieUtils.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/immutable/dist/es/TrieUtils.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DELETE: () => (/* binding */ DELETE),
+/* harmony export */   MASK: () => (/* binding */ MASK),
+/* harmony export */   MakeRef: () => (/* binding */ MakeRef),
+/* harmony export */   NOT_SET: () => (/* binding */ NOT_SET),
+/* harmony export */   OwnerID: () => (/* binding */ OwnerID),
+/* harmony export */   SHIFT: () => (/* binding */ SHIFT),
+/* harmony export */   SIZE: () => (/* binding */ SIZE),
+/* harmony export */   SetRef: () => (/* binding */ SetRef),
+/* harmony export */   ensureSize: () => (/* binding */ ensureSize),
+/* harmony export */   resolveBegin: () => (/* binding */ resolveBegin),
+/* harmony export */   resolveEnd: () => (/* binding */ resolveEnd),
+/* harmony export */   returnTrue: () => (/* binding */ returnTrue),
+/* harmony export */   wholeSlice: () => (/* binding */ wholeSlice),
+/* harmony export */   wrapIndex: () => (/* binding */ wrapIndex)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var DELETE = 'delete';
+
+// Constants describing the size of trie nodes.
+var SHIFT = 5; // Resulted in best performance after ______?
+var SIZE = 1 << SHIFT;
+var MASK = SIZE - 1;
+
+// A consistent shared value representing "not set" which equals nothing other
+// than itself, and nothing that could be provided externally.
+var NOT_SET = {};
+
+// Boolean references, Rough equivalent of `bool &`.
+function MakeRef() {
+  return { value: false };
+}
+
+function SetRef(ref) {
+  if (ref) {
+    ref.value = true;
+  }
+}
+
+// A function which returns a value representing an "owner" for transient writes
+// to tries. The return value will only ever equal itself, and will not equal
+// the return of any subsequent call of this function.
+function OwnerID() {}
+
+function ensureSize(iter) {
+  if (iter.size === undefined) {
+    iter.size = iter.__iterate(returnTrue);
+  }
+  return iter.size;
+}
+
+function wrapIndex(iter, index) {
+  // This implements "is array index" which the ECMAString spec defines as:
+  //
+  //     A String property name P is an array index if and only if
+  //     ToString(ToUint32(P)) is equal to P and ToUint32(P) is not equal
+  //     to 2^32−1.
+  //
+  // http://www.ecma-international.org/ecma-262/6.0/#sec-array-exotic-objects
+  if (typeof index !== 'number') {
+    var uint32Index = index >>> 0; // N >>> 0 is shorthand for ToUint32
+    if ('' + uint32Index !== index || uint32Index === 4294967295) {
+      return NaN;
+    }
+    index = uint32Index;
+  }
+  return index < 0 ? ensureSize(iter) + index : index;
+}
+
+function returnTrue() {
+  return true;
+}
+
+function wholeSlice(begin, end, size) {
+  return (
+    ((begin === 0 && !isNeg(begin)) ||
+      (size !== undefined && begin <= -size)) &&
+    (end === undefined || (size !== undefined && end >= size))
+  );
+}
+
+function resolveBegin(begin, size) {
+  return resolveIndex(begin, size, 0);
+}
+
+function resolveEnd(end, size) {
+  return resolveIndex(end, size, size);
+}
+
+function resolveIndex(index, size, defaultIndex) {
+  // Sanitize indices using this shorthand for ToInt32(argument)
+  // http://www.ecma-international.org/ecma-262/6.0/#sec-toint32
+  return index === undefined
+    ? defaultIndex
+    : isNeg(index)
+    ? size === Infinity
+      ? size
+      : Math.max(0, size + index) | 0
+    : size === undefined || size === index
+    ? index
+    : Math.min(size, index) | 0;
+}
+
+function isNeg(value) {
+  // Account for -0 which is negative, but not less than 0.
+  return value < 0 || (value === 0 && 1 / value === -Infinity);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/fromJS.js":
+/*!**************************************************!*\
+  !*** ./node_modules/immutable/dist/es/fromJS.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* unused harmony export fromJS */
+/* harmony import */ var _Seq_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Seq.js */ "./node_modules/immutable/dist/es/Seq.js");
+/* harmony import */ var _Iterator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Iterator.js */ "./node_modules/immutable/dist/es/Iterator.js");
+/* harmony import */ var _predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./predicates/isImmutable.js */ "./node_modules/immutable/dist/es/predicates/isImmutable.js");
+/* harmony import */ var _predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./predicates/isIndexed.js */ "./node_modules/immutable/dist/es/predicates/isIndexed.js");
+/* harmony import */ var _predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./predicates/isKeyed.js */ "./node_modules/immutable/dist/es/predicates/isKeyed.js");
+/* harmony import */ var _utils_isArrayLike_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/isArrayLike.js */ "./node_modules/immutable/dist/es/utils/isArrayLike.js");
+/* harmony import */ var _utils_isPlainObj_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils/isPlainObj.js */ "./node_modules/immutable/dist/es/utils/isPlainObj.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+function fromJS(value, converter) {
+  return fromJSWith(
+    [],
+    converter || defaultConverter,
+    value,
+    '',
+    converter && converter.length > 2 ? [] : undefined,
+    { '': value }
+  );
+}
+
+function fromJSWith(stack, converter, value, key, keyPath, parentValue) {
+  if (
+    typeof value !== 'string' &&
+    !(0,_predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_2__.isImmutable)(value) &&
+    ((0,_utils_isArrayLike_js__WEBPACK_IMPORTED_MODULE_5__["default"])(value) || (0,_Iterator_js__WEBPACK_IMPORTED_MODULE_1__.hasIterator)(value) || (0,_utils_isPlainObj_js__WEBPACK_IMPORTED_MODULE_6__["default"])(value))
+  ) {
+    if (~stack.indexOf(value)) {
+      throw new TypeError('Cannot convert circular structure to Immutable');
+    }
+    stack.push(value);
+    keyPath && key !== '' && keyPath.push(key);
+    var converted = converter.call(
+      parentValue,
+      key,
+      (0,_Seq_js__WEBPACK_IMPORTED_MODULE_0__.Seq)(value).map(function (v, k) { return fromJSWith(stack, converter, v, k, keyPath, value); }
+      ),
+      keyPath && keyPath.slice()
+    );
+    stack.pop();
+    keyPath && keyPath.pop();
+    return converted;
+  }
+  return value;
+}
+
+function defaultConverter(k, v) {
+  // Effectively the opposite of "Collection.toSeq()"
+  return (0,_predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_3__.isIndexed)(v) ? v.toList() : (0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_4__.isKeyed)(v) ? v.toMap() : v.toSet();
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/functional/get.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/immutable/dist/es/functional/get.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   get: () => (/* binding */ get)
+/* harmony export */ });
+/* harmony import */ var _predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../predicates/isImmutable.js */ "./node_modules/immutable/dist/es/predicates/isImmutable.js");
+/* harmony import */ var _has_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./has.js */ "./node_modules/immutable/dist/es/functional/has.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+function get(collection, key, notSetValue) {
+  return (0,_predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_0__.isImmutable)(collection)
+    ? collection.get(key, notSetValue)
+    : !(0,_has_js__WEBPACK_IMPORTED_MODULE_1__.has)(collection, key)
+    ? notSetValue
+    : typeof collection.get === 'function'
+    ? collection.get(key)
+    : collection[key];
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/functional/getIn.js":
+/*!************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/functional/getIn.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getIn: () => (/* binding */ getIn)
+/* harmony export */ });
+/* harmony import */ var _utils_coerceKeyPath_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/coerceKeyPath.js */ "./node_modules/immutable/dist/es/utils/coerceKeyPath.js");
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/* harmony import */ var _get_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./get.js */ "./node_modules/immutable/dist/es/functional/get.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+function getIn(collection, searchKeyPath, notSetValue) {
+  var keyPath = (0,_utils_coerceKeyPath_js__WEBPACK_IMPORTED_MODULE_0__["default"])(searchKeyPath);
+  var i = 0;
+  while (i !== keyPath.length) {
+    collection = (0,_get_js__WEBPACK_IMPORTED_MODULE_2__.get)(collection, keyPath[i++], _TrieUtils_js__WEBPACK_IMPORTED_MODULE_1__.NOT_SET);
+    if (collection === _TrieUtils_js__WEBPACK_IMPORTED_MODULE_1__.NOT_SET) {
+      return notSetValue;
+    }
+  }
+  return collection;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/functional/has.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/immutable/dist/es/functional/has.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   has: () => (/* binding */ has)
+/* harmony export */ });
+/* harmony import */ var _predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../predicates/isImmutable.js */ "./node_modules/immutable/dist/es/predicates/isImmutable.js");
+/* harmony import */ var _utils_hasOwnProperty_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/hasOwnProperty.js */ "./node_modules/immutable/dist/es/utils/hasOwnProperty.js");
+/* harmony import */ var _utils_isDataStructure_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/isDataStructure.js */ "./node_modules/immutable/dist/es/utils/isDataStructure.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+function has(collection, key) {
+  return (0,_predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_0__.isImmutable)(collection)
+    ? collection.has(key)
+    : (0,_utils_isDataStructure_js__WEBPACK_IMPORTED_MODULE_2__["default"])(collection) && _utils_hasOwnProperty_js__WEBPACK_IMPORTED_MODULE_1__["default"].call(collection, key);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/functional/hasIn.js":
+/*!************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/functional/hasIn.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   hasIn: () => (/* binding */ hasIn)
+/* harmony export */ });
+/* harmony import */ var _getIn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getIn.js */ "./node_modules/immutable/dist/es/functional/getIn.js");
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+function hasIn(collection, keyPath) {
+  return (0,_getIn_js__WEBPACK_IMPORTED_MODULE_0__.getIn)(collection, keyPath, _TrieUtils_js__WEBPACK_IMPORTED_MODULE_1__.NOT_SET) !== _TrieUtils_js__WEBPACK_IMPORTED_MODULE_1__.NOT_SET;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/functional/merge.js":
+/*!************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/functional/merge.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   mergeDeepWithSources: () => (/* binding */ mergeDeepWithSources),
+/* harmony export */   mergeWithSources: () => (/* binding */ mergeWithSources)
+/* harmony export */ });
+/* unused harmony exports merge, mergeDeep, mergeDeepWith, mergeWith */
+/* harmony import */ var _predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../predicates/isImmutable.js */ "./node_modules/immutable/dist/es/predicates/isImmutable.js");
+/* harmony import */ var _predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../predicates/isIndexed.js */ "./node_modules/immutable/dist/es/predicates/isIndexed.js");
+/* harmony import */ var _predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../predicates/isKeyed.js */ "./node_modules/immutable/dist/es/predicates/isKeyed.js");
+/* harmony import */ var _Collection_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Collection.js */ "./node_modules/immutable/dist/es/Collection.js");
+/* harmony import */ var _Seq_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Seq.js */ "./node_modules/immutable/dist/es/Seq.js");
+/* harmony import */ var _utils_hasOwnProperty_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/hasOwnProperty.js */ "./node_modules/immutable/dist/es/utils/hasOwnProperty.js");
+/* harmony import */ var _utils_isDataStructure_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/isDataStructure.js */ "./node_modules/immutable/dist/es/utils/isDataStructure.js");
+/* harmony import */ var _utils_shallowCopy_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/shallowCopy.js */ "./node_modules/immutable/dist/es/utils/shallowCopy.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+
+function merge(collection) {
+  var sources = [], len = arguments.length - 1;
+  while ( len-- > 0 ) sources[ len ] = arguments[ len + 1 ];
+
+  return mergeWithSources(collection, sources);
+}
+
+function mergeWith(merger, collection) {
+  var sources = [], len = arguments.length - 2;
+  while ( len-- > 0 ) sources[ len ] = arguments[ len + 2 ];
+
+  return mergeWithSources(collection, sources, merger);
+}
+
+function mergeDeep(collection) {
+  var sources = [], len = arguments.length - 1;
+  while ( len-- > 0 ) sources[ len ] = arguments[ len + 1 ];
+
+  return mergeDeepWithSources(collection, sources);
+}
+
+function mergeDeepWith(merger, collection) {
+  var sources = [], len = arguments.length - 2;
+  while ( len-- > 0 ) sources[ len ] = arguments[ len + 2 ];
+
+  return mergeDeepWithSources(collection, sources, merger);
+}
+
+function mergeDeepWithSources(collection, sources, merger) {
+  return mergeWithSources(collection, sources, deepMergerWith(merger));
+}
+
+function mergeWithSources(collection, sources, merger) {
+  if (!(0,_utils_isDataStructure_js__WEBPACK_IMPORTED_MODULE_6__["default"])(collection)) {
+    throw new TypeError(
+      'Cannot merge into non-data-structure value: ' + collection
+    );
+  }
+  if ((0,_predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_0__.isImmutable)(collection)) {
+    return typeof merger === 'function' && collection.mergeWith
+      ? collection.mergeWith.apply(collection, [ merger ].concat( sources ))
+      : collection.merge
+      ? collection.merge.apply(collection, sources)
+      : collection.concat.apply(collection, sources);
+  }
+  var isArray = Array.isArray(collection);
+  var merged = collection;
+  var Collection = isArray ? _Collection_js__WEBPACK_IMPORTED_MODULE_3__.IndexedCollection : _Collection_js__WEBPACK_IMPORTED_MODULE_3__.KeyedCollection;
+  var mergeItem = isArray
+    ? function (value) {
+        // Copy on write
+        if (merged === collection) {
+          merged = (0,_utils_shallowCopy_js__WEBPACK_IMPORTED_MODULE_7__["default"])(merged);
+        }
+        merged.push(value);
+      }
+    : function (value, key) {
+        var hasVal = _utils_hasOwnProperty_js__WEBPACK_IMPORTED_MODULE_5__["default"].call(merged, key);
+        var nextVal =
+          hasVal && merger ? merger(merged[key], value, key) : value;
+        if (!hasVal || nextVal !== merged[key]) {
+          // Copy on write
+          if (merged === collection) {
+            merged = (0,_utils_shallowCopy_js__WEBPACK_IMPORTED_MODULE_7__["default"])(merged);
+          }
+          merged[key] = nextVal;
+        }
+      };
+  for (var i = 0; i < sources.length; i++) {
+    Collection(sources[i]).forEach(mergeItem);
+  }
+  return merged;
+}
+
+function deepMergerWith(merger) {
+  function deepMerger(oldValue, newValue, key) {
+    return (0,_utils_isDataStructure_js__WEBPACK_IMPORTED_MODULE_6__["default"])(oldValue) &&
+      (0,_utils_isDataStructure_js__WEBPACK_IMPORTED_MODULE_6__["default"])(newValue) &&
+      areMergeable(oldValue, newValue)
+      ? mergeWithSources(oldValue, [newValue], deepMerger)
+      : merger
+      ? merger(oldValue, newValue, key)
+      : newValue;
+  }
+  return deepMerger;
+}
+
+/**
+ * It's unclear what the desired behavior is for merging two collections that
+ * fall into separate categories between keyed, indexed, or set-like, so we only
+ * consider them mergeable if they fall into the same category.
+ */
+function areMergeable(oldDataStructure, newDataStructure) {
+  var oldSeq = (0,_Seq_js__WEBPACK_IMPORTED_MODULE_4__.Seq)(oldDataStructure);
+  var newSeq = (0,_Seq_js__WEBPACK_IMPORTED_MODULE_4__.Seq)(newDataStructure);
+  // This logic assumes that a sequence can only fall into one of the three
+  // categories mentioned above (since there's no `isSetLike()` method).
+  return (
+    (0,_predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_1__.isIndexed)(oldSeq) === (0,_predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_1__.isIndexed)(newSeq) &&
+    (0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_2__.isKeyed)(oldSeq) === (0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_2__.isKeyed)(newSeq)
+  );
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/functional/remove.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/functional/remove.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   remove: () => (/* binding */ remove)
+/* harmony export */ });
+/* harmony import */ var _predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../predicates/isImmutable.js */ "./node_modules/immutable/dist/es/predicates/isImmutable.js");
+/* harmony import */ var _utils_hasOwnProperty_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/hasOwnProperty.js */ "./node_modules/immutable/dist/es/utils/hasOwnProperty.js");
+/* harmony import */ var _utils_isDataStructure_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/isDataStructure.js */ "./node_modules/immutable/dist/es/utils/isDataStructure.js");
+/* harmony import */ var _utils_shallowCopy_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/shallowCopy.js */ "./node_modules/immutable/dist/es/utils/shallowCopy.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+function remove(collection, key) {
+  if (!(0,_utils_isDataStructure_js__WEBPACK_IMPORTED_MODULE_2__["default"])(collection)) {
+    throw new TypeError(
+      'Cannot update non-data-structure value: ' + collection
+    );
+  }
+  if ((0,_predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_0__.isImmutable)(collection)) {
+    if (!collection.remove) {
+      throw new TypeError(
+        'Cannot update immutable value without .remove() method: ' + collection
+      );
+    }
+    return collection.remove(key);
+  }
+  if (!_utils_hasOwnProperty_js__WEBPACK_IMPORTED_MODULE_1__["default"].call(collection, key)) {
+    return collection;
+  }
+  var collectionCopy = (0,_utils_shallowCopy_js__WEBPACK_IMPORTED_MODULE_3__["default"])(collection);
+  if (Array.isArray(collectionCopy)) {
+    collectionCopy.splice(key, 1);
+  } else {
+    delete collectionCopy[key];
+  }
+  return collectionCopy;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/functional/removeIn.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/functional/removeIn.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   removeIn: () => (/* binding */ removeIn)
+/* harmony export */ });
+/* harmony import */ var _updateIn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./updateIn.js */ "./node_modules/immutable/dist/es/functional/updateIn.js");
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+function removeIn(collection, keyPath) {
+  return (0,_updateIn_js__WEBPACK_IMPORTED_MODULE_0__.updateIn)(collection, keyPath, function () { return _TrieUtils_js__WEBPACK_IMPORTED_MODULE_1__.NOT_SET; });
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/functional/set.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/immutable/dist/es/functional/set.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   set: () => (/* binding */ set)
+/* harmony export */ });
+/* harmony import */ var _predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../predicates/isImmutable.js */ "./node_modules/immutable/dist/es/predicates/isImmutable.js");
+/* harmony import */ var _utils_hasOwnProperty_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/hasOwnProperty.js */ "./node_modules/immutable/dist/es/utils/hasOwnProperty.js");
+/* harmony import */ var _utils_isDataStructure_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/isDataStructure.js */ "./node_modules/immutable/dist/es/utils/isDataStructure.js");
+/* harmony import */ var _utils_shallowCopy_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/shallowCopy.js */ "./node_modules/immutable/dist/es/utils/shallowCopy.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+function set(collection, key, value) {
+  if (!(0,_utils_isDataStructure_js__WEBPACK_IMPORTED_MODULE_2__["default"])(collection)) {
+    throw new TypeError(
+      'Cannot update non-data-structure value: ' + collection
+    );
+  }
+  if ((0,_predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_0__.isImmutable)(collection)) {
+    if (!collection.set) {
+      throw new TypeError(
+        'Cannot update immutable value without .set() method: ' + collection
+      );
+    }
+    return collection.set(key, value);
+  }
+  if (_utils_hasOwnProperty_js__WEBPACK_IMPORTED_MODULE_1__["default"].call(collection, key) && value === collection[key]) {
+    return collection;
+  }
+  var collectionCopy = (0,_utils_shallowCopy_js__WEBPACK_IMPORTED_MODULE_3__["default"])(collection);
+  collectionCopy[key] = value;
+  return collectionCopy;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/functional/setIn.js":
+/*!************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/functional/setIn.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   setIn: () => (/* binding */ setIn)
+/* harmony export */ });
+/* harmony import */ var _updateIn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./updateIn.js */ "./node_modules/immutable/dist/es/functional/updateIn.js");
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+function setIn(collection, keyPath, value) {
+  return (0,_updateIn_js__WEBPACK_IMPORTED_MODULE_0__.updateIn)(collection, keyPath, _TrieUtils_js__WEBPACK_IMPORTED_MODULE_1__.NOT_SET, function () { return value; });
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/functional/update.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/functional/update.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   update: () => (/* binding */ update)
+/* harmony export */ });
+/* harmony import */ var _updateIn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./updateIn.js */ "./node_modules/immutable/dist/es/functional/updateIn.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+function update(collection, key, notSetValue, updater) {
+  return (0,_updateIn_js__WEBPACK_IMPORTED_MODULE_0__.updateIn)(collection, [key], notSetValue, updater);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/functional/updateIn.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/functional/updateIn.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   updateIn: () => (/* binding */ updateIn)
+/* harmony export */ });
+/* harmony import */ var _predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../predicates/isImmutable.js */ "./node_modules/immutable/dist/es/predicates/isImmutable.js");
+/* harmony import */ var _utils_coerceKeyPath_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/coerceKeyPath.js */ "./node_modules/immutable/dist/es/utils/coerceKeyPath.js");
+/* harmony import */ var _utils_isDataStructure_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/isDataStructure.js */ "./node_modules/immutable/dist/es/utils/isDataStructure.js");
+/* harmony import */ var _utils_quoteString_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/quoteString.js */ "./node_modules/immutable/dist/es/utils/quoteString.js");
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/* harmony import */ var _Map_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Map.js */ "./node_modules/immutable/dist/es/Map.js");
+/* harmony import */ var _get_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./get.js */ "./node_modules/immutable/dist/es/functional/get.js");
+/* harmony import */ var _remove_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./remove.js */ "./node_modules/immutable/dist/es/functional/remove.js");
+/* harmony import */ var _set_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./set.js */ "./node_modules/immutable/dist/es/functional/set.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+
+
+function updateIn(collection, keyPath, notSetValue, updater) {
+  if (!updater) {
+    updater = notSetValue;
+    notSetValue = undefined;
+  }
+  var updatedValue = updateInDeeply(
+    (0,_predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_0__.isImmutable)(collection),
+    collection,
+    (0,_utils_coerceKeyPath_js__WEBPACK_IMPORTED_MODULE_1__["default"])(keyPath),
+    0,
+    notSetValue,
+    updater
+  );
+  return updatedValue === _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.NOT_SET ? notSetValue : updatedValue;
+}
+
+function updateInDeeply(
+  inImmutable,
+  existing,
+  keyPath,
+  i,
+  notSetValue,
+  updater
+) {
+  var wasNotSet = existing === _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.NOT_SET;
+  if (i === keyPath.length) {
+    var existingValue = wasNotSet ? notSetValue : existing;
+    var newValue = updater(existingValue);
+    return newValue === existingValue ? existing : newValue;
+  }
+  if (!wasNotSet && !(0,_utils_isDataStructure_js__WEBPACK_IMPORTED_MODULE_2__["default"])(existing)) {
+    throw new TypeError(
+      'Cannot update within non-data-structure value in path [' +
+        keyPath.slice(0, i).map(_utils_quoteString_js__WEBPACK_IMPORTED_MODULE_3__["default"]) +
+        ']: ' +
+        existing
+    );
+  }
+  var key = keyPath[i];
+  var nextExisting = wasNotSet ? _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.NOT_SET : (0,_get_js__WEBPACK_IMPORTED_MODULE_6__.get)(existing, key, _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.NOT_SET);
+  var nextUpdated = updateInDeeply(
+    nextExisting === _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.NOT_SET ? inImmutable : (0,_predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_0__.isImmutable)(nextExisting),
+    nextExisting,
+    keyPath,
+    i + 1,
+    notSetValue,
+    updater
+  );
+  return nextUpdated === nextExisting
+    ? existing
+    : nextUpdated === _TrieUtils_js__WEBPACK_IMPORTED_MODULE_4__.NOT_SET
+    ? (0,_remove_js__WEBPACK_IMPORTED_MODULE_7__.remove)(existing, key)
+    : (0,_set_js__WEBPACK_IMPORTED_MODULE_8__.set)(
+        wasNotSet ? (inImmutable ? (0,_Map_js__WEBPACK_IMPORTED_MODULE_5__.emptyMap)() : {}) : existing,
+        key,
+        nextUpdated
+      );
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/is.js":
+/*!**********************************************!*\
+  !*** ./node_modules/immutable/dist/es/is.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   is: () => (/* binding */ is)
+/* harmony export */ });
+/* harmony import */ var _predicates_isValueObject_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./predicates/isValueObject.js */ "./node_modules/immutable/dist/es/predicates/isValueObject.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+/**
+ * An extension of the "same-value" algorithm as [described for use by ES6 Map
+ * and Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#Key_equality)
+ *
+ * NaN is considered the same as NaN, however -0 and 0 are considered the same
+ * value, which is different from the algorithm described by
+ * [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is).
+ *
+ * This is extended further to allow Objects to describe the values they
+ * represent, by way of `valueOf` or `equals` (and `hashCode`).
+ *
+ * Note: because of this extension, the key equality of Immutable.Map and the
+ * value equality of Immutable.Set will differ from ES6 Map and Set.
+ *
+ * ### Defining custom values
+ *
+ * The easiest way to describe the value an object represents is by implementing
+ * `valueOf`. For example, `Date` represents a value by returning a unix
+ * timestamp for `valueOf`:
+ *
+ *     var date1 = new Date(1234567890000); // Fri Feb 13 2009 ...
+ *     var date2 = new Date(1234567890000);
+ *     date1.valueOf(); // 1234567890000
+ *     assert( date1 !== date2 );
+ *     assert( Immutable.is( date1, date2 ) );
+ *
+ * Note: overriding `valueOf` may have other implications if you use this object
+ * where JavaScript expects a primitive, such as implicit string coercion.
+ *
+ * For more complex types, especially collections, implementing `valueOf` may
+ * not be performant. An alternative is to implement `equals` and `hashCode`.
+ *
+ * `equals` takes another object, presumably of similar type, and returns true
+ * if it is equal. Equality is symmetrical, so the same result should be
+ * returned if this and the argument are flipped.
+ *
+ *     assert( a.equals(b) === b.equals(a) );
+ *
+ * `hashCode` returns a 32bit integer number representing the object which will
+ * be used to determine how to store the value object in a Map or Set. You must
+ * provide both or neither methods, one must not exist without the other.
+ *
+ * Also, an important relationship between these methods must be upheld: if two
+ * values are equal, they *must* return the same hashCode. If the values are not
+ * equal, they might have the same hashCode; this is called a hash collision,
+ * and while undesirable for performance reasons, it is acceptable.
+ *
+ *     if (a.equals(b)) {
+ *       assert( a.hashCode() === b.hashCode() );
+ *     }
+ *
+ * All Immutable collections are Value Objects: they implement `equals()`
+ * and `hashCode()`.
+ */
+function is(valueA, valueB) {
+  if (valueA === valueB || (valueA !== valueA && valueB !== valueB)) {
+    return true;
+  }
+  if (!valueA || !valueB) {
+    return false;
+  }
+  if (
+    typeof valueA.valueOf === 'function' &&
+    typeof valueB.valueOf === 'function'
+  ) {
+    valueA = valueA.valueOf();
+    valueB = valueB.valueOf();
+    if (valueA === valueB || (valueA !== valueA && valueB !== valueB)) {
+      return true;
+    }
+    if (!valueA || !valueB) {
+      return false;
+    }
+  }
+  return !!(
+    (0,_predicates_isValueObject_js__WEBPACK_IMPORTED_MODULE_0__.isValueObject)(valueA) &&
+    (0,_predicates_isValueObject_js__WEBPACK_IMPORTED_MODULE_0__.isValueObject)(valueB) &&
+    valueA.equals(valueB)
+  );
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/methods/asImmutable.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/methods/asImmutable.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   asImmutable: () => (/* binding */ asImmutable)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+function asImmutable() {
+  return this.__ensureOwner();
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/methods/asMutable.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/methods/asMutable.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   asMutable: () => (/* binding */ asMutable)
+/* harmony export */ });
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+function asMutable() {
+  return this.__ownerID ? this : this.__ensureOwner(new _TrieUtils_js__WEBPACK_IMPORTED_MODULE_0__.OwnerID());
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/methods/deleteIn.js":
+/*!************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/methods/deleteIn.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   deleteIn: () => (/* binding */ deleteIn)
+/* harmony export */ });
+/* harmony import */ var _functional_removeIn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functional/removeIn.js */ "./node_modules/immutable/dist/es/functional/removeIn.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+function deleteIn(keyPath) {
+  return (0,_functional_removeIn_js__WEBPACK_IMPORTED_MODULE_0__.removeIn)(this, keyPath);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/methods/getIn.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/immutable/dist/es/methods/getIn.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getIn: () => (/* binding */ getIn)
+/* harmony export */ });
+/* harmony import */ var _functional_getIn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functional/getIn.js */ "./node_modules/immutable/dist/es/functional/getIn.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+function getIn(searchKeyPath, notSetValue) {
+  return (0,_functional_getIn_js__WEBPACK_IMPORTED_MODULE_0__.getIn)(this, searchKeyPath, notSetValue);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/methods/hasIn.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/immutable/dist/es/methods/hasIn.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   hasIn: () => (/* binding */ hasIn)
+/* harmony export */ });
+/* harmony import */ var _functional_hasIn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functional/hasIn.js */ "./node_modules/immutable/dist/es/functional/hasIn.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+function hasIn(searchKeyPath) {
+  return (0,_functional_hasIn_js__WEBPACK_IMPORTED_MODULE_0__.hasIn)(this, searchKeyPath);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/methods/merge.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/immutable/dist/es/methods/merge.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   merge: () => (/* binding */ merge),
+/* harmony export */   mergeWith: () => (/* binding */ mergeWith)
+/* harmony export */ });
+/* harmony import */ var _Collection_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Collection.js */ "./node_modules/immutable/dist/es/Collection.js");
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/* harmony import */ var _functional_update_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../functional/update.js */ "./node_modules/immutable/dist/es/functional/update.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+function merge() {
+  var iters = [], len = arguments.length;
+  while ( len-- ) iters[ len ] = arguments[ len ];
+
+  return mergeIntoKeyedWith(this, iters);
+}
+
+function mergeWith(merger) {
+  var iters = [], len = arguments.length - 1;
+  while ( len-- > 0 ) iters[ len ] = arguments[ len + 1 ];
+
+  if (typeof merger !== 'function') {
+    throw new TypeError('Invalid merger function: ' + merger);
+  }
+  return mergeIntoKeyedWith(this, iters, merger);
+}
+
+function mergeIntoKeyedWith(collection, collections, merger) {
+  var iters = [];
+  for (var ii = 0; ii < collections.length; ii++) {
+    var collection$1 = (0,_Collection_js__WEBPACK_IMPORTED_MODULE_0__.KeyedCollection)(collections[ii]);
+    if (collection$1.size !== 0) {
+      iters.push(collection$1);
+    }
+  }
+  if (iters.length === 0) {
+    return collection;
+  }
+  if (
+    collection.toSeq().size === 0 &&
+    !collection.__ownerID &&
+    iters.length === 1
+  ) {
+    return collection.constructor(iters[0]);
+  }
+  return collection.withMutations(function (collection) {
+    var mergeIntoCollection = merger
+      ? function (value, key) {
+          (0,_functional_update_js__WEBPACK_IMPORTED_MODULE_2__.update)(collection, key, _TrieUtils_js__WEBPACK_IMPORTED_MODULE_1__.NOT_SET, function (oldVal) { return oldVal === _TrieUtils_js__WEBPACK_IMPORTED_MODULE_1__.NOT_SET ? value : merger(oldVal, value, key); }
+          );
+        }
+      : function (value, key) {
+          collection.set(key, value);
+        };
+    for (var ii = 0; ii < iters.length; ii++) {
+      iters[ii].forEach(mergeIntoCollection);
+    }
+  });
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/methods/mergeDeep.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/methods/mergeDeep.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   mergeDeep: () => (/* binding */ mergeDeep),
+/* harmony export */   mergeDeepWith: () => (/* binding */ mergeDeepWith)
+/* harmony export */ });
+/* harmony import */ var _functional_merge_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functional/merge.js */ "./node_modules/immutable/dist/es/functional/merge.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+function mergeDeep() {
+  var iters = [], len = arguments.length;
+  while ( len-- ) iters[ len ] = arguments[ len ];
+
+  return (0,_functional_merge_js__WEBPACK_IMPORTED_MODULE_0__.mergeDeepWithSources)(this, iters);
+}
+
+function mergeDeepWith(merger) {
+  var iters = [], len = arguments.length - 1;
+  while ( len-- > 0 ) iters[ len ] = arguments[ len + 1 ];
+
+  return (0,_functional_merge_js__WEBPACK_IMPORTED_MODULE_0__.mergeDeepWithSources)(this, iters, merger);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/methods/mergeDeepIn.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/methods/mergeDeepIn.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   mergeDeepIn: () => (/* binding */ mergeDeepIn)
+/* harmony export */ });
+/* harmony import */ var _functional_merge_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functional/merge.js */ "./node_modules/immutable/dist/es/functional/merge.js");
+/* harmony import */ var _functional_updateIn_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../functional/updateIn.js */ "./node_modules/immutable/dist/es/functional/updateIn.js");
+/* harmony import */ var _Map_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Map.js */ "./node_modules/immutable/dist/es/Map.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+function mergeDeepIn(keyPath) {
+  var iters = [], len = arguments.length - 1;
+  while ( len-- > 0 ) iters[ len ] = arguments[ len + 1 ];
+
+  return (0,_functional_updateIn_js__WEBPACK_IMPORTED_MODULE_1__.updateIn)(this, keyPath, (0,_Map_js__WEBPACK_IMPORTED_MODULE_2__.emptyMap)(), function (m) { return (0,_functional_merge_js__WEBPACK_IMPORTED_MODULE_0__.mergeDeepWithSources)(m, iters); }
+  );
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/methods/mergeIn.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/immutable/dist/es/methods/mergeIn.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   mergeIn: () => (/* binding */ mergeIn)
+/* harmony export */ });
+/* harmony import */ var _functional_merge_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functional/merge.js */ "./node_modules/immutable/dist/es/functional/merge.js");
+/* harmony import */ var _functional_updateIn_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../functional/updateIn.js */ "./node_modules/immutable/dist/es/functional/updateIn.js");
+/* harmony import */ var _Map_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Map.js */ "./node_modules/immutable/dist/es/Map.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+function mergeIn(keyPath) {
+  var iters = [], len = arguments.length - 1;
+  while ( len-- > 0 ) iters[ len ] = arguments[ len + 1 ];
+
+  return (0,_functional_updateIn_js__WEBPACK_IMPORTED_MODULE_1__.updateIn)(this, keyPath, (0,_Map_js__WEBPACK_IMPORTED_MODULE_2__.emptyMap)(), function (m) { return (0,_functional_merge_js__WEBPACK_IMPORTED_MODULE_0__.mergeWithSources)(m, iters); });
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/methods/setIn.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/immutable/dist/es/methods/setIn.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   setIn: () => (/* binding */ setIn)
+/* harmony export */ });
+/* harmony import */ var _functional_setIn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functional/setIn.js */ "./node_modules/immutable/dist/es/functional/setIn.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+function setIn(keyPath, v) {
+  return (0,_functional_setIn_js__WEBPACK_IMPORTED_MODULE_0__.setIn)(this, keyPath, v);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/methods/toObject.js":
+/*!************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/methods/toObject.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   toObject: () => (/* binding */ toObject)
+/* harmony export */ });
+/* harmony import */ var _utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/assertNotInfinite.js */ "./node_modules/immutable/dist/es/utils/assertNotInfinite.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+function toObject() {
+  (0,_utils_assertNotInfinite_js__WEBPACK_IMPORTED_MODULE_0__["default"])(this.size);
+  var object = {};
+  this.__iterate(function (v, k) {
+    object[k] = v;
+  });
+  return object;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/methods/update.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/immutable/dist/es/methods/update.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   update: () => (/* binding */ update)
+/* harmony export */ });
+/* harmony import */ var _functional_update_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functional/update.js */ "./node_modules/immutable/dist/es/functional/update.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+function update(key, notSetValue, updater) {
+  return arguments.length === 1
+    ? key(this)
+    : (0,_functional_update_js__WEBPACK_IMPORTED_MODULE_0__.update)(this, key, notSetValue, updater);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/methods/updateIn.js":
+/*!************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/methods/updateIn.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   updateIn: () => (/* binding */ updateIn)
+/* harmony export */ });
+/* harmony import */ var _functional_updateIn_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../functional/updateIn.js */ "./node_modules/immutable/dist/es/functional/updateIn.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+function updateIn(keyPath, notSetValue, updater) {
+  return (0,_functional_updateIn_js__WEBPACK_IMPORTED_MODULE_0__.updateIn)(this, keyPath, notSetValue, updater);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/methods/wasAltered.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/methods/wasAltered.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   wasAltered: () => (/* binding */ wasAltered)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+function wasAltered() {
+  return this.__altered;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/methods/withMutations.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/methods/withMutations.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   withMutations: () => (/* binding */ withMutations)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+function withMutations(fn) {
+  var mutable = this.asMutable();
+  fn(mutable);
+  return mutable.wasAltered() ? mutable.__ensureOwner(this.__ownerID) : this;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/package.json.js":
+/*!********************************************************!*\
+  !*** ./node_modules/immutable/dist/es/package.json.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* unused harmony export version */
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var version = "5.0.0-beta.4";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/predicates/isAssociative.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/predicates/isAssociative.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isAssociative: () => (/* binding */ isAssociative)
+/* harmony export */ });
+/* harmony import */ var _isKeyed_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isKeyed.js */ "./node_modules/immutable/dist/es/predicates/isKeyed.js");
+/* harmony import */ var _isIndexed_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isIndexed.js */ "./node_modules/immutable/dist/es/predicates/isIndexed.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+function isAssociative(maybeAssociative) {
+  return (0,_isKeyed_js__WEBPACK_IMPORTED_MODULE_0__.isKeyed)(maybeAssociative) || (0,_isIndexed_js__WEBPACK_IMPORTED_MODULE_1__.isIndexed)(maybeAssociative);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/predicates/isCollection.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/predicates/isCollection.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IS_COLLECTION_SYMBOL: () => (/* binding */ IS_COLLECTION_SYMBOL),
+/* harmony export */   isCollection: () => (/* binding */ isCollection)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var IS_COLLECTION_SYMBOL = '@@__IMMUTABLE_ITERABLE__@@';
+
+function isCollection(maybeCollection) {
+  return Boolean(maybeCollection && maybeCollection[IS_COLLECTION_SYMBOL]);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/predicates/isImmutable.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/predicates/isImmutable.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isImmutable: () => (/* binding */ isImmutable)
+/* harmony export */ });
+/* harmony import */ var _isCollection_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isCollection.js */ "./node_modules/immutable/dist/es/predicates/isCollection.js");
+/* harmony import */ var _isRecord_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isRecord.js */ "./node_modules/immutable/dist/es/predicates/isRecord.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+function isImmutable(maybeImmutable) {
+  return (0,_isCollection_js__WEBPACK_IMPORTED_MODULE_0__.isCollection)(maybeImmutable) || (0,_isRecord_js__WEBPACK_IMPORTED_MODULE_1__.isRecord)(maybeImmutable);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/predicates/isIndexed.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/predicates/isIndexed.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IS_INDEXED_SYMBOL: () => (/* binding */ IS_INDEXED_SYMBOL),
+/* harmony export */   isIndexed: () => (/* binding */ isIndexed)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var IS_INDEXED_SYMBOL = '@@__IMMUTABLE_INDEXED__@@';
+
+function isIndexed(maybeIndexed) {
+  return Boolean(maybeIndexed && maybeIndexed[IS_INDEXED_SYMBOL]);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/predicates/isKeyed.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/predicates/isKeyed.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IS_KEYED_SYMBOL: () => (/* binding */ IS_KEYED_SYMBOL),
+/* harmony export */   isKeyed: () => (/* binding */ isKeyed)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var IS_KEYED_SYMBOL = '@@__IMMUTABLE_KEYED__@@';
+
+function isKeyed(maybeKeyed) {
+  return Boolean(maybeKeyed && maybeKeyed[IS_KEYED_SYMBOL]);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/predicates/isList.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/predicates/isList.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IS_LIST_SYMBOL: () => (/* binding */ IS_LIST_SYMBOL),
+/* harmony export */   isList: () => (/* binding */ isList)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var IS_LIST_SYMBOL = '@@__IMMUTABLE_LIST__@@';
+
+function isList(maybeList) {
+  return Boolean(maybeList && maybeList[IS_LIST_SYMBOL]);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/predicates/isMap.js":
+/*!************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/predicates/isMap.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IS_MAP_SYMBOL: () => (/* binding */ IS_MAP_SYMBOL),
+/* harmony export */   isMap: () => (/* binding */ isMap)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var IS_MAP_SYMBOL = '@@__IMMUTABLE_MAP__@@';
+
+function isMap(maybeMap) {
+  return Boolean(maybeMap && maybeMap[IS_MAP_SYMBOL]);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/predicates/isOrdered.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/predicates/isOrdered.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IS_ORDERED_SYMBOL: () => (/* binding */ IS_ORDERED_SYMBOL),
+/* harmony export */   isOrdered: () => (/* binding */ isOrdered)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var IS_ORDERED_SYMBOL = '@@__IMMUTABLE_ORDERED__@@';
+
+function isOrdered(maybeOrdered) {
+  return Boolean(maybeOrdered && maybeOrdered[IS_ORDERED_SYMBOL]);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/predicates/isOrderedMap.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/predicates/isOrderedMap.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isOrderedMap: () => (/* binding */ isOrderedMap)
+/* harmony export */ });
+/* harmony import */ var _isMap_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isMap.js */ "./node_modules/immutable/dist/es/predicates/isMap.js");
+/* harmony import */ var _isOrdered_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isOrdered.js */ "./node_modules/immutable/dist/es/predicates/isOrdered.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+function isOrderedMap(maybeOrderedMap) {
+  return (0,_isMap_js__WEBPACK_IMPORTED_MODULE_0__.isMap)(maybeOrderedMap) && (0,_isOrdered_js__WEBPACK_IMPORTED_MODULE_1__.isOrdered)(maybeOrderedMap);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/predicates/isOrderedSet.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/predicates/isOrderedSet.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isOrderedSet: () => (/* binding */ isOrderedSet)
+/* harmony export */ });
+/* harmony import */ var _isSet_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isSet.js */ "./node_modules/immutable/dist/es/predicates/isSet.js");
+/* harmony import */ var _isOrdered_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isOrdered.js */ "./node_modules/immutable/dist/es/predicates/isOrdered.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+function isOrderedSet(maybeOrderedSet) {
+  return (0,_isSet_js__WEBPACK_IMPORTED_MODULE_0__.isSet)(maybeOrderedSet) && (0,_isOrdered_js__WEBPACK_IMPORTED_MODULE_1__.isOrdered)(maybeOrderedSet);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/predicates/isRecord.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/predicates/isRecord.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IS_RECORD_SYMBOL: () => (/* binding */ IS_RECORD_SYMBOL),
+/* harmony export */   isRecord: () => (/* binding */ isRecord)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var IS_RECORD_SYMBOL = '@@__IMMUTABLE_RECORD__@@';
+
+function isRecord(maybeRecord) {
+  return Boolean(maybeRecord && maybeRecord[IS_RECORD_SYMBOL]);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/predicates/isSeq.js":
+/*!************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/predicates/isSeq.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IS_SEQ_SYMBOL: () => (/* binding */ IS_SEQ_SYMBOL),
+/* harmony export */   isSeq: () => (/* binding */ isSeq)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var IS_SEQ_SYMBOL = '@@__IMMUTABLE_SEQ__@@';
+
+function isSeq(maybeSeq) {
+  return Boolean(maybeSeq && maybeSeq[IS_SEQ_SYMBOL]);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/predicates/isSet.js":
+/*!************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/predicates/isSet.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IS_SET_SYMBOL: () => (/* binding */ IS_SET_SYMBOL),
+/* harmony export */   isSet: () => (/* binding */ isSet)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var IS_SET_SYMBOL = '@@__IMMUTABLE_SET__@@';
+
+function isSet(maybeSet) {
+  return Boolean(maybeSet && maybeSet[IS_SET_SYMBOL]);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/predicates/isStack.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/predicates/isStack.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IS_STACK_SYMBOL: () => (/* binding */ IS_STACK_SYMBOL),
+/* harmony export */   isStack: () => (/* binding */ isStack)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var IS_STACK_SYMBOL = '@@__IMMUTABLE_STACK__@@';
+
+function isStack(maybeStack) {
+  return Boolean(maybeStack && maybeStack[IS_STACK_SYMBOL]);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/predicates/isValueObject.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/predicates/isValueObject.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isValueObject: () => (/* binding */ isValueObject)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+function isValueObject(maybeValue) {
+  return Boolean(
+    maybeValue &&
+      typeof maybeValue.equals === 'function' &&
+      typeof maybeValue.hashCode === 'function'
+  );
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/toJS.js":
+/*!************************************************!*\
+  !*** ./node_modules/immutable/dist/es/toJS.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   toJS: () => (/* binding */ toJS)
+/* harmony export */ });
+/* harmony import */ var _Seq_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Seq.js */ "./node_modules/immutable/dist/es/Seq.js");
+/* harmony import */ var _predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./predicates/isCollection.js */ "./node_modules/immutable/dist/es/predicates/isCollection.js");
+/* harmony import */ var _predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./predicates/isKeyed.js */ "./node_modules/immutable/dist/es/predicates/isKeyed.js");
+/* harmony import */ var _utils_isDataStructure_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/isDataStructure.js */ "./node_modules/immutable/dist/es/utils/isDataStructure.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+function toJS(value) {
+  if (!value || typeof value !== 'object') {
+    return value;
+  }
+  if (!(0,_predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_1__.isCollection)(value)) {
+    if (!(0,_utils_isDataStructure_js__WEBPACK_IMPORTED_MODULE_3__["default"])(value)) {
+      return value;
+    }
+    value = (0,_Seq_js__WEBPACK_IMPORTED_MODULE_0__.Seq)(value);
+  }
+  if ((0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_2__.isKeyed)(value)) {
+    var result$1 = {};
+    value.__iterate(function (v, k) {
+      result$1[k] = toJS(v);
+    });
+    return result$1;
+  }
+  var result = [];
+  value.__iterate(function (v) {
+    result.push(toJS(v));
+  });
+  return result;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/utils/arrCopy.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/immutable/dist/es/utils/arrCopy.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+function arrCopy(arr, offset) {
+  offset = offset || 0;
+  var len = Math.max(0, arr.length - offset);
+  var newArr = new Array(len);
+  for (var ii = 0; ii < len; ii++) {
+    newArr[ii] = arr[ii + offset];
+  }
+  return newArr;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (arrCopy);
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/utils/assertNotInfinite.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/utils/assertNotInfinite.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _invariant_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./invariant.js */ "./node_modules/immutable/dist/es/utils/invariant.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+function assertNotInfinite(size) {
+  (0,_invariant_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+    size !== Infinity,
+    'Cannot perform this action with an infinite size.'
+  );
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (assertNotInfinite);
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/utils/coerceKeyPath.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/utils/coerceKeyPath.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../predicates/isOrdered.js */ "./node_modules/immutable/dist/es/predicates/isOrdered.js");
+/* harmony import */ var _isArrayLike_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isArrayLike.js */ "./node_modules/immutable/dist/es/utils/isArrayLike.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+function coerceKeyPath(keyPath) {
+  if ((0,_isArrayLike_js__WEBPACK_IMPORTED_MODULE_1__["default"])(keyPath) && typeof keyPath !== 'string') {
+    return keyPath;
+  }
+  if ((0,_predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_0__.isOrdered)(keyPath)) {
+    return keyPath.toArray();
+  }
+  throw new TypeError(
+    'Invalid keyPath: expected Ordered Collection or Array: ' + keyPath
+  );
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (coerceKeyPath);
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/utils/deepEqual.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/immutable/dist/es/utils/deepEqual.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _is_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../is.js */ "./node_modules/immutable/dist/es/is.js");
+/* harmony import */ var _TrieUtils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../TrieUtils.js */ "./node_modules/immutable/dist/es/TrieUtils.js");
+/* harmony import */ var _predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../predicates/isCollection.js */ "./node_modules/immutable/dist/es/predicates/isCollection.js");
+/* harmony import */ var _predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../predicates/isKeyed.js */ "./node_modules/immutable/dist/es/predicates/isKeyed.js");
+/* harmony import */ var _predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../predicates/isIndexed.js */ "./node_modules/immutable/dist/es/predicates/isIndexed.js");
+/* harmony import */ var _predicates_isAssociative_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../predicates/isAssociative.js */ "./node_modules/immutable/dist/es/predicates/isAssociative.js");
+/* harmony import */ var _predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../predicates/isOrdered.js */ "./node_modules/immutable/dist/es/predicates/isOrdered.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+function deepEqual(a, b) {
+  if (a === b) {
+    return true;
+  }
+
+  if (
+    !(0,_predicates_isCollection_js__WEBPACK_IMPORTED_MODULE_2__.isCollection)(b) ||
+    (a.size !== undefined && b.size !== undefined && a.size !== b.size) ||
+    (a.__hash !== undefined &&
+      b.__hash !== undefined &&
+      a.__hash !== b.__hash) ||
+    (0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.isKeyed)(a) !== (0,_predicates_isKeyed_js__WEBPACK_IMPORTED_MODULE_3__.isKeyed)(b) ||
+    (0,_predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_4__.isIndexed)(a) !== (0,_predicates_isIndexed_js__WEBPACK_IMPORTED_MODULE_4__.isIndexed)(b) ||
+    (0,_predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_6__.isOrdered)(a) !== (0,_predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_6__.isOrdered)(b)
+  ) {
+    return false;
+  }
+
+  if (a.size === 0 && b.size === 0) {
+    return true;
+  }
+
+  var notAssociative = !(0,_predicates_isAssociative_js__WEBPACK_IMPORTED_MODULE_5__.isAssociative)(a);
+
+  if ((0,_predicates_isOrdered_js__WEBPACK_IMPORTED_MODULE_6__.isOrdered)(a)) {
+    var entries = a.entries();
+    return (
+      b.every(function (v, k) {
+        var entry = entries.next().value;
+        return entry && (0,_is_js__WEBPACK_IMPORTED_MODULE_0__.is)(entry[1], v) && (notAssociative || (0,_is_js__WEBPACK_IMPORTED_MODULE_0__.is)(entry[0], k));
+      }) && entries.next().done
+    );
+  }
+
+  var flipped = false;
+
+  if (a.size === undefined) {
+    if (b.size === undefined) {
+      if (typeof a.cacheResult === 'function') {
+        a.cacheResult();
+      }
+    } else {
+      flipped = true;
+      var _ = a;
+      a = b;
+      b = _;
+    }
+  }
+
+  var allEqual = true;
+  var bSize = b.__iterate(function (v, k) {
+    if (
+      notAssociative
+        ? !a.has(v)
+        : flipped
+        ? !(0,_is_js__WEBPACK_IMPORTED_MODULE_0__.is)(v, a.get(k, _TrieUtils_js__WEBPACK_IMPORTED_MODULE_1__.NOT_SET))
+        : !(0,_is_js__WEBPACK_IMPORTED_MODULE_0__.is)(a.get(k, _TrieUtils_js__WEBPACK_IMPORTED_MODULE_1__.NOT_SET), v)
+    ) {
+      allEqual = false;
+      return false;
+    }
+  });
+
+  return allEqual && a.size === bSize;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (deepEqual);
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/utils/hasOwnProperty.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/utils/hasOwnProperty.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (hasOwnProperty);
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/utils/invariant.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/immutable/dist/es/utils/invariant.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+function invariant(condition, error) {
+  if (!condition) { throw new Error(error); }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (invariant);
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/utils/isArrayLike.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/utils/isArrayLike.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+function isArrayLike(value) {
+  if (Array.isArray(value) || typeof value === 'string') {
+    return true;
+  }
+
+  return (
+    value &&
+    typeof value === 'object' &&
+    Number.isInteger(value.length) &&
+    value.length >= 0 &&
+    (value.length === 0
+      ? // Only {length: 0} is considered Array-like.
+        Object.keys(value).length === 1
+      : // An object is only Array-like if it has a property where the last value
+        // in the array-like may be found (which could be undefined).
+        value.hasOwnProperty(value.length - 1))
+  );
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (isArrayLike);
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/utils/isDataStructure.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/utils/isDataStructure.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../predicates/isImmutable.js */ "./node_modules/immutable/dist/es/predicates/isImmutable.js");
+/* harmony import */ var _isPlainObj_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isPlainObj.js */ "./node_modules/immutable/dist/es/utils/isPlainObj.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+/**
+ * Returns true if the value is a potentially-persistent data structure, either
+ * provided by Immutable.js or a plain Array or Object.
+ */
+function isDataStructure(value) {
+  return (
+    typeof value === 'object' &&
+    ((0,_predicates_isImmutable_js__WEBPACK_IMPORTED_MODULE_0__.isImmutable)(value) || Array.isArray(value) || (0,_isPlainObj_js__WEBPACK_IMPORTED_MODULE_1__["default"])(value))
+  );
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (isDataStructure);
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/utils/isPlainObj.js":
+/*!************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/utils/isPlainObj.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var toString = Object.prototype.toString;
+
+function isPlainObject(value) {
+  // The base prototype's toString deals with Argument objects and native namespaces like Math
+  if (
+    !value ||
+    typeof value !== 'object' ||
+    toString.call(value) !== '[object Object]'
+  ) {
+    return false;
+  }
+
+  var proto = Object.getPrototypeOf(value);
+  if (proto === null) {
+    return true;
+  }
+
+  // Iteratively going up the prototype chain is needed for cross-realm environments (differing contexts, iframes, etc)
+  var parentProto = proto;
+  var nextProto = Object.getPrototypeOf(proto);
+  while (nextProto !== null) {
+    parentProto = nextProto;
+    nextProto = Object.getPrototypeOf(parentProto);
+  }
+  return parentProto === proto;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (isPlainObject);
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/utils/mixin.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/immutable/dist/es/utils/mixin.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+function mixin(ctor, methods) {
+  var keyCopier = function (key) {
+    ctor.prototype[key] = methods[key];
+  };
+  Object.keys(methods).forEach(keyCopier);
+  Object.getOwnPropertySymbols &&
+    Object.getOwnPropertySymbols(methods).forEach(keyCopier);
+  return ctor;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mixin);
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/utils/quoteString.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/utils/quoteString.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+function quoteString(value) {
+  try {
+    return typeof value === 'string' ? JSON.stringify(value) : String(value);
+  } catch (_ignoreError) {
+    return JSON.stringify(value);
+  }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (quoteString);
+
+
+/***/ }),
+
+/***/ "./node_modules/immutable/dist/es/utils/shallowCopy.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/immutable/dist/es/utils/shallowCopy.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _arrCopy_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./arrCopy.js */ "./node_modules/immutable/dist/es/utils/arrCopy.js");
+/* harmony import */ var _hasOwnProperty_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hasOwnProperty.js */ "./node_modules/immutable/dist/es/utils/hasOwnProperty.js");
+/**
+ * MIT License
+ * 
+ * Copyright (c) 2014-present, Lee Byron and other contributors.
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+
+
+function shallowCopy(from) {
+  if (Array.isArray(from)) {
+    return (0,_arrCopy_js__WEBPACK_IMPORTED_MODULE_0__["default"])(from);
+  }
+  var to = {};
+  for (var key in from) {
+    if (_hasOwnProperty_js__WEBPACK_IMPORTED_MODULE_1__["default"].call(from, key)) {
+      to[key] = from[key];
+    }
+  }
+  return to;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (shallowCopy);
+
+
+/***/ }),
+
 /***/ "./node_modules/react-dom/cjs/react-dom.development.js":
 /*!*************************************************************!*\
   !*** ./node_modules/react-dom/cjs/react-dom.development.js ***!
@@ -33469,6 +42880,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
+/* harmony import */ var immutable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! immutable */ "./node_modules/immutable/dist/es/Immutable.js");
+
 
 
 const main = () => {
@@ -33478,13 +42891,78 @@ const main = () => {
     return;
   }
   const root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(rootElement);
-  const isLoggedIn = true;
-  root.render(isLoggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    key: "main-div"
-  }, "Hello world!!!") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    key: "secondary-div"
-  }, "Goodbye world!!!"));
+  const products = [{
+    id: `product-01`,
+    title: `Fiat Panda`,
+    description: `This is the car that will get you and your stuff there and back, but without comfort nor dignity.`,
+    image: `https://www.classicdriver.com/cdn-cgi/image/format=auto,fit=cover,width=1920,height=1029/sites/default/files/users/173526/cars_images/173526-927269-car-20220831_164433-bildschirmfoto_2022-08-31_um_16.38.03.jpg`
+  }, {
+    id: `product-02`,
+    title: `Fiat 500`,
+    description: `Like a Panda, but kind of cute and if you play your cards right might actually help with dating.`,
+    image: `https://www.fiat.nl/content/dam/fiat/com/my23/new-la-prima/model-range/figurini/New500-Boceli-Module-Range-Figurini_Cabrio.png`
+  }, {
+    id: `product-03`,
+    title: `Dodge Ram`,
+    description: `What they say...big car, small...`,
+    image: `https://media-cdn.vwe.nl/Images/129198931?templateid=0&overlay=&bgc=f5f5f5`
+  }];
+  root.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Products, {
+    initialProducts: products
+  })));
 };
+const ProductState = {
+  Default: initialProducts => ({
+    products: (0,immutable__WEBPACK_IMPORTED_MODULE_2__.OrderedMap)(initialProducts.map(_ => [_.id, _]))
+  }),
+  Updaters: {
+    removeProduct: productId => state => state.products.count() <= 1 ? state : {
+      ...state,
+      products: state.products.remove(productId)
+    },
+    addNewProduct: () => {
+      const id = `product-${Math.random()}${Math.random()}${Math.random()}`;
+      return state => ({
+        ...state,
+        products: state.products.set(id, {
+          id,
+          title: "new product",
+          description: "",
+          image: ""
+        })
+      });
+    }
+  }
+};
+const Products = props => {
+  const [state, setState] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(ProductState.Default(props.initialProducts));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, state.products.map(product => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Product, {
+    product: product,
+    requestProductDelete: () => setState(ProductState.Updaters.removeProduct(product.id)),
+    width: 400
+  })).valueSeq(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: () => setState(ProductState.Updaters.addNewProduct())
+  }, "\uD83D\uDE97"));
+};
+
+// Product.ts
+
+// ProductComponent.tsx
+
+const Product = props => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, props.product.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, props.product.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+  style: {
+    width: `${props.width}px`
+  },
+  src: props.product.image
+}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+  onClick: () => props.requestProductDelete()
+}, "\uD83D\uDDD1\uFE0F"));
+
+/*
+Next week
+- async
+- .Net integration
+*/
 })();
 
 spa = __webpack_exports__;
